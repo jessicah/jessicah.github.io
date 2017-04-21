@@ -49,8 +49,14 @@ support for Haiku...
 rm -rf build/x86_64-unknown-haiku/native/jemalloc
 export TARGET_CC=x86_64-unknown-haiku-gcc
 export TARGET_LD=x86_64-unknown-haiku-ld
-make
 ```
+
+Where did I pick up these magic `TARGET_xyz` environment variables? This is how rust's
+[`gcc-rs`](https://github.com/alexcrichton/gcc-rs) module works for configuring host and target compilers. This
+is an important enough reference to keep around, so that we can tweak our environment to suit. Eventually, I
+think I would put configuration such as this into a shell script that I can source. Anyway, let's continue with
+the build...
+```make```
 
 Sure enough, it fails: `fatal error: sys/syscall.h: No such file or directory`. This is going to take some work
 to port. Since we'll be making changes to the git submodule, we'll need to tell the build system not to manage
