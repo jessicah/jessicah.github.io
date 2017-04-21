@@ -69,4 +69,33 @@ echo 'CFG_DISABLE_MANAGE_SUBMODULES := 1' >> config.mk
 ```
 
 That's where I'm currently up to. I could of course disable jemalloc, which would make life simpler, but will
-tackle that if it's proving difficult to modify...
+tackle that if it's proving difficult to modify... and it turns out just removing the syscall header made it
+build fine. Whether it actually works remains to be seen.
+
+So now that `rustc` appears to have compiled successfully, we get to move onto the bigger beast: `cargo`. But first,
+let's install our new rust toolchain:
+```
+make dist
+make install
+```
+
+This should give us a directory layout that looks like thus:
+```
+install
+  --> bin { rustc, rustdoc, rust-gdb, rust-lldb }
+  --> lib
+       --> rustlib
+            --> x86_64-unknown-haiku
+            --> x86_64-unknown-linux-gnu
+```
+
+With our toolchain in place, we can tell `cargo` to build with it:
+```
+export TOOLS=$SCRATCH/install
+cd cargo
+./configure --prefix=$TOOLS --local-rust-root=$TOOLS --target=x86_64-unknown-haiku
+make
+```
+
+At this point, it's know the build will eventually fail; there's a lot of modules/crates that need added platform
+support for Haiku, but we'll get there...
