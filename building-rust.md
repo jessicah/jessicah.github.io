@@ -39,7 +39,7 @@ And now our work on cross-compiling rust begins:
 ```
 git clone https://github.com/rust-lang/rust --recursive
 cd rust
-./configure --enable-ninja --disable-dist-src --prefix=$HOME/scratch/install --target=x86_64-unknown-haiku
+./configure --enable-ninja --disable-dist-src --prefix=$HOME/scratch/install --target=x86_64-unknown-haiku --host=x86_64-unknown-haiku
 make
 ```
 
@@ -98,8 +98,4 @@ make
 ```
 
 At this point, it's known the build will eventually fail; there's a lot of modules/crates that need added platform
-support for Haiku, but we'll get there... the first failure is easy to workaround, and that's for OpenSSL:
-```
-export OPENSSL_LIB_DIR=$SCRATCH/haiku-cross/sysroot/boot/system/develop/lib
-export OPENSSL_INCLUDE_DIR=$SCRATCH/haiku-cross/sysroot/boot/system/develop/headers
-```
+support for Haiku, but we'll get there...
