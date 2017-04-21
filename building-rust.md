@@ -97,5 +97,9 @@ cd cargo
 make
 ```
 
-At this point, it's know the build will eventually fail; there's a lot of modules/crates that need added platform
-support for Haiku, but we'll get there...
+At this point, it's known the build will eventually fail; there's a lot of modules/crates that need added platform
+support for Haiku, but we'll get there... the first failure is easy to workaround, and that's for OpenSSL:
+```
+export OPENSSL_LIB_DIR=$SCRATCH/haiku-cross/sysroot/boot/system/develop/lib
+export OPENSSL_INCLUDE_DIR=$SCRATCH/haiku-cross/sysroot/boot/system/develop/headers
+```
