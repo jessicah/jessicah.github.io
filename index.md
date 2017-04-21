@@ -1,4 +1,4 @@
-Collected Notes
+Notes for Haiku
 ===============
 
 Setting up a sysroot for a Haiku cross-compiler
