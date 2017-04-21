@@ -33,6 +33,22 @@ We can then add the path to our cross-tools to be able to use them, and build bi
 export PATH=$PATH:$HOME/haiku/generated/cross-tools-x86_64/bin
 ```
 
+I'm also working on a slightly simplified build script, with a cut down
+[`build_cross_tools_gcc4`](https://gist.github.com/jessicah/5bc1da8f72ace11d77a42335951242e6) that would be invoked by a
+script based the following observations from Haiku's `configure` script:
+```
+crossToolsDir = "cross-tools-<arch>"
+targetMachine = "<arch>-unknown-haiku"
+script = build/scripts/build_cross_tools_gcc4
+sourceDir = $HOME/haiku
+buildCrossTools = $HOME/buildtools
+outputDir = cross-tools-<arch>
+
+HAIKU_USE_GCC_PIPE=1 \
+  build/scripts/build_cross_tools_gcc4 $targetMachine \
+$sourceDir $buildCrossTools $outputDir -j4 || exit 1
+```
+
 Cross-Compiling Rust
 --------------------
 
