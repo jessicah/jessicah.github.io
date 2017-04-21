@@ -33,10 +33,13 @@ sudo sshfs -o follow_symlinks,allow_other,IdentityFile=$HOME/.ssh/id_rsa user@$I
 cp -rfP remote-haiku/boot/system/develop/headers/* haiku-cross/sysroot/boot/system/develop/headers/
 cp -rfP remote-haiku/boot/system/develop/lib/* haiku-cross/sysroot/boot/system/develop/lib/
 cp -rfP remote-haiku/boot/system/develop/tools/* haiku-cross-sysroot/boot/system/develop/tools/
+cd $SCRATCH/haiku-cross/sysroot/boot/system/develop/lib
+ln -s ../tools/lib/gcc/x86_64-unknown-haiku x86_64-unknown-haiku
 ```
 
 And now our work on cross-compiling rust begins:
 ```
+cd $SCRATCH
 git clone https://github.com/rust-lang/rust --recursive
 cd rust
 ./configure --enable-ninja --disable-dist-src --prefix=$HOME/scratch/install --target=x86_64-unknown-haiku --host=x86_64-unknown-haiku
