@@ -57,7 +57,7 @@ to port. Since we'll be making changes to the git submodule, we'll need to tell 
 them automatically:
 ```
 chmod +w config.mk
-echo CFG_DISABLE_MANAGE_SUBMODULES >> config.mk
+echo 'CFG_DISABLE_MANAGE_SUBMODULES := 1' >> config.mk
 ```
 
 That's where I'm currently up to. I could of course disable jemalloc, which would make life simpler, but will
