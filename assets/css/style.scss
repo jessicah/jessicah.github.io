@@ -1,0 +1,21 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+#main-content {
+	width: initial;
+}
+
+#sidebar {
+	display: none;
+}
+
+pre code {
+	background-color: #f2f8fc;
+}
+
+.clearfix:after {
+	margin-bottom: 5em;
+}
+
