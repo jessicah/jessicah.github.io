@@ -56,7 +56,9 @@ Where did I pick up these magic `TARGET_xyz` environment variables? This is how 
 is an important enough reference to keep around, so that we can tweak our environment to suit. Eventually, I
 think I would put configuration such as this into a shell script that I can source. Anyway, let's continue with
 the build...
-```make```
+```
+make
+```
 
 Sure enough, it fails: `fatal error: sys/syscall.h: No such file or directory`. This is going to take some work
 to port. Since we'll be making changes to the git submodule, we'll need to tell the build system not to manage
