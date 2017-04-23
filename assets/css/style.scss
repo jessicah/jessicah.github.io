@@ -15,9 +15,10 @@
 header {
 	background: none;
 	position: relative;
+	overflow: hidden;
 }
 
-header:before {
+header::before {
 	transform: rotate(30deg);
 	position: absolute;
 	width: 200%;
