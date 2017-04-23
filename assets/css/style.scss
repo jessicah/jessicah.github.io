@@ -18,7 +18,8 @@ header {
 	overflow: hidden;
 }
 
-header:after {
+header:before {
+	content: "";
 	transform: rotate(30deg);
 	position: absolute;
 	width: 200%;
