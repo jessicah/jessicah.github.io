@@ -47,6 +47,13 @@ some queries on the listed tables to ensure the data looks correct.
 
 TODO: Use a separate data volume for the database files.
 
+Additional information:
+- https://hub.docker.com/_/postgres/
+- https://github.com/docker-library/postgres/blob/master/9.6/alpine/docker-entrypoint.sh
+- https://stackoverflow.com/questions/29946412/postgresql-and-docker
+- https://dba.stackexchange.com/questions/1285/how-do-i-list-all-databases-and-tables-using-psql#1288
+- https://ryaneschinger.com/blog/dockerized-postgresql-development-environment/
+
 Next Steps
 ----------
 
