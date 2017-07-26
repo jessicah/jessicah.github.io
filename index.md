@@ -12,3 +12,4 @@ Sys Admin
 
 - [Using SSHFS](/using-sshfs)
 - [Docker](/docker)
+- [Haiku's Infrastructure](/infrastructure)
