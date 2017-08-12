@@ -51,3 +51,157 @@ docker run -it --rm --link trac-db:postgres postgres:alpine psql -h postgres -U 
 SELECT COUNT(*) FROM ticket;
 \q
 ```
+
+`cgit` Installation
+-------------------
+
+We are going to need to store the git repositories somewhere, and likely
+share this across containers, so let's make a data volume for that first:
+```
+docker run -v /repositories --name repositories busybox /bin/true
+```
+
+I'm not sure if this will double as our master repository, it may be better
+for that to be separate. Anyway, for now, we can clone our repositories
+into here with a temporary alpine linux image:
+```
+docker run --volumes-from repositories --rm -it alpine sh
+apk add --no-cache git
+git clone --bare https://git.haiku-os.org/haiku /repositories/haiku
+git clone --bare https://git.haiku-os.org/buildtools /repositories/buildtools
+exit
+```
+
+We need a version of Caddy that supports the cgi module, so we'll clone the
+upstream repo, and make some small changes:
+```
+git clone https://github.com/abiosoft/caddy-docker
+cd caddy-docker
+```
+
+Edit Dockerfile, and change plugins to http.cgi, then we build it:
+```
+docker build --tag caddy-cgi:latest .
+```
+
+Although, reading the `docker build` documentation, we can actually simplify
+this to one step:
+```
+docker build --build-arg plugins=http.cgi github.com/abiosoft/caddy-docker --tag caddy-cgi:latest
+```
+
+Now we can build our `cgit` docker container!
+
+We need a few files for this:
+- Dockerfile
+- Caddyfile
+- cgitrc
+- haiku-filter-commit-links.sh
+- static files
+
+Our Dockerfile builds on top of our caddy-cgi image, and is fairly
+straight-forward:
+```
+FROM caddy-cgi
+
+RUN apk add --no-cache cgit
+
+COPY cgitrc /etc/cgitrc
+COPY Caddyfile /etc/Caddyfile
+COPY haiku-filter-commit-links.sh /usr/lib/cgit/filters/haiku-filter-commit-links.sh
+COPY static/* /srv/static
+```
+
+Build our new image:
+```
+docker build . --tag haiku-cgit:latest
+```
+
+And now we can run it, with all our bits and pieces in place:
+```
+docker run -p 80:80 -p 443:443 --volumes-from repositories --name cgit.haiku.nz haiku-cgit:latest
+```
+
+Our Caddyfile:
+```
+cgit.haiku.nz
+tls jessica.l.hamilton@gmail.com
+gzip
+
+rewrite {
+	if {path} is /
+	to /cgi/{uri}
+}
+
+rewrite {
+	to {path} /cgi/{uri}
+}
+
+cgi {
+	match /cgi
+	exec /usr/share/webapps/cgit/cgit.cgi
+}
+```
+
+Our commit links filter:
+```
+#!/bin/sh
+# This script can be used to generate links in commit messages.
+#
+# To use this script, refer to this file with either the commit-filter or the
+# repo.commit-filter options in cgitrc.
+
+# This expression generates links to commits referenced by their SHA1.
+regex=$regex'
+s|(\s+)([0-9a-fA-F]{7,40})(\s+)|\1<a href="./?id=\2">\2</a>\3|g'
+
+# This expression generates links to commits referenced by their revision tag.
+regex=$regex'
+s|(hrev[0-9]+)|<a href="./?id=\1">\1</a>|g'
+
+# This expression generates links to Trac issues.
+regex=$regex'
+s|#([0-9]+)|<a href="http://dev.haiku-os.org/ticket/\1">#\1</a>|g'
+
+sed -re "$regex"
+```
+
+And our cgitrc file, taken from our existing install:
+```
+clone-prefix=https://git.haiku-os.org ssh://git.haiku-os.org
+
+css=/static/cgit.css
+logo=/static/haiku-logo.png
+favicon=/static/favicon.ico
+
+enable-commit-graph=1
+enable-index-links=1
+enable-log-filecount=1
+enable-log-linecount=1
+root-title=Haiku's repositories
+max-atom-items=25
+commit-filter=/usr/lib/cgit/filters/haiku-filter-commit-links.sh
+max-stats=year
+virtual-root=/
+
+mimetype.css=text/css
+mimetype.git=image/git
+mimetype.html=text/html
+mimetype.jpg=image/jpeg
+mimetype.jpeg=image/jpeg
+mimetype.pdf=application/pdf
+mimetype.png=image/png
+mimetype.svg=image/svg+xml
+
+enable-filter-overrides=0
+
+repo.url=haiku
+repo.path=/repositories/haiku
+repo.desc=Haiku's main repository
+repo.owner=haiku-inc.org
+
+repo.url=buildtools
+repo.path=/repositories/buildtools
+repo.desc=Haiku's buildtools repository
+repo.owner=haiku-inc.org
+```
