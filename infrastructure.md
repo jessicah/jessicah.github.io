@@ -52,7 +52,7 @@ SELECT COUNT(*) FROM ticket;
 \q
 ```
 
-`cgit` Installation
+cgit Installation
 -------------------
 
 We are going to need to store the git repositories somewhere, and likely
@@ -72,20 +72,8 @@ git clone --bare https://git.haiku-os.org/buildtools /repositories/buildtools
 exit
 ```
 
-We need a version of Caddy that supports the cgi module, so we'll clone the
-upstream repo, and make some small changes:
-```
-git clone https://github.com/abiosoft/caddy-docker
-cd caddy-docker
-```
-
-Edit Dockerfile, and change plugins to http.cgi, then we build it:
-```
-docker build --tag caddy-cgi:latest .
-```
-
-Although, reading the `docker build` documentation, we can actually simplify
-this to one step:
+We need a version of Caddy that supports the cgi module, so we'll build a container with
+the `cgi` plugin enabled:
 ```
 docker build --build-arg plugins=http.cgi github.com/abiosoft/caddy-docker --tag caddy-cgi:latest
 ```
@@ -99,7 +87,7 @@ We need a few files for this:
 - haiku-filter-commit-links.sh
 - static files
 
-Our Dockerfile builds on top of our caddy-cgi image, and is fairly
+Our `Dockerfile` builds on top of our `caddy-cgi` image, and is fairly
 straight-forward:
 ```
 FROM caddy-cgi
@@ -112,17 +100,7 @@ COPY haiku-filter-commit-links.sh /usr/lib/cgit/filters/haiku-filter-commit-link
 COPY static/* /srv/static
 ```
 
-Build our new image:
-```
-docker build . --tag haiku-cgit:latest
-```
-
-And now we can run it, with all our bits and pieces in place:
-```
-docker run -p 80:80 -p 443:443 --volumes-from repositories --name cgit.haiku.nz haiku-cgit:latest
-```
-
-Our Caddyfile:
+Our `Caddyfile`:
 ```
 cgit.haiku.nz
 tls jessica.l.hamilton@gmail.com
@@ -166,7 +144,7 @@ s|#([0-9]+)|<a href="http://dev.haiku-os.org/ticket/\1">#\1</a>|g'
 sed -re "$regex"
 ```
 
-And our cgitrc file, taken from our existing install:
+And our `cgitrc` file, taken from our existing install:
 ```
 clone-prefix=https://git.haiku-os.org ssh://git.haiku-os.org
 
@@ -204,4 +182,14 @@ repo.url=buildtools
 repo.path=/repositories/buildtools
 repo.desc=Haiku's buildtools repository
 repo.owner=haiku-inc.org
+```
+
+Build our new image:
+```
+docker build . --tag haiku-cgit:latest
+```
+
+And now we can run it, with all our bits and pieces in place:
+```
+docker run -p 80:80 -p 443:443 --volumes-from repositories:ro --name cgit.haiku.nz haiku-cgit:latest
 ```
