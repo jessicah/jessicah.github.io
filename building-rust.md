@@ -116,6 +116,8 @@ A bunch of work not merged upstream:
 - [rust-net2](https://github.com/jessicah/rust-net2/tree/haiku-support)
 - [rust-cargo](https://github.com/jessicah/rust-cargo/commit/91c9ae2d7fb6bd5d44ee0f04081622454371950f)
 
+And regarding the location of the `cargo` folder, see the [rust rfc](https://github.com/rust-lang/rfcs/pull/1615#issuecomment-298463034).
+
 Notes from previous notes and build attempts:
 
 1. Running the `rustc` cross-compiler:
