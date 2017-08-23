@@ -107,14 +107,14 @@ Other Notes of Importance
 -------------------------
 
 A bunch of work not merged upstream:
-- https://github.com/jessicah/rust-jemalloc/tree/haiku-support
-- https://github.com/jessicah/rust-fs2/tree/haiku-support
-- https://github.com/jessicah/rust-git2/tree/haiku-support
-- https://github.com/jessicah/rust-ssh2/tree/haiku-support
-- https://github.com/jessicah/rust-openssl/tree/haiku-support
-- https://github.com/jessicah/rust-openssl-probe/tree/haiku-support
-- https://github.com/jessicah/rust-net2/tree/haiku-support
-- https://github.com/jessicah/rust-cargo/commit/91c9ae2d7fb6bd5d44ee0f04081622454371950f
+- [rust-jemalloc](https://github.com/jessicah/rust-jemalloc/tree/haiku-support)
+- [rust-fs2](https://github.com/jessicah/rust-fs2/tree/haiku-support)
+- [rust-git2](https://github.com/jessicah/rust-git2/tree/haiku-support)
+- [rust-ssh2](https://github.com/jessicah/rust-ssh2/tree/haiku-support)
+- [rust-openssl](https://github.com/jessicah/rust-openssl/tree/haiku-support)
+- [rust-openssl-probe](https://github.com/jessicah/rust-openssl-probe/tree/haiku-support)
+- [rust-net2](https://github.com/jessicah/rust-net2/tree/haiku-support)
+- [rust-cargo](https://github.com/jessicah/rust-cargo/commit/91c9ae2d7fb6bd5d44ee0f04081622454371950f)
 
 Notes from previous notes and build attempts:
 
