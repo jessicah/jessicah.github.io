@@ -42,6 +42,7 @@ cp -rfP remote-haiku/boot/system/develop/tools/* haiku-cross/sysroot/boot/system
 cd $SCRATCH/haiku-cross/sysroot/boot/system/develop/lib
 ln -s ../tools/lib/gcc/x86_64-unknown-haiku x86_64-unknown-haiku
 ln -s /bin/true $SCRATCH/haiku-cross/sysroot/boot/system/bin/FileCheck
+export PATH=$PATH:$SCRATCH/haiku-cross/bin
 ```
 
 And our shim `llvm-config`:
@@ -74,8 +75,35 @@ And now our work on cross-compiling rust begins:
 cd $SCRATCH
 git clone https://github.com/rust-lang/rust --recursive
 cd rust
-./configure --enable-ninja --disable-dist-src --prefix=$HOME/scratch/install --target=x86_64-unknown-haiku --host=x86_64-unknown-haiku --llvm-root=$SCRATCH/haiku-cross
-make
+cat >config.toml <<EOF
+[llvm]
+enabled = true
+ninja = true
+
+[build]
+host = ["x86_64-unknown-haiku"]
+target = ["x86_64-unknown-haiku"]
+docs = false
+compiler-docs = false
+submodules = false
+
+[install]
+# substitute with actual value of $SCRATCH
+prefix=$SCRATCH/install
+
+[rust]
+use-jemalloc = false
+
+[target.x86_64-unknown-haiku]
+cc = "x86_64-unknown-haiku-gcc"
+cxx = "x86_64-unknown-haiku-g++"
+# substitute with actual value of $SCRATCH
+llvm-config = "$SCRATCH/haiku-cross/bin/llvm-config"
+
+[dist]
+src-tarball = false
+EOF
+./x.py build
 ```
 
 This is where things get tricky; we need to start cross-compiling our first library, jemalloc, which won't have
