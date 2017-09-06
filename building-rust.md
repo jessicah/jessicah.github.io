@@ -10,7 +10,7 @@ Patches Not Upstreamed
 
 For easy reference, so I know what's missing and need to be aware of!
 
-- [openssl probe search paths](https://github.com/jessicah/rust-openssl-probe/commit/20d3cbbebeeb2c6636375505a968ee467c507887
+- [openssl-probe search paths](https://github.com/jessicah/rust-openssl-probe/commit/20d3cbbebeeb2c6636375505a968ee467c507887)
 - [ssh2 target dirs](https://github.com/jessicah/rust-ssh2/commit/6b72784df4c3a5da9b53711ca6d16ad3e543e29e)
 - [net2 ipv6 etc](https://github.com/jessicah/rust-net2/commit/a62cb92108aca46dd69a73d24ed678905ee86912)
 - [git2 target dirs](https://github.com/jessicah/rust-git2/commit/6f9bdf75fdaeb16d590f2ab781e12ddaa9e16523)
