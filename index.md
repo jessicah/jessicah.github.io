@@ -1,11 +1,16 @@
 Assorted Notes
 ==============
 
-Rust & Haiku
-------------
+Rust
+----
 
 - [Building Rust](/building-rust)
+
+Haiku
+-----
+
 - [Haiku Notes](/haiku-notes)
+- [UEFI Notes](/working-on-uefi)
 
 Sys Admin
 ---------
