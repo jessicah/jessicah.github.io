@@ -2,7 +2,7 @@ Publishing Packages to GitHub
 =============================
 
 1. `dotnet new nuget-configfile`
-2. `dotnet nuget add source "https://nuget.pkg.github.com/jessicah/index.json" --name "github" --username "jessicah" --password <github api key>
+2. `dotnet nuget add source "https://nuget.pkg.github.com/jessicah/index.json" --name "github" --username "jessicah" --password <github api key>`
 3. `dotnet pack --configuration Release`
 4. `dotnet nuget push .\path\to\package.nupkg --source github`
 
