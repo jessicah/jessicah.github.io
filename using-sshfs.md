@@ -11,3 +11,16 @@ This will mount a remote installation in the directory sysroot, which is super h
 
 We can use `pkgman` in our running Haiku installation to add any packages we need.
 
+Using Within Haiku
+------------------
+
+In Terminal 1 (leave running in the background):
+```
+/system/servers/userlandfs_server sshfs
+```
+
+In Terminal 2 (can close once done)
+```
+mkdir /mountpoint
+mount -t userlandfs -o 'sshfs nobody@example.com:/path/to/mount' /mountpoint
+```
