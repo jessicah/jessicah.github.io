@@ -3,7 +3,7 @@
 Notes on trying to get the HDA driver on my Airbook 6,2 working under Haiku. Linux has an HDA codec
 patch for a handful of Cirrus codecs.
 
-Target device: 0x106b/0x7200 PCI ids, 0x1013/0x4208 HDA codec ids.
+Target device: `0x106b/0x7200` PCI ids, `0x1013/0x4208` HDA codec ids.
 
     /* ops set by the preset patch */
     struct hda_codec_ops {
@@ -40,4 +40,4 @@ Target device: 0x106b/0x7200 PCI ids, 0x1013/0x4208 HDA codec ids.
         0x10134208, "CS4208", patch_cs4208)
     }
 
-Current Linux source: https://github.com/torvalds/linux/blob/master/sound/pci/hda/patch_cirrus.c
+[Current Linux source](https://github.com/torvalds/linux/blob/master/sound/pci/hda/patch_cirrus.c)
