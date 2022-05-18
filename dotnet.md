@@ -8,7 +8,7 @@ First, a cross-compilation environment is required, which can be done by using m
 
 Required Packages:
 
-These have been uploaded to my repo: https://github.com/jessicah/jessicah.github.io/tree/master/packages
+These have been uploaded to my repo: [https://github.com/jessicah/jessicah.github.io/tree/master/packages](my website repo).
 
 All packages here I'm pretty sure will be needed. You can install these with the `package_extract.sh` command
 in `$BUILDROOT`:
@@ -24,4 +24,4 @@ And then .Net Core:
     # make the Haiku sysroot available; libraries and headers will be in here
     export ROOTFS_DIR=$BUILDROOT
     git checkout haiku-dotnet7
-    ./build.sh clr.runtime -arch x64 -os haiku -c debug -cross --ninja
+    ./build.sh clr.runtime -arch x64 -os haiku -c debug -cross
