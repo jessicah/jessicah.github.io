@@ -8,7 +8,7 @@ First, a cross-compilation environment is required, which can be done by using m
 
 Required Packages:
 
-These have been uploaded to my repo: [my website repo](https://github.com/jessicah/jessicah.github.io/tree/master/packages).
+These have been uploaded to [my website repo](https://github.com/jessicah/jessicah.github.io/tree/master/packages).
 
 All packages here I'm pretty sure will be needed. You can install these with the `package_extract.sh` command
 in `$BUILDROOT`:
