@@ -4,7 +4,7 @@ First, a cross-compilation environment is required, which can be done by using m
 
     export BUILDROOT=$HOME/builds/cross-compiler
     git clone https://github.com/jessicah/cross-compiler
-    cd cross-compiler && ./build-rootfs.sh x86_64 --rootfs-dir $BUILDROOT
+    cd cross-compiler && ./build-rootfs.sh x86_64 --rootfsdir $BUILDROOT
 
 Required Packages:
 
@@ -25,3 +25,15 @@ And then .Net Core:
     export ROOTFS_DIR=$BUILDROOT
     git checkout haiku-dotnet7
     ./build.sh clr.runtime -arch x64 -os haiku -c debug -cross
+    ./build.sh mono.runtime -arch x64 -os haiku -c debug -cross
+    ./build.sh libs.native -arch x64 -os haiku -c debug -cross
+    ./build.sh host.native -arch x64 -os haiku -c debug -cross
+    
+To build the PAL test, run:
+
+    ./build.sh clr.paltests -arch x64 -os haiku -c debug -cross
+
+Then, run the tests on your Haiku machine:
+
+    cd dotnet-runtime
+    src/coreclr/pal/tests/palsuite/runpaltests.sh artifacts/bin/coreclr/$(uname).x64.Debug/paltests
