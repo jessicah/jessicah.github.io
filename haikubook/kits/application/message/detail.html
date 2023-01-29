@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BMessage &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Introduction" href="../../device/introduction.html" />
+    <link rel="prev" title="BMessage" href="../message.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BMessage</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../message.html">BMessage</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../../device/introduction.html">Introduction</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv48BMessage">
+<span id="_CPPv38BMessage"></span><span id="_CPPv28BMessage"></span><span id="BMessage"></span><pre style="background: #f3f3f3"><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BMessage</span></span></span><br /></pre></dt>
+<dd></dd></dl>
+
+<section id="bmessage">
+<h1>BMessage<a class="headerlink" href="#bmessage" title="Permalink to this heading">¶</a></h1>
+<section id="data-members">
+<h2>Data Members<a class="headerlink" href="#data-members" title="Permalink to this heading">¶</a></h2>
+<dl>
+<dt><span class="cpp-expr sig sig-inline cpp"><span class="n">what</span></span></dt><dd><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="n">uint32</span><span class="w"> </span><span class="n">what</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>A coded constant that captures what the message is about.</p>
+</dd>
+</dl>
+</section>
+<section id="constructor-and-destructor">
+<h2>Constructor and Destructor<a class="headerlink" href="#constructor-and-destructor" title="Permalink to this heading">¶</a></h2>
+<dl>
+<dt><a class="reference internal" href="../BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMessage()</span></code></a></dt><dd><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BMessage</span><span class="p">(</span><span class="n">uint32</span><span class="w"> </span><span class="n">command</span><span class="p">);</span><span class="w"></span>
+<span class="n">BMessage</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BMessage</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+<span class="n">BMessage</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Creates a new <a class="reference internal" href="../BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> object that has the given
+<span class="cpp-expr sig sig-inline cpp"><span class="n">command</span></span> constant, or that’s a copy of another <a class="reference internal" href="../BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>.
+If it’s a copy, the new object contains the same command constant and data
+fields as <span class="cpp-expr sig sig-inline cpp"><span class="n">message</span></span>.</p>
+<p>See also: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BLooper::DetachCurrentMessage()</span></code></p>
+</dd>
+<dt><a class="reference internal" href="../BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">~BMessage()</span></code></a></dt><dd><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">BMessage</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Frees all memory allocated to hold message data. If the message sender is
+expecting a reply but hasn’t received one, a default reply (with
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NO_REPLY</span></code> as the <span class="cpp-expr sig sig-inline cpp"><span class="n">what</span></span> data member) is sent before the
+message is destroyed.</p>
+<p>The system retains ownership of the messages it delivers to you. Each message
+loop routinely deletes delivered <a class="reference internal" href="../BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> s after the application
+is finished responding to them.</p>
+</dd>
+</dl>
+</section>
+<section id="member-functions">
+<h2>Member Functions<a class="headerlink" href="#member-functions" title="Permalink to this heading">¶</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47AddDataPKc9type_codePKv7ssize_tb5int32">
+<span id="_CPPv37AddDataPKc9type_codePKv7ssize_tb5int32"></span><span id="_CPPv27AddDataPKc9type_codePKv7ssize_tb5int32"></span><span id="AddData__cCP.type_code.voidCP.ssize_t.b.int32"></span><pre style="background: #f3f3f3"><span class="n"><span class="pre">status_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddData</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">type_code</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">ssize_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numBytes</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">fixedSize</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span>, <span class="n"><span class="pre">int32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numItems</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47AddDataPKc9type_codePKv7ssize_tb5int32" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7AddBoolEPKcb">
+<span id="_CPPv3N8BMessage7AddBoolEPKcb"></span><span id="_CPPv2N8BMessage7AddBoolEPKcb"></span><span id="BMessage::AddBool__cCP.b"></span><pre style="background: #f3f3f3"><span class="n"><span class="pre">status_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddBool</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">aBool</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7AddBoolEPKcb" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47AddInt8v">
+<span id="_CPPv37AddInt8v"></span><span id="_CPPv27AddInt8v"></span><span id="AddInt8"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddInt8</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47AddInt8v" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48AddInt16v">
+<span id="_CPPv38AddInt16v"></span><span id="_CPPv28AddInt16v"></span><span id="AddInt16"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddInt16</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv48AddInt16v" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48AddInt32v">
+<span id="_CPPv38AddInt32v"></span><span id="_CPPv28AddInt32v"></span><span id="AddInt32"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddInt32</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv48AddInt32v" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48AddInt64v">
+<span id="_CPPv38AddInt64v"></span><span id="_CPPv28AddInt64v"></span><span id="AddInt64"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddInt64</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv48AddInt64v" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48AddFloatv">
+<span id="_CPPv38AddFloatv"></span><span id="_CPPv28AddFloatv"></span><span id="AddFloat"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddFloat</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv48AddFloatv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49AddDoublev">
+<span id="_CPPv39AddDoublev"></span><span id="_CPPv29AddDoublev"></span><span id="AddDouble"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddDouble</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49AddDoublev" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49AddStringv">
+<span id="_CPPv39AddStringv"></span><span id="_CPPv29AddStringv"></span><span id="AddString"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49AddStringv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48AddPointv">
+<span id="_CPPv38AddPointv"></span><span id="_CPPv28AddPointv"></span><span id="AddPoint"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddPoint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv48AddPointv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47AddRectv">
+<span id="_CPPv37AddRectv"></span><span id="_CPPv27AddRectv"></span><span id="AddRect"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddRect</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47AddRectv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46AddRefv">
+<span id="_CPPv36AddRefv"></span><span id="_CPPv26AddRefv"></span><span id="AddRef"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddRef</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv46AddRefv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410AddMessagev">
+<span id="_CPPv310AddMessagev"></span><span id="_CPPv210AddMessagev"></span><span id="AddMessage"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddMessage</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv410AddMessagev" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412AddMessengerv">
+<span id="_CPPv312AddMessengerv"></span><span id="_CPPv212AddMessengerv"></span><span id="AddMessenger"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddMessenger</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412AddMessengerv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410AddPointerv">
+<span id="_CPPv310AddPointerv"></span><span id="_CPPv210AddPointerv"></span><span id="AddPointer"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddPointer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv410AddPointerv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47AddFlatv">
+<span id="_CPPv37AddFlatv"></span><span id="_CPPv27AddFlatv"></span><span id="AddFlat"></span><pre style="background: #f3f3f3"><span class="sig-name descname"><span class="n"><span class="pre">AddFlat</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47AddFlatv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="simple">
+<dt>status_t AddData(const char* name,</dt><dd><p>type_code type,
+const void* data,
+ssize_t numBytes,
+bool fixedSize = true,
+int32 numItems = 1);</p>
+</dd>
+<dt>status_t AddBool(const char* name,</dt><dd><p>bool aBool);</p>
+</dd>
+<dt>status_t AddInt8(const char* name,</dt><dd><p>int8 anInt8);</p>
+</dd>
+</dl>
+<p>These functions add data to the field named <span class="cpp-expr sig sig-inline cpp"><span class="n">name</span></span> and assign a data
+type to the field. Field names can be no longer than 255 characters. If more
+than one item of data is added under the same name, the <a class="reference internal" href="../BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>
+creates an array of data for that name. Each time you add another value (to the
+same name), the value is added to the end of the array–you can’t add a value at
+a specific index. A given field can only store one type of data.</p>
+<p><a class="reference internal" href="#_CPPv47AddDataPKc9type_codePKv7ssize_tb5int32" title="AddData"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddData()</span></code></a> copies <span class="cpp-expr sig sig-inline cpp"><span class="n">numBytes</span></span> of <span class="cpp-expr sig sig-inline cpp"><span class="n">data</span></span> into the
+field, and assigns the data a <span class="cpp-expr sig sig-inline cpp"><span class="n">type</span></span> code. It copies whatever the
+<span class="cpp-expr sig sig-inline cpp"><span class="n">data</span></span> pointer points to. For example, if you want to add a string of
+characters to the message, <span class="cpp-expr sig sig-inline cpp"><span class="n">data</span></span> should be the string pointer
+(<span class="cpp-expr sig sig-inline cpp"><span class="kt">char</span><span class="p">*</span></span>). If you want to add only the string pointer, not the
+characters themselves, <span class="cpp-expr sig sig-inline cpp"><span class="n">data</span></span> should be a pointer to the pointer
+(<span class="cpp-expr sig sig-inline cpp"><span class="kt">char</span><span class="p">*</span><span class="p">*</span></span>). The assigned <span class="cpp-expr sig sig-inline cpp"><span class="n">type</span></span> must be a specific data
+type; it should not be <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../message.html">BMessage</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../../device/introduction.html">Introduction</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

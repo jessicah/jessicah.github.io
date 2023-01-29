@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BMessage &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BTranslator" href="BTranslator.html" />
+    <link rel="prev" title="Welcome to the Haiku Book" href="../../index.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BMessage</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../../index.html">Welcome to the Haiku Book</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="BTranslator.html">BTranslator</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv48BMessage">
+<span id="_CPPv38BMessage"></span><span id="_CPPv28BMessage"></span><span id="BMessage"></span><pre style="background: #f3f3f3"><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BMessage</span></span></span><a class="headerlink" href="#_CPPv48BMessage" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<section id="bmessage">
+<h1>BMessage<a class="headerlink" href="#bmessage" title="Permalink to this heading">¶</a></h1>
+<section id="data-members">
+<h2>Data Members<a class="headerlink" href="#data-members" title="Permalink to this heading">¶</a></h2>
+<dl class="cpp member">
+<dt class="sig sig-object cpp">
+<span class="sig-name descname"><span class="pre">what:</span></span></dt>
+<dd><p>public uint32 what;</p>
+</dd></dl>
+
+<p>A coded constant that captures what the message is about.</p>
+</section>
+<section id="constructor-and-destructor">
+<h2>Constructor and Destructor<a class="headerlink" href="#constructor-and-destructor" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMessage()</span></code></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BMessage</span><span class="p">(</span><span class="n">uint32</span><span class="w"> </span><span class="n">command</span><span class="p">);</span><span class="w"></span>
+<span class="n">BMessage</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BMessage</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+<span class="n">BMessage</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Creates a new <a class="reference internal" href="#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> object that has the given
+<span class="cpp-expr sig sig-inline cpp"><span class="n">command</span></span> constant, or that’s a copy of another <a class="reference internal" href="#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>.
+If it’s a copy, the new object contains the same command constant and data
+fields as <span class="cpp-expr sig sig-inline cpp"><span class="n">message</span></span>.</p>
+<p>See also: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BLooper::DetachCurrentMessage()</span></code></p>
+<p><a class="reference internal" href="#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">~BMessage()</span></code></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">BMessage</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Frees all memory allocated to hold message data. If the message sender is
+expecting a reply but hasn’t received one, a default reply (with
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NO_REPLY</span></code> as the <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">what</span></code> data member) is sent before the
+message is destroyed.</p>
+<p>The system retains ownership of the messages it delivers to you. Each message
+loop routinely deletes delivered <a class="reference internal" href="#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> s after the application
+is finished responding to them.</p>
+</section>
+<section id="member-functions">
+<h2>Member Functions<a class="headerlink" href="#member-functions" title="Permalink to this heading">¶</a></h2>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddData(),</span> <span class="pre">AddBool(),</span> <span class="pre">AddInt8(),</span> <span class="pre">AddInt16(),</span> <span class="pre">AddInt32(),</span> <span class="pre">AddInt64(),</span>
+<span class="pre">AddFloat(),</span> <span class="pre">AddDouble(),</span> <span class="pre">AddString(),</span> <span class="pre">AddPoint(),</span> <span class="pre">AddRect(),</span> <span class="pre">AddRef(),</span>
+<span class="pre">AddMessage(),</span> <span class="pre">AddMessenger(),</span> <span class="pre">AddPointer(),</span> <span class="pre">AddFlat()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="n">type_code</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="kt">ssize_t</span><span class="w"> </span><span class="n">numBytes</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="kt">bool</span><span class="w"> </span><span class="n">fixedSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="n">int32</span><span class="w"> </span><span class="n">numItems</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddBool</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="kt">bool</span><span class="w"> </span><span class="n">aBool</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddInt8</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="n">int8</span><span class="w"> </span><span class="n">anInt8</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>These functions add data to the field named <span class="cpp-expr sig sig-inline cpp"><span class="n">name</span></span> and assign a data
+type to the field. Field names can be no longer than 255 characters. If more
+than one item of data is added under the same name, the <a class="reference internal" href="#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>
+creates an array of data for that name. Each time you add another value (to the
+same name), the value is added to the end of the array–you can’t add a value at
+a specific index. A given field can only store one type of data.</p>
+<p><a class="reference internal" href="message/detail.html#_CPPv47AddDataPKc9type_codePKv7ssize_tb5int32" title="AddData"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddData()</span></code></a> copies <span class="cpp-expr sig sig-inline cpp"><span class="n">numBytes</span></span> of <span class="cpp-expr sig sig-inline cpp"><span class="n">data</span></span> into the
+field, and assigns the data a <span class="cpp-expr sig sig-inline cpp"><span class="n">type</span></span> code. It copies whatever the
+<span class="cpp-expr sig sig-inline cpp"><span class="n">data</span></span> pointer points to. For example, if you want to add a string of
+characters to the message, <span class="cpp-expr sig sig-inline cpp"><span class="n">data</span></span> should be the string pointer
+(<span class="cpp-expr sig sig-inline cpp"><span class="kt">char</span><span class="p">*</span></span>). If you want to add only the string pointer, not the
+characters themselves, <span class="cpp-expr sig sig-inline cpp"><span class="n">data</span></span> should be a pointer to the pointer
+(<span class="cpp-expr sig sig-inline cpp"><span class="kt">char</span><span class="p">*</span><span class="p">*</span></span>). The assigned <span class="cpp-expr sig sig-inline cpp"><span class="n">type</span></span> must be a specific data
+type; it should not be <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../../index.html">Welcome to the Haiku Book</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="BTranslator.html">BTranslator</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

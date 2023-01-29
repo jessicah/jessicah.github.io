@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BAutolock &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BBlockCache" href="block-cache.html" />
+    <link rel="prev" title="BArchivable" href="archivable.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BAutolock</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="archivable.html">BArchivable</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="block-cache.html">BBlockCache</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bautolock">
+<h1>BAutolock<a class="headerlink" href="#bautolock" title="Permalink to this heading">¶</a></h1>
+<section id="constructor-and-destructor">
+<h2>Constructor and Destructor<a class="headerlink" href="#constructor-and-destructor" title="Permalink to this heading">¶</a></h2>
+<h3 id="_CPPv4N9BAutolock9BAutolockEP7BLooper">
+<span id="_CPPv3N9BAutolock9BAutolockEP7BLooper"></span><span id="_CPPv2N9BAutolock9BAutolockEP7BLooper"></span><span id="BAutolock::BAutolock__BLooperP"></span><span id="_CPPv4N9BAutolock9BAutolockEP7BLocker"></span><span id="_CPPv3N9BAutolock9BAutolockEP7BLocker"></span><span id="_CPPv2N9BAutolock9BAutolockEP7BLocker"></span><span id="BAutolock::BAutolock__BLockerP"></span><span id="_CPPv4N9BAutolock9BAutolockER7BLocker"></span><span id="_CPPv3N9BAutolock9BAutolockER7BLocker"></span><span id="_CPPv2N9BAutolock9BAutolockER7BLocker"></span><span id="BAutolock::BAutolock__BLockerR"></span>BAutolock()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">inline</span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N9BAutolock9BAutolockEP7BLooper" title="BAutolock::BAutolock"><span class="n">BAutolock</span></a><span class="p">::</span></span><span class="n">BAutolock</span><span class="sig-paren">(</span><span class="n">BLooper</span><span class="w"> </span><span class="p">*</span><span class="n sig-param">looper</span><span class="sig-paren">)</span></pre><pre style="background: #f3f3f3"><span class="k">inline</span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N9BAutolock9BAutolockEP7BLocker" title="BAutolock::BAutolock"><span class="n">BAutolock</span></a><span class="p">::</span></span><span class="n">BAutolock</span><span class="sig-paren">(</span><span class="n">BLocker</span><span class="w"> </span><span class="p">*</span><span class="n sig-param">locker</span><span class="sig-paren">)</span></pre><pre style="background: #f3f3f3"><span class="k">inline</span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N9BAutolock9BAutolockER7BLocker" title="BAutolock::BAutolock"><span class="n">BAutolock</span></a><span class="p">::</span></span><span class="n">BAutolock</span><span class="sig-paren">(</span><span class="n">BLocker</span><span class="w"> </span><span class="p">&amp;</span><span class="n sig-param">locker</span><span class="sig-paren">)</span></pre><p>Locks the target <span class="hparameter">looper</span> or <span class="hparameter">locker</span> object.</p>
+</div>
+
+<h3 id="_CPPv4N9BAutolockD0Ev">
+<span id="_CPPv3N9BAutolockD0Ev"></span><span id="_CPPv2N9BAutolockD0Ev"></span><span id="BAutolock::~BAutolock"></span>~BAutolock()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">inline</span><span class="w"> </span><span class="sig-prename descclassname"><span class="n">BAutolock</span><span class="p">::</span></span><span class="n">~BAutolock</span><span class="sig-paren">(</span><span class="sig-paren">)</span></pre><p>Unlocks the target <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code> or <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLocker</span></code>.</p>
+</div>
+
+</section>
+<section id="member-functions">
+<h2>Member Functions<a class="headerlink" href="#member-functions" title="Permalink to this heading">¶</a></h2>
+<h3 id="_CPPv48IsLockedv">
+<span id="_CPPv38IsLockedv"></span><span id="_CPPv28IsLockedv"></span><span id="IsLocked"></span>IsLocked()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsLocked</span><span class="sig-paren">(</span><span class="sig-paren">)</span></pre><p>Returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if the target <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code> or <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLocker</span></code> is locked, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> if not.</p>
+</div>
+
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="archivable.html">BArchivable</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="block-cache.html">BBlockCache</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

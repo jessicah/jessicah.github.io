@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>JSON Handling &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/code.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Keyboard" href="keyboard.html" />
+    <link rel="prev" title="BDeskbar" href="deskbar.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>JSON Handling</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="deskbar.html">BDeskbar</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="keyboard.html">Keyboard</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="json-handling">
+<h1>JSON Handling<a class="headerlink" href="#json-handling" title="Permalink to this heading">¶</a></h1>
+<section id="potential-api-break">
+<h2>Potential API Break<a class="headerlink" href="#potential-api-break" title="Permalink to this heading">¶</a></h2>
+<p>Jessica Hamilton: after reading this document, it is clear that the current
+implementation of JSON to BMessage conversion is completely broken, and needs
+rewriting. An array should <strong>not</strong> be encoded with stringified integer keys.</p>
+</section>
+<section id="resumption-of-play">
+<h2>Resumption of Play<a class="headerlink" href="#resumption-of-play" title="Permalink to this heading">¶</a></h2>
+<p>JSON is a simple textual description of a data structure. An example of some
+JSON would be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&quot;drink&quot;</span><span class="p">:</span> <span class="s2">&quot;tonic water&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>This example is a list that contains two strings followed by an object. The
+term object refers to a construct akin to a dictionary or a map. It is also
+possible for top-level objects to be non-collection types such as strings. The
+following is also valid JSON:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;feijoa&quot;</span>
+</pre></div>
+</div>
+<p>This page details how Haiku provides facilities for both parsing and writing
+data encoded as JSON.</p>
+</section>
+<section id="parsing-with-generic-in-memory-model">
+<h2>Parsing with Generic In-Memory Model<a class="headerlink" href="#parsing-with-generic-in-memory-model" title="Permalink to this heading">¶</a></h2>
+<p>For some applications, parsing to an in-memory data structure is ideal. In such
+cases, the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BJson</span></code> class provides static methods for parsing a block
+on JSON data into a <a class="reference internal" href="../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> object. The application is then able
+to introspect the <a class="reference internal" href="../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> to obtain values.</p>
+<section id="bmessage-structure">
+<h3>BMessage Structure<a class="headerlink" href="#bmessage-structure" title="Permalink to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> class has the ability to carry a collection of
+key-value pairs. In the case of a JSON object type, the key-value pairs
+correlate to a JSON object or array. In the case of a JSON array type, the
+key-value pairs are the index of the elements in the JSON array, represented as
+strings.</p>
+<p>For example, the following JSON array:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>would be represented by the following <a class="reference internal" href="../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“0”</p></td>
+<td><p>“a”</p></td>
+</tr>
+<tr class="row-odd"><td><p>“1”</p></td>
+<td><p>“b”</p></td>
+</tr>
+<tr class="row-even"><td><p>“2”</p></td>
+<td><p>“c”</p></td>
+</tr>
+</tbody>
+</table>
+<p>A JSON object that, in its entirety, consists of a non-collection type such as a
+simple string or a boolean is not able to be represented by a
+<a class="reference internal" href="../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>; at the top level, there must be an array or an object for
+the parse to be successful.</p>
+</section>
+</section>
+<section id="stream-based-parsing">
+<h2>Stream-based Parsing<a class="headerlink" href="#stream-based-parsing" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="deskbar.html">BDeskbar</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="keyboard.html">Keyboard</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

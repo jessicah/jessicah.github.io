@@ -1,0 +1,1046 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BMessage &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BMessage" href="message/detail.html" />
+    <link rel="prev" title="The Application Kit" href="index.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BMessage</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">The Application Kit</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="message/detail.html">BMessage</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bmessage">
+<h1>BMessage<a class="headerlink" href="#bmessage" title="Permalink to this heading">¶</a></h1>
+<section id="data-members">
+<h2>Data Members<a class="headerlink" href="#data-members" title="Permalink to this heading">¶</a></h2>
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage4whatE">
+<span id="_CPPv3N8BMessage4whatE"></span><span id="_CPPv2N8BMessage4whatE"></span><span id="BMessage::what__uint32"></span><pre style="background: #f3f3f3"><span class="n"><span class="pre">uint32</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><a class="headerlink" href="#_CPPv4N8BMessage4whatE" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<section id="what">
+<h3>what<a class="headerlink" href="#what" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="n">uint32</span><span class="w"> </span><span class="n">what</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>A coded constant that captures what the message is about.</p>
+</section>
+</section>
+<section id="constructor-and-destructor">
+<h2>Constructor and Destructor<a class="headerlink" href="#constructor-and-destructor" title="Permalink to this heading">¶</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8BMessageE6uint32">
+<span id="_CPPv3N8BMessage8BMessageE6uint32"></span><span id="_CPPv2N8BMessage8BMessageE6uint32"></span><span id="BMessage::BMessage__uint32"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N8BMessage8BMessageE6uint32" title="BMessage::BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">BMessage</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">command</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8BMessageE6uint32" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8BMessageERK8BMessage">
+<span id="_CPPv3N8BMessage8BMessageERK8BMessage"></span><span id="_CPPv2N8BMessage8BMessageERK8BMessage"></span><span id="BMessage::BMessage__BMessageCR"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N8BMessage8BMessageERK8BMessage" title="BMessage::BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">BMessage</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8BMessage8BMessageERK8BMessage" title="BMessage::BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">message</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8BMessageERK8BMessage" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8BMessageEv">
+<span id="_CPPv3N8BMessage8BMessageEv"></span><span id="_CPPv2N8BMessage8BMessageEv"></span><span id="BMessage::BMessage"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N8BMessage8BMessageEv" title="BMessage::BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">BMessage</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8BMessageEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<section id="id1">
+<h3>BMessage()<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BMessage</span><span class="p">(</span><span class="n">uint32</span><span class="w"> </span><span class="n">command</span><span class="p">);</span><span class="w"></span>
+<span class="n">BMessage</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BMessage</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+<span class="n">BMessage</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Creates a new <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> object that has the given <code class="docutils literal notranslate"><span class="pre">command</span></code> constant, or that’s a copy of another
+<code class="docutils literal notranslate"><span class="pre">BMessage</span></code>. If it’s a copy, the new object contains the same command constant and data fields as
+<code class="docutils literal notranslate"><span class="pre">message</span></code>.</p>
+<p>See also: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BLooper::DetachCurrentMessage()</span></code>.</p>
+</section>
+<section id="id2">
+<h3>~BMessage()<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">BMessage</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Frees all memory allocated to hold message data. If the message sender is expecting a reply but
+hasn’t received one, a default reply (with <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NO_REPLY</span></code> as the <code class="docutils literal notranslate"><span class="pre">what</span></code> data member) is sent
+before the message is destroyed.</p>
+<p>The system retains ownership of the messages it delivers to you. Each message loop routinely deletes
+delivered <code class="docutils literal notranslate"><span class="pre">BMessage</span></code>s after the application is finished responding to them.</p>
+</section>
+</section>
+<section id="member-functions">
+<h2>Member Functions<a class="headerlink" href="#member-functions" title="Permalink to this heading">¶</a></h2>
+<section id="adddata-addbool-addint8-addint16-addint32-addint64-addfloat-adddouble-addstring-addpoint-addrect-addref-addmessage-addmessenger-addpointer-addflat">
+<h3>AddData(), AddBool(), AddInt8(), AddInt16(), AddInt32(), AddInt64(), AddFloat(), AddDouble(), AddString(), AddPoint(), AddRect(), AddRef(), AddMessage(), AddMessenger(), AddPointer(), AddFlat()<a class="headerlink" href="#adddata-addbool-addint8-addint16-addint32-addint64-addfloat-adddouble-addstring-addpoint-addrect-addref-addmessage-addmessenger-addpointer-addflat" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32">
+<span id="_CPPv3N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32"></span><span id="_CPPv2N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32"></span><span id="BMessage::AddData__cCP.type_code.voidCP.ssize_t.b.int32"></span><pre style="background: #f3f3f3"><span class="n"><span class="pre">status_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddData</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">type_code</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">ssize_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numBytes</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">fixedSize</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span>, <span class="n"><span class="pre">int32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numItems</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">type_code</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="kt">ssize_t</span><span class="w"> </span><span class="n">numBytes</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="kt">bool</span><span class="w"> </span><span class="n">fixedSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">int32</span><span class="w"> </span><span class="n">numItems</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8BMessage7AddBoolEPKcb">
+<span id="_CPPv3N8BMessage8BMessage7AddBoolEPKcb"></span><span id="_CPPv2N8BMessage8BMessage7AddBoolEPKcb"></span><span id="BMessage::BMessage::AddBool__cCP.b"></span><pre style="background: #f3f3f3"><span class="n"><span class="pre">status_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N8BMessage8BMessageE6uint32" title="BMessage::BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N8BMessage8BMessageE6uint32" title="BMessage::BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddBool</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">aBool</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8BMessage7AddBoolEPKcb" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddBool</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">aBool</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7AddInt8Ev">
+<span id="_CPPv3N8BMessage7AddInt8Ev"></span><span id="_CPPv2N8BMessage7AddInt8Ev"></span><span id="BMessage::AddInt8"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddInt8</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7AddInt8Ev" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddInt8</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">int8</span><span class="w"> </span><span class="n">anInt8</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8AddInt16Ev">
+<span id="_CPPv3N8BMessage8AddInt16Ev"></span><span id="_CPPv2N8BMessage8AddInt16Ev"></span><span id="BMessage::AddInt16"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddInt16</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8AddInt16Ev" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddInt16</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">int16</span><span class="w"> </span><span class="n">anInt16</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8AddInt32Ev">
+<span id="_CPPv3N8BMessage8AddInt32Ev"></span><span id="_CPPv2N8BMessage8AddInt32Ev"></span><span id="BMessage::AddInt32"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddInt32</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8AddInt32Ev" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddInt32</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">anInt32</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8AddInt64Ev">
+<span id="_CPPv3N8BMessage8AddInt64Ev"></span><span id="_CPPv2N8BMessage8AddInt64Ev"></span><span id="BMessage::AddInt64"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddInt64</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8AddInt64Ev" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddInt64</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">int64</span><span class="w"> </span><span class="n">anInt64</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8AddFloatEv">
+<span id="_CPPv3N8BMessage8AddFloatEv"></span><span id="_CPPv2N8BMessage8AddFloatEv"></span><span id="BMessage::AddFloat"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddFloat</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8AddFloatEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddFloat</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">anloat</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage9AddDoubleEv">
+<span id="_CPPv3N8BMessage9AddDoubleEv"></span><span id="_CPPv2N8BMessage9AddDoubleEv"></span><span id="BMessage::AddDouble"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddDouble</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage9AddDoubleEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddDouble</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">aDouble</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage9AddStringEv">
+<span id="_CPPv3N8BMessage9AddStringEv"></span><span id="_CPPv2N8BMessage9AddStringEv"></span><span id="BMessage::AddString"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage9AddStringEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddString</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">string</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">AddString</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">BString</span><span class="w"> </span><span class="n">string</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8AddPointEv">
+<span id="_CPPv3N8BMessage8AddPointEv"></span><span id="_CPPv2N8BMessage8AddPointEv"></span><span id="BMessage::AddPoint"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddPoint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8AddPointEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddPoint</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">BPoint</span><span class="w"> </span><span class="n">point</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7AddRectEv">
+<span id="_CPPv3N8BMessage7AddRectEv"></span><span id="_CPPv2N8BMessage7AddRectEv"></span><span id="BMessage::AddRect"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddRect</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7AddRectEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddRect</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">BRect</span><span class="w"> </span><span class="n">rect</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage6AddRefEv">
+<span id="_CPPv3N8BMessage6AddRefEv"></span><span id="_CPPv2N8BMessage6AddRefEv"></span><span id="BMessage::AddRef"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddRef</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage6AddRefEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddRef</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">entry_ref</span><span class="o">*</span><span class="w"> </span><span class="n">ref</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage10AddMessageEv">
+<span id="_CPPv3N8BMessage10AddMessageEv"></span><span id="_CPPv2N8BMessage10AddMessageEv"></span><span id="BMessage::AddMessage"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddMessage</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage10AddMessageEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddMessage</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage12AddMessengerEv">
+<span id="_CPPv3N8BMessage12AddMessengerEv"></span><span id="_CPPv2N8BMessage12AddMessengerEv"></span><span id="BMessage::AddMessenger"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddMessenger</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage12AddMessengerEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddMessenger</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">BMessenger</span><span class="w"> </span><span class="n">messenger</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage10AddPointerEv">
+<span id="_CPPv3N8BMessage10AddPointerEv"></span><span id="_CPPv2N8BMessage10AddPointerEv"></span><span id="BMessage::AddPointer"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddPointer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage10AddPointerEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddPointer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">pointer</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7AddFlatEv">
+<span id="_CPPv3N8BMessage7AddFlatEv"></span><span id="_CPPv2N8BMessage7AddFlatEv"></span><span id="BMessage::AddFlat"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddFlat</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7AddFlatEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddFlat</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">BFlattenable</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">numItems</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>These functions add data to the field named <code class="docutils literal notranslate"><span class="pre">name</span></code> and assign a data type to the field. Field names
+can be no longer than 255 characters. If more than one item of data is added under the same name,
+the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> creates an array of data for that name. Each time you add another value (to the same
+name), the value is added to the end of the array—you can’t add a value at a specific index. A
+given field can only store one type of data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AddData()</span></code> copies <code class="docutils literal notranslate"><span class="pre">numBytes</span></code> of <code class="docutils literal notranslate"><span class="pre">data</span></code> into the field, and assigns the data a <code class="docutils literal notranslate"><span class="pre">type</span></code> code. It
+copies whatever the <code class="docutils literal notranslate"><span class="pre">data</span></code> pointer points to. For example, if you want to add a string of characters
+to the message, <code class="docutils literal notranslate"><span class="pre">data</span></code> should be the string pointer (<code class="docutils literal notranslate"><span class="pre">char*</span></code>). If you want to add only the string
+pointer, not the characters themselves, <code class="docutils literal notranslate"><span class="pre">data</span></code> should be a pointer to the pointer (<code class="docutils literal notranslate"><span class="pre">char**</span></code>). The
+assigned <code class="docutils literal notranslate"><span class="pre">type</span></code> must be a specific data type; it should not be <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>.</p>
+<p>When you call <code class="docutils literal notranslate"><span class="pre">AddData()</span></code> to place the first item in an array under a new name, you can provide it
+with two arguments, <code class="docutils literal notranslate"><span class="pre">fixedSize</span></code> and <code class="docutils literal notranslate"><span class="pre">numItems</span></code>, that will improve the object’s efficiency. If the
+<code class="docutils literal notranslate"><span class="pre">fixedSize</span></code> flag is <span class="cpp-expr sig sig-inline cpp"><span class="k">true</span></span>, each item in the array must have the same number of bytes; if
+the flag is <span class="cpp-expr sig sig-inline cpp"><span class="k">false</span></span>, items can vary in size. <code class="docutils literal notranslate"><span class="pre">numItems</span></code> tells the object to pre-allocate
+storage for some number of items. This isn’t a limit, you can add more than <code class="docutils literal notranslate"><span class="pre">numItems</span></code> to the field.</p>
+<p>Most of the other functions are variants of <code class="docutils literal notranslate"><span class="pre">AddData()</span></code> that hard-code the field’s type. For
+example, <code class="docutils literal notranslate"><span class="pre">AddFloat()</span></code> assigns the type <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_FLOAT_TYPE</span></code>; <code class="docutils literal notranslate"><span class="pre">AddBool()</span></code> assigns
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BOOL_TYPE</span></code>, and so on.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AddString()</span></code>, like <code class="docutils literal notranslate"><span class="pre">AddData()</span></code>, takes a pointer to the data it adds, or you can use a
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BString</span></code> object. The <code class="docutils literal notranslate"><span class="pre">string</span></code> must be null-terminated; the null character is counted and
+copied into the message. Similarly, <code class="docutils literal notranslate"><span class="pre">AddRef()</span></code> adds the pointed to <code class="docutils literal notranslate"><span class="pre">entry_ref</span></code> structure to the
+message (and the variable-length name that’s one of the elements of the structure); <code class="docutils literal notranslate"><span class="pre">AddMessage()</span></code>
+adds one <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> to another.</p>
+<p>The other functions are simply passed the data directly. For example, <code class="docutils literal notranslate"><span class="pre">AddInt32()</span></code> takes an int32 or
+uint32 and <code class="docutils literal notranslate"><span class="pre">AddMessenger()</span></code> takes a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code> object, whereas <code class="docutils literal notranslate"><span class="pre">AddData()</span></code> would be
+passed a pointer to an int32 and a pointer to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code>. <code class="docutils literal notranslate"><span class="pre">AddPointer()</span></code> adds only
+the pointer it’s passed, not the data it points to. To accomplish the same thing, <code class="docutils literal notranslate"><span class="pre">AddData()</span></code> would
+take a pointer to the pointer. (The pointer will be valid only locally; it won’t be useful to a
+remote destination.)</p>
+<p><code class="docutils literal notranslate"><span class="pre">AddFlat()</span></code> flattens an <code class="docutils literal notranslate"><span class="pre">object</span></code> (by calling its <code class="docutils literal notranslate"><span class="pre">Flatten()</span></code> function) and adds the flat data to the
+message. It calls the object’s <a class="reference internal" href="../support/flattenable.html#_CPPv4NK12BFlattenable8TypeCodeEv" title="BFlattenable::TypeCode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">TypeCode()</span></code></a> function to learn the type code
+it should associated with the data. Objects that are added through <code class="docutils literal notranslate"><span class="pre">AddFlat()</span></code> must inherit from
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BFlattenable</span></code> (defined in the “Support Kit”).</p>
+<p>You can also provide a <code class="docutils literal notranslate"><span class="pre">numItems</span></code> hint to <code class="docutils literal notranslate"><span class="pre">AddFlat()</span></code> when you call it to set up a new array.
+<code class="docutils literal notranslate"><span class="pre">AddFlat()</span></code> calls the object’s <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">IsFixedSize()</span></code> function to discover whether
+all items in the array will be the same size.</p>
+<p>The functions return a <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ERROR</span></code> if the data is too massive to be added to the message,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_TYPE</span></code> if the data can’t be added to an existing array because it’s the wrong type,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NO_MEMORY</span></code> if the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> can’t get enough memory to hold the data, and
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_VALUE</span></code> if the proposed <code class="docutils literal notranslate"><span class="pre">name</span></code> for the data is longer than 255 bytes. If all goes
+well, they return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code>.</p>
+<p>There’s no limit on the number of named fields a message can contain, or on the size a field’s data.
+However, since the serach is linear, combing through a very long list of names to find a particular
+piece of data my be inefficient. Also, because of the amount of data that must be moved, an
+extremely large message can slow the delivery mechanism. It’s sometimes better to put some of the
+information in a common location (a file, a private clipboard, a shared area of memory) and just
+refer to it in the message.</p>
+<p>See also: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">FindData()</span></code>, <a class="reference internal" href="#_CPPv4N8BMessage7GetInfoEv" title="BMessage::GetInfo"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">GetInfo()</span></code></a></p>
+</section>
+<section id="addspecifier">
+<h3>AddSpecifier()<a class="headerlink" href="#addspecifier" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage12AddSpecifierEv">
+<span id="_CPPv3N8BMessage12AddSpecifierEv"></span><span id="_CPPv2N8BMessage12AddSpecifierEv"></span><span id="BMessage::AddSpecifier"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddSpecifier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage12AddSpecifierEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AddSpecifier</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">AddSpecifier</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">property</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">AddSpecifier</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">property</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">index</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">AddSpecifier</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">property</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">range</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">AddSpecifier</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">property</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Adds a specifier to the specifier stack. There are several variations of this method. The first adds
+the specifier <code class="docutils literal notranslate"><span class="pre">message</span></code> to the specifier stack. The other methods add a specifier targeting the
+property <code class="docutils literal notranslate"><span class="pre">property</span></code>, which specifier constants <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_DIRECT_SPECIFIER</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_INDEX_SPECIFIER</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_RANGE_SPECIFIER</span></code>, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NAME_SPECIFIER</span></code>. For
+all other specifiers, you must construct the specifier separately and then call <code class="docutils literal notranslate"><span class="pre">AddSpecifier()</span></code> on
+the message. For more information about specifiers, see the “Scripting” section near the beginning
+of this chapter.</p>
+<p>Specifiers are stored in a data array named “specifiers”. However, since <code class="docutils literal notranslate"><span class="pre">AddSpecifier()</span></code> also sets
+the notion of the current specifier, specifiers should always be added to a scripting message with
+this method rather than with <a class="reference internal" href="#_CPPv4N8BMessage10AddMessageEv" title="BMessage::AddMessage"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddMessage()</span></code></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AddSpecifier()</span></code> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code> if it’s able to add the specifier to the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> and an
+error code, generally only <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NO_MEMORY</span></code> to indicate that it has run out of memory, if
+not.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage19GetCurrentSpecifierEv" title="BMessage::GetCurrentSpecifier"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">GetCurrentSpecifier()</span></code></a>, <a class="reference internal" href="#_CPPv4N8BMessage13HasSpecifiersEv" title="BMessage::HasSpecifiers"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">HasSpecifiers()</span></code></a>,
+<a class="reference internal" href="#_CPPv4N8BMessage12PopSpecifierEv" title="BMessage::PopSpecifier"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">PopSpecifier()</span></code></a>.</p>
+</section>
+<section id="countnames">
+<h3>CountNames()<a class="headerlink" href="#countnames" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage10CountNamesEv">
+<span id="_CPPv3N8BMessage10CountNamesEv"></span><span id="_CPPv2N8BMessage10CountNamesEv"></span><span id="BMessage::CountNames"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CountNames</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage10CountNamesEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">int32</span><span class="w"> </span><span class="nf">CountNames</span><span class="p">(</span><span class="n">type_code</span><span class="w"> </span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Returns the number of named data fields in the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> that store data of the specified <code class="docutils literal notranslate"><span class="pre">type</span></code>.
+An array of information held under a single name counts as one field; each name is counted only
+once, no matter how many data items are stored under that name.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>, this function counts all named fields. If <code class="docutils literal notranslate"><span class="pre">type</span></code> is a specific
+type, it counts only fields that store data registered as that type.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage7GetInfoEv" title="BMessage::GetInfo"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">GetInfo()</span></code></a>.</p>
+</section>
+<section id="finddata-findbool-findint8-findint16-findint32-findint64-findfloat-finddouble-findstring-findpoint-findrect-findref-findmessage-findmessenger-findpointer-findflat">
+<h3>FindData(), FindBool(), FindInt8(), FindInt16(), FindInt32(), FindInt64(), FindFloat(), FindDouble(), FindString(), FindPoint(), FindRect(), FindRef(), FindMessage(), FindMessenger(), FindPointer(), FindFlat()<a class="headerlink" href="#finddata-findbool-findint8-findint16-findint32-findint64-findfloat-finddouble-findstring-findpoint-findrect-findref-findmessage-findmessenger-findpointer-findflat" title="Permalink to this heading">¶</a></h3>
+<p>These functions retrieve data from the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code>. Each looks for data stored under the specified
+<code class="docutils literal notranslate"><span class="pre">name</span></code>. If more than one data item has the same name, an <code class="docutils literal notranslate"><span class="pre">index</span></code> can be provided to tell the
+function which item in the <code class="docutils literal notranslate"><span class="pre">name</span></code> array it should find. Indices begin at 0. If an <code class="docutils literal notranslate"><span class="pre">index</span></code> isn’t
+provided, the function will find the first, or only, item in the array.</p>
+<div class="warning admonition">
+<p class="admonition-title">Important</p>
+<p>In all cases except <code class="docutils literal notranslate"><span class="pre">FindData()</span></code> and <code class="docutils literal notranslate"><span class="pre">FindString()</span></code>, the data that’s retrieved from the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code>
+is copied into the reference argument; the caller is responsible for freeing the copied data. For
+<code class="docutils literal notranslate"><span class="pre">FindData()</span></code> and the non-<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BString</span></code> version of <code class="docutils literal notranslate"><span class="pre">FindString()</span></code>, a pointer to the data is
+returned; the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> retains ownership of the actual data and will delete the data when the
+object itself is deleted.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">FindData()</span></code> places, in <code class="docutils literal notranslate"><span class="pre">*data</span></code>, a pointer to the requested data item. The size of the item in bytes
+is written to <code class="docutils literal notranslate"><span class="pre">numBytes</span></code>. If <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>, it provides a pointer to the data no
+matter what type it actually is. But if <code class="docutils literal notranslate"><span class="pre">type</span></code> is a specific data type, it provides the pointer only
+if the <code class="docutils literal notranslate"><span class="pre">name</span></code> field holds data of that particular type.</p>
+<p>The other functions are specialized versions of <code class="docutils literal notranslate"><span class="pre">FindData()</span></code>. They match the corresponding Add…()
+methods and search for named data of a particular type, as described below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Finds data</p></th>
+<th class="head"><p>Registered as type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FindBool()</span></code></p></td>
+<td><p>a bool</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BOOL_TYPE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FindInt8()</span></code></p></td>
+<td><p>an int8 or uint8</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_INT8_TYPE</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FindInt16()</span></code></p></td>
+<td><p>an int16 or uint16</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_INT16_TYPE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FindInt32()</span></code></p></td>
+<td><p>an int32 or uint32</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_INT32_TYPE</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FindInt64()</span></code></p></td>
+<td><p>an int64 or uint64</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_INT64_TYPE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FindFloat()</span></code></p></td>
+<td><p>a float</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_FLOAT_TYPE</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FindDouble()</span></code></p></td>
+<td><p>a double</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_DOUBLE_TYPE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FindString()</span></code></p></td>
+<td><p>a character string</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_STRING_TYPE</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FindPoint()</span></code></p></td>
+<td><p>a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPoint</span></code> object</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_POINT_TYPE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FindRect()</span></code></p></td>
+<td><p>a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRect</span></code> object</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_RECT_TYPE</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FindRef()</span></code></p></td>
+<td><p>an <code class="docutils literal notranslate"><span class="pre">entry_ref</span></code></p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_REF_TYPE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FindMessage()</span></code></p></td>
+<td><p>a <a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> object</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MESSGE_TYPE</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FindMessenger()</span></code></p></td>
+<td><p>a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code> object</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MESSENGER_TYPE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FindPointer()</span></code></p></td>
+<td><p>a pointer to anything</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_POINTER_TYPE</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>The other type-specific functions retrieve the requested data item from the message by copying it to
+the variable referred to by the last argument; you get the data, not just a pointer to it. For
+example, <code class="docutils literal notranslate"><span class="pre">FindMessenger()</span></code> assigns the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code> it finds in the message to the
+<code class="docutils literal notranslate"><span class="pre">messenger</span></code> object, whereas <code class="docutils literal notranslate"><span class="pre">FindData()</span></code> would provide only a pointer to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code>.
+<code class="docutils literal notranslate"><span class="pre">FindPointer()</span></code> puts the found pointer in the <code class="docutils literal notranslate"><span class="pre">void*</span></code> variable that <code class="docutils literal notranslate"><span class="pre">pointer</span></code> refers to;
+<code class="docutils literal notranslate"><span class="pre">FindData()</span></code>, as ilustrated above, would provide a pointer to the pointer. (If the message was
+delivered from a remote source, pointers retrieved from the message won’t be valid.)</p>
+<p><code class="docutils literal notranslate"><span class="pre">FindRef()</span></code> retrieves an <code class="docutils literal notranslate"><span class="pre">entry_ref</span></code> structure; the data that’s used to reconstitute the structure
+may have been added as an <code class="docutils literal notranslate"><span class="pre">entry_ref</span></code> (through <code class="docutils literal notranslate"><span class="pre">AddRef()</span></code>), or as a flattened <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPath</span></code>
+object (<code class="docutils literal notranslate"><span class="pre">AddFlat()</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">FindFlat()</span></code> assigns the object stored in the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> to the <code class="docutils literal notranslate"><span class="pre">object</span></code> passed as an argument, it
+calls the <code class="docutils literal notranslate"><span class="pre">object</span></code>’s <a class="reference internal" href="#_CPPv4N8BMessage9UnflattenEv" title="BMessage::Unflatten"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Unflatten()</span></code></a> function and passes it the flat data from
+the message, provided that the two objects have compatible types. The argument object’s
+<code class="docutils literal notranslate"><span class="pre">AllowTypeCode()</span></code> function must return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> when tested with the type code stored in the
+message; if not, <code class="docutils literal notranslate"><span class="pre">FindFlat()</span></code> fails and returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_VALUE</span></code>.</p>
+<p>If these functions can’t find any data associated with <code class="docutils literal notranslate"><span class="pre">name</span></code>, they return a
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NAME_NOT_FOUND</span></code> error. If they can’t find <code class="docutils literal notranslate"><span class="pre">name</span></code> data of the requested <code class="docutils literal notranslate"><span class="pre">type</span></code> (or the
+type the function returns), they return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_TYPE</span></code>. If the <code class="docutils literal notranslate"><span class="pre">index</span></code> is out of range, they
+return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_INDEX</span></code>. You can rely on the values they retrieve only if they return
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code> and the data was correctly recorded when it was added to the message.</p>
+<p>When they fail, <code class="docutils literal notranslate"><span class="pre">FindData()</span></code> and <code class="docutils literal notranslate"><span class="pre">FindString()</span></code> provide <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">NULL</span></code> pointers. <code class="docutils literal notranslate"><span class="pre">FindRect()</span></code>
+hands you an invalid rectangle and <code class="docutils literal notranslate"><span class="pre">FindMessenger()</span></code> and invalid <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code>. Most of
+the other functions set the data values to 0, which may be indistinguishable from valid values.</p>
+<p>Find a data item doesn’t remove it from the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code>.</p>
+<p>(Several functions, such as <code class="docutils literal notranslate"><span class="pre">FindRect()</span></code> and <code class="docutils literal notranslate"><span class="pre">FindInt32</span></code>, have versions that return the found value
+directly. These versions don’t report errors and may not be supported in the future.)</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage7GetInfoEv" title="BMessage::GetInfo"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">GetInfo()</span></code></a>, <a class="reference internal" href="#_CPPv4N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32" title="BMessage::AddData"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddData()</span></code></a>.</p>
+</section>
+<section id="flatten-unflatten-flattenedsize">
+<h3>Flatten(), Unflatten(), FlattenedSize()<a class="headerlink" href="#flatten-unflatten-flattenedsize" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7FlattenEv">
+<span id="_CPPv3N8BMessage7FlattenEv"></span><span id="_CPPv2N8BMessage7FlattenEv"></span><span id="BMessage::Flatten"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Flatten</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7FlattenEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">Flatten</span><span class="p">(</span><span class="n">BDataIO</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="kt">ssize_t</span><span class="o">*</span><span class="w"> </span><span class="n">numBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">Flatten</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="kt">ssize_t</span><span class="o">*</span><span class="w"> </span><span class="n">numBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage9UnflattenEv">
+<span id="_CPPv3N8BMessage9UnflattenEv"></span><span id="_CPPv2N8BMessage9UnflattenEv"></span><span id="BMessage::Unflatten"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Unflatten</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage9UnflattenEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">Unflatten</span><span class="p">(</span><span class="n">BDataIO</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">Unflatten</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">address</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage13FlattenedSizeEv">
+<span id="_CPPv3N8BMessage13FlattenedSizeEv"></span><span id="_CPPv2N8BMessage13FlattenedSizeEv"></span><span id="BMessage::FlattenedSize"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FlattenedSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage13FlattenedSizeEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">FlattenedSize</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>These functions write the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> and the data in contains to a “flat” (untyped) buffer of bytes,
+and reconstruct a <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> object from such a buffer.</p>
+<p>If a passed <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDataIO</span></code> <code class="docutils literal notranslate"><span class="pre">object</span></code> (including a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BFile</span></code>), <code class="docutils literal notranslate"><span class="pre">Flatten()</span></code> calls the
+object’s <code class="docutils literal notranslate"><span class="pre">Write()</span></code> function to write the message data. If passed the <code class="docutils literal notranslate"><span class="pre">address</span></code> of a buffer, it
+begins writing at the start of the buffer. <code class="docutils literal notranslate"><span class="pre">FlattenedSize()</span></code> returns the number of bytes you must
+provide in the buffer to hold the flattened object. <code class="docutils literal notranslate"><span class="pre">Flatten()</span></code> places the number of bytes actually
+written in the variable that its <code class="docutils literal notranslate"><span class="pre">numBytes</span></code> argument refers to.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Unflatten()</span></code> empties the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> of any information it may happen to contain, then initializes
+the object from data read from the buffer. If passed a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDataIO</span></code> object, it calls the
+object’s <code class="docutils literal notranslate"><span class="pre">Read()</span></code> function to read the message data. If passed a buffer <code class="docutils literal notranslate"><span class="pre">address</span></code>, it begins reading
+at the start of the buffer. It’s up to the caller to make sure than <code class="docutils literal notranslate"><span class="pre">Unflatten()</span></code> reads data that
+<code class="docutils literal notranslate"><span class="pre">Flatten()</span></code> wrote and that pointers are positioned correctly.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Flatten()</span></code> returns any errors encountered when writing the data, of <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code> if there is no
+error.</p>
+<p>If it doesn’t recognize the data in the buffer as being a flattened object or there’s a failure in
+reading the data, <code class="docutils literal notranslate"><span class="pre">Unflatten()</span></code> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_VALUE</span></code>. If it doesn’t have adequate memory
+to recreate the whole message, it returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NO_MEMORY</span></code>. Otherwise, it returns
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code>.</p>
+<p>See also: the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDataIO</span></code> class in the “Support Kit”.</p>
+</section>
+<section id="getcurrentspecifier-popspecifier">
+<h3>GetCurrentSpecifier(), PopSpecifier()<a class="headerlink" href="#getcurrentspecifier-popspecifier" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage19GetCurrentSpecifierEv">
+<span id="_CPPv3N8BMessage19GetCurrentSpecifierEv"></span><span id="_CPPv2N8BMessage19GetCurrentSpecifierEv"></span><span id="BMessage::GetCurrentSpecifier"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCurrentSpecifier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage19GetCurrentSpecifierEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">GetCurrentSpecifier</span><span class="p">(</span><span class="n">int32</span><span class="o">*</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="n">specifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="o">*</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage12PopSpecifierEv">
+<span id="_CPPv3N8BMessage12PopSpecifierEv"></span><span id="_CPPv2N8BMessage12PopSpecifierEv"></span><span id="BMessage::PopSpecifier"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PopSpecifier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage12PopSpecifierEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">PopSpecifier</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">GetCurrentSpecifier()</span></code> unpacks the current specifier in the <code class="docutils literal notranslate"><span class="pre">BMessage</span></code>, the one at the top of the
+specifier stack; <code class="docutils literal notranslate"><span class="pre">PopSpecifier()</span></code> changes the notion of which specifier is current, by popping the
+current one from the stack.</p>
+<p>These functions aid in implementing a class-specific version of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BHandler</span></code>’s
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ResolveSpecifier()</span></code> function—the first gets the specifier that needs to be
+resolved, and the second pops it from the stack after it is resolved. You can also call them to
+examine relevant specifiers when handling a message that targets an object property (such as
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_GET_PROPERTY</span></code>).</p>
+<p>A scripting <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> keeps specifiers in a data array named “specifiers”; each specifier is itself
+a <code class="docutils literal notranslate"><span class="pre">BMessage</span></code>, but one with a special structure and purpose in the scripting system. See the
+“Scripting” section near the beginning of this chapter for an overview of the system and the place
+of specifiers in it.</p>
+<p>The specifiers in a message are ordered and, until <code class="docutils literal notranslate"><span class="pre">PopSpecifier()</span></code> is called, the one that was
+added last, the one with the greatest index, is the current specifier. <code class="docutils literal notranslate"><span class="pre">PopSpecifier()</span></code> merely
+decremements the index that picks the current specifier; it doesn’t delete anything from the
+<code class="docutils literal notranslate"><span class="pre">BMessage</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">GetCurrentSpecifier()</span></code> puts the index of the current specifier in the variable that its first
+argument, <code class="docutils literal notranslate"><span class="pre">index</span></code>, refers to. If other arguments are provided, it makes the <code class="docutils literal notranslate"><span class="pre">specifier</span></code> <code class="docutils literal notranslate"><span class="pre">BMessage</span></code> a
+copy of the current specifier. It also extracts two pieces of information from the <code class="docutils literal notranslate"><span class="pre">specifier</span></code>. If
+places the <code class="docutils literal notranslate"><span class="pre">what</span></code> data member of the specifier in the <code class="docutils literal notranslate"><span class="pre">what</span></code> variable and a pointer to the property
+name in the <code class="docutils literal notranslate"><span class="pre">property</span></code> variable. These last two output arguments won’t be valid if the <code class="docutils literal notranslate"><span class="pre">specifier</span></code>
+argument is <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<p>Both functions fail if the <span class="hclass">BMessage</span> doesn’t contain specifiers. In addition,
+<span class="hmethod">GetCurrentSpecifier()</span> fails if it can’t find data in the <span class="hclass">BMessage</span> for its
+<span class="hparameter">specifier</span> and <span class="hparameter">property</span> arguments, and <span class="hmethod">PopSpecifier()</span> fails if
+the <span class="hclass">BMessage</span> isn’t one that has been delivered to you after being processed through a
+message loop. When it fails, <span class="hmethod">GetCurrentSpecifier()</span> returns
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_SCRIPT_SYNTAX</span></code>, but <span class="hmethod">PopSpecifier()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_VALUE</span></code>. On
+success, both functions return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code>.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage12AddSpecifierEv" title="BMessage::AddSpecifier"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddSpecifier()</span></code></a>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMessage:HasSpecifier()</span></code>,
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BHandler::ResolveSpecifier()</span></code>.</p>
+</section>
+<section id="getinfo">
+<h3>GetInfo()<a class="headerlink" href="#getinfo" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7GetInfoEv">
+<span id="_CPPv3N8BMessage7GetInfoEv"></span><span id="_CPPv2N8BMessage7GetInfoEv"></span><span id="BMessage::GetInfo"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">GetInfo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7GetInfoEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">GetInfo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">type_code</span><span class="o">*</span><span class="w"> </span><span class="n">typeFound</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="o">*</span><span class="w"> </span><span class="n">countFound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">GetInfo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">type_code</span><span class="o">*</span><span class="w"> </span><span class="n">typeFound</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="o">*</span><span class="w"> </span><span class="n">fixedSize</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">GetInfo</span><span class="p">(</span><span class="n">type_code</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">nameFound</span><span class="p">,</span><span class="w"> </span><span class="n">type_code</span><span class="o">*</span><span class="w"> </span><span class="n">typeFound</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">int32</span><span class="o">*</span><span class="w"> </span><span class="n">countFound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Provides information about the data fields stored in the <span class="hclass">BMessage</span>.</p>
+<p>When passed a <span class="hparameter">name</span> that matches a name withing the <span class="hclass">BMessage</span>,
+<span class="hmethod">GetInfo()</span> places the type code for data stored under that name in the variable referred
+to by <span class="hparameter">typeFound</span> and writes the number of data items with that name into the variable
+referred to by <span class="hparameter">countFound</span>. It then returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code>. If it can’t find a
+<span class="hparameter">name</span> field within the <span class="hclass">BMessage</span>, it sets the <span class="hparameter">countFound</span> variable to
+0, and returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NAME_NOT_FOUND</span></code> (without modifying the <span class="hparameter">typeFound</span> variable).</p>
+<p>When the <span class="hparameter">fixedSize</span> argument is specified, the bool referenced by <span class="hparameter">fixedSize</span>
+is set to <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if all items in the array specified by <span class="hparameter">name</span> must be the same
+size, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> if the items can be of different sizes (see
+<a class="reference internal" href="#_CPPv4N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32" title="BMessage::AddData"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddData()</span></code></a>).</p>
+<p>When passed a <span class="hparameter">type</span> and an <span class="hparameter">index</span>, <span class="hmethod">GetInfo()</span> looks only at fields
+that store data of the requested <span class="hparameter">type</span> and provides information about the field at the
+requested <span class="hparameter">index</span>. Indices begin at 0 and are type specific. For example, if the requested
+<span class="hparameter">type</span> is <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_DOUBLE_TYPE</span></code> and the <span class="hclass">BMessage</span> contains a total of three
+named fields that store double data, the first field would be at index 0, the second at 1, and the
+third at 2, no matter what other types of data actually separate them in the <span class="hclass">BMessage</span>, and
+no matter how many data items each field contains. (Note that the <span class="hparameter">index</span> in this cases
+ranges over fields, each with a different name, not over the data items within a particular named
+field.) If the requested type is <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>, this function looks at all fields and gets
+information about the one at <span class="hparameter">index</span> whatever its type.</p>
+<p>If successful in finding data of the <span class="hparameter">type</span> requested at <span class="hparameter">index</span>,
+<span class="hmethod">GetInfo()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code> and provides information about the data through the
+last three arguments:</p>
+<ul class="simple">
+<li><p>It places a pointer to the name of the data field in the variable referred to by
+<span class="hparameter">nameFound</span>.</p></li>
+<li><p>It puts the code for the type of data the field contains in the variable referred to by
+<span class="hparameter">typeFound</span>. This will be the same as the <span class="hparameter">type</span> requested, unless the
+requested type is <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>, in which case <span class="hparameter">typeFound</span> will be the actual
+type stored under the name.</p></li>
+<li><p>It records the number of data items stored within the field in the variable referred to by
+<span class="hparameter">countFound</span>.</p></li>
+</ul>
+<p>If <span class="hmethod">GetInfo()</span> can’t find data of the requested <span class="hparameter">type</span> at <span class="hparameter">index</span>, it
+sets the <span class="hparameter">countFound</span> variable to 0, and returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_TYPE</span></code>. If the index is
+out of range, it returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_INDEX</span></code>.</p>
+<p>This version of <span class="hmethod">GetInfo()</span> can be used to iterate through all the <span class="hclass">BMessage</span>’s
+data. For example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
+<span class="n">uint32</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="n">int32</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">int32</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">GetInfo</span><span class="p">(</span><span class="n">B_ANY_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">B_OK</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// . . .</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>If the index is incremented from 0 in this way, all data of the requested type will have been read
+when <span class="hmethod">GetInfo()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NAME_NOT_FOUND</span></code>. If the requested type is
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>, as shown above, it will reveal the name and type of every field in the
+<span class="hclass">BMessage</span>.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32" title="BMessage::AddData"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddData()</span></code></a>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">FindData()</span></code>.</p>
+</section>
+<section id="hasspecifiers">
+<h3>HasSpecifiers()<a class="headerlink" href="#hasspecifiers" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage13HasSpecifiersEv">
+<span id="_CPPv3N8BMessage13HasSpecifiersEv"></span><span id="_CPPv2N8BMessage13HasSpecifiersEv"></span><span id="BMessage::HasSpecifiers"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">HasSpecifiers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage13HasSpecifiersEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">HasSpecifiers</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if the <span class="hclass">BMessage</span> has specifiers added by
+<a class="reference internal" href="#_CPPv4N8BMessage12AddSpecifierEv" title="BMessage::AddSpecifier"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddSpecifier()</span></code></a> function, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> if not.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage12AddSpecifierEv" title="BMessage::AddSpecifier"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddSpecifier()</span></code></a>, <a class="reference internal" href="#_CPPv4N8BMessage19GetCurrentSpecifierEv" title="BMessage::GetCurrentSpecifier"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">GetCurrentSpecifier()</span></code></a>.</p>
+</section>
+<section id="issystem">
+<h3>IsSystem()<a class="headerlink" href="#issystem" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8IsSystemEv">
+<span id="_CPPv3N8BMessage8IsSystemEv"></span><span id="_CPPv2N8BMessage8IsSystemEv"></span><span id="BMessage::IsSystem"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IsSystem</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8IsSystemEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsSystem</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if the <span class="hfield">what</span> data member of the <span class="hclass">BMessage</span> object
+identifies it as a system-defined message, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> if not.</p>
+</section>
+<section id="makeempty-isempty">
+<h3>MakeEmpty(), IsEmpty()<a class="headerlink" href="#makeempty-isempty" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage9MakeEmptyEv">
+<span id="_CPPv3N8BMessage9MakeEmptyEv"></span><span id="_CPPv2N8BMessage9MakeEmptyEv"></span><span id="BMessage::MakeEmpty"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">MakeEmpty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage9MakeEmptyEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">MakeEmpty</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7IsEmptyEv">
+<span id="_CPPv3N8BMessage7IsEmptyEv"></span><span id="_CPPv2N8BMessage7IsEmptyEv"></span><span id="BMessage::IsEmpty"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IsEmpty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7IsEmptyEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsEmpty</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p><span class="hmethod">MakeEmpty()</span> removes and frees all data that has been added to the <span class="hclass">BMessage</span>,
+without altering the <span class="hfield">what</span> constant. It returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code>, unless the message can’t
+be altered (as it can’t if it’s being dragged), in which case it returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ERROR</span></code>.</p>
+<p><span class="hmethod">IsEmpty()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if the <span class="hclass">BMessage</span> has no data (whether or not
+is was emptied by <span class="hmethod">MakeEmpty()</span>), and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> if it has some.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage10RemoveNameEv" title="BMessage::RemoveName"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">RemoveName()</span></code></a></p>
+</section>
+<section id="printtostream">
+<h3>PrintToStream()<a class="headerlink" href="#printtostream" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage13PrintToStreamEv">
+<span id="_CPPv3N8BMessage13PrintToStreamEv"></span><span id="_CPPv2N8BMessage13PrintToStreamEv"></span><span id="BMessage::PrintToStream"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PrintToStream</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage13PrintToStreamEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">PrintToStream</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Prints information about the <span class="hclass">BMessage</span> to the standard output stream (stdout). Each field
+of named data is reported in the following format,</p>
+<pre class='highlight'>
+#entry <em>name</em>, type = <em>type</em>, count = <em>count</em>
+</pre>
+<p>where <em>name</em> is the name that the data is registered under, <em>type</em> is the constant that indicates
+what type of data it is, and <em>count</em> is the number of data items in the named array.</p>
+</section>
+<section id="removename-removedata">
+<h3>RemoveName(), RemoveData()<a class="headerlink" href="#removename-removedata" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage10RemoveNameEv">
+<span id="_CPPv3N8BMessage10RemoveNameEv"></span><span id="_CPPv2N8BMessage10RemoveNameEv"></span><span id="BMessage::RemoveName"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RemoveName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage10RemoveNameEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">RemoveName</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage10RemoveDataEv">
+<span id="_CPPv3N8BMessage10RemoveDataEv"></span><span id="_CPPv2N8BMessage10RemoveDataEv"></span><span id="BMessage::RemoveData"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RemoveData</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage10RemoveDataEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">RemoveData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p><span class="hmethod">RemoveName()</span> removes all data entered in the <span class="hclass">BMessage</span> under <span class="hparameter">name</span>
+and the name itself. <span class="hmethod">RemoveData()</span> removes the single item of data at <span class="hparameter">index</span>
+in the <span class="hparameter">name</span> array. If the array has just one data item, it removes the array and
+<span class="hparameter">name</span> just as <span class="hmethod">RemoveName()</span> would.</p>
+<p>Both functions free the memory that was allocated to hold the data, and return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code> when
+successful. However, if there’s no data in the <span class="hclass">BMessage</span> under <span class="hparameter">name</span>, they
+return a <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NAME_NOT_FOUND</span></code> error. If message data can be read but can’t be changed (as it
+can’t for a message that’s being dragged), they both return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ERROR</span></code>. If the
+<span class="hparameter">index</span> is out of range, <span class="hmethod">RemoveData()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_INDEX</span></code> (the
+index is too high), or <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_VALUE</span></code> (the value passed is a negative number).</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage9MakeEmptyEv" title="BMessage::MakeEmpty"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">MakeEmpty()</span></code></a>.</p>
+</section>
+<section id="replacedata-replacebool-replaceint8-replaceint16-replaceint32-replaceint64-replacefloat-replacedouble-replacestring-replacepoint-replacerect-replaceref-replacemessage-replacemessenger-replacepointer-replaceflat">
+<h3>ReplaceData(), ReplaceBool(), ReplaceInt8(), ReplaceInt16(), ReplaceInt32(), ReplaceInt64(), ReplaceFloat(), ReplaceDouble(), ReplaceString(), ReplacePoint(), ReplaceRect(), ReplaceRef(), ReplaceMessage(), ReplaceMessenger(), ReplacePointer(), ReplaceFlat()<a class="headerlink" href="#replacedata-replacebool-replaceint8-replaceint16-replaceint32-replaceint64-replacefloat-replacedouble-replacestring-replacepoint-replacerect-replaceref-replacemessage-replacemessenger-replacepointer-replaceflat" title="Permalink to this heading">¶</a></h3>
+<p>These functions replace a data item in the <span class="hparameter">name</span> field with another item passed as an
+argument. If an <span class="hparameter">index</span> is provided, they replace the item in the <span class="hparameter">name</span>
+array at that index; if an <span class="hparameter">index</span> isn’t mentioned, they replace the first (or only)
+item stored under <span class="hparameter">name</span>. If an <span class="hparameter">index</span> is provided but it’s out of range,
+the replacement fails.</p>
+<p><span class="hmethod">ReplaceData()</span> replaces an item in the <span class="hparameter">name</span> field with
+<span class="hparameter">numBytes</span> of data, but only if the <span class="hparameter">type</span> code that’s specified for the
+data matches the type of data that’s already stored in the field. The <span class="hparameter">type</span> must be
+specific; it can’t be <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ANY_TYPE</span></code>.</p>
+<p><span class="hmethod">ReplaceFlat()</span> replaces a flattened object with another <span class="hparameter">object</span>, provided
+that the type reported by the argument <span class="hparameter">object</span> (by its
+<a class="reference internal" href="../support/flattenable.html#_CPPv4NK12BFlattenable8TypeCodeEv" title="BFlattenable::TypeCode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">TypeCode()</span></code></a> function) matches the type recorded for the item in the
+message. If not, it returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_VALUE</span></code>.</p>
+<p>The other functions are simplified versions of <span class="hmethod">ReplaceData()</span>. They each handle the
+specific type of data declared for their last arguments. They succeed if this <span class="hparameter">type</span>
+matches the type of data already in the <span class="hparameter">name</span> field, and fail if it does not. The new
+data is added precisely as the counterpart “Add…()” function would add it.</p>
+<p>If successful, all these functions return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code>. If unsuccessful, they return
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ERROR</span></code> if the message is read-only (as it is while the message is being dragged),
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_INDEX</span></code> if the <span class="hparameter">index</span> is out of range, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NAME_NOT_FOUND</span></code> if
+the <span class="hparameter">name</span> field doesn’t exist, or <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_TYPE</span></code> if the field doesn’t contain
+data of the specified type.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32" title="BMessage::AddData"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddData()</span></code></a>.</p>
+</section>
+<section id="returnaddress">
+<h3>ReturnAddress()<a class="headerlink" href="#returnaddress" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage13ReturnAddressEv">
+<span id="_CPPv3N8BMessage13ReturnAddressEv"></span><span id="_CPPv2N8BMessage13ReturnAddressEv"></span><span id="BMessage::ReturnAddress"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ReturnAddress</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage13ReturnAddressEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BMessenger</span><span class="w"> </span><span class="nf">ReturnAddress</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Returns a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code> object that can be used to reply to the <span class="hclass">BMessage</span>.
+Calling the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code>’s <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendMessage()</span></code> function is equivalent
+to calling <a class="reference internal" href="#_CPPv4N8BMessage9SendReplyEv" title="BMessage::SendReply"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendReply()</span></code></a>, except that the return message won’t be marked as a
+reply. If a reply isn’t allowed (if the <span class="hclass">BMessage</span> wasn’t delivered), the returned
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code> will be invalid.</p>
+<p>If you want to use the <span class="hmethod">ReturnAddress()</span> <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code> to send a synchronous
+reply, you must do so before the <span class="hclass">BMessage</span> is deleted and a default reply is sent.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage9SendReplyEv" title="BMessage::SendReply"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendReply()</span></code></a>, <a class="reference internal" href="#_CPPv4N8BMessage12WasDeliveredEv" title="BMessage::WasDelivered"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">WasDelivered()</span></code></a>.</p>
+</section>
+<section id="sendreply">
+<h3>SendReply()<a class="headerlink" href="#sendreply" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage9SendReplyEv">
+<span id="_CPPv3N8BMessage9SendReplyEv"></span><span id="_CPPv2N8BMessage9SendReplyEv"></span><span id="BMessage::SendReply"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SendReply</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage9SendReplyEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">SendReply</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="n">reply</span><span class="p">,</span><span class="w"> </span><span class="n">bigtime_t</span><span class="w"> </span><span class="n">sendTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B_INFINITE_TIMEOUT</span><span class="p">,</span><span class="w"> </span><span class="n">bigtime_t</span><span class="w"> </span><span class="n">replyTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B_INFINITE_TIMEOUT</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">SendReply</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">BHandler</span><span class="o">*</span><span class="w"> </span><span class="n">replyHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">bigtime_t</span><span class="w"> </span><span class="n">sendTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B_INFINITE_TIMEOUT</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">SendReply</span><span class="p">(</span><span class="n">uint32</span><span class="w"> </span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="n">reply</span><span class="p">);</span><span class="w"></span>
+<span class="n">status_t</span><span class="w"> </span><span class="nf">SendReply</span><span class="p">(</span><span class="n">uint32</span><span class="w"> </span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">BHandler</span><span class="o">*</span><span class="w"> </span><span class="n">replyHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Sends a reply <span class="hparameter">message</span> back to the sender of the <span class="hclass">BMessage</span> (in the case of a
+synchronous reply) or to a target <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BHandler</span></code> (in the case of an asynchronous reply).
+Whether the reply is synchronous or asynchronous depends on how the <span class="hclass">BMessage</span> that’s
+sending the reply was itself sent:</p>
+<ul class="simple">
+<li><p>The reply is delivered synchronously if the message sender is waiting for one to arrive. The
+function that sent the <span class="hclass">BMessage</span> doesn’t return until it receives the reply (or a timeout
+expires). If an expected reply has not been sent by the time the <span class="hclass">BMessage</span> object is
+deleted, a default <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NO_REPLY</span></code> message is returned to the sender. If a reply is sent
+aftethe sender gave up waiting for it to arrive, the reply <span class="hparameter">message</span> disappears into
+the bowels of the system.</p></li>
+<li><p>The reply is delivered asynchronously if the message sender isn’t waiting for a reply. In this
+case, the sending function designates a target <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BHandler</span></code> and <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code> for
+any replies that might be sent, then returns immediately after putting the <span class="hclass">BMessage</span> in
+the pipeline. Posted messages and messages that are dragged and dropped are also eligible for
+asynchronous replies.</p></li>
+</ul>
+<p><span class="hmethod">SendReply()</span> works only for <span class="hclass">BMessage</span> objects that have been processed through a
+message loop and delivered to you. The caller retains ownership of the reply <span class="hparameter">message</span>
+passed to <span class="hmethod">SendReply()</span>; it can be deleted (or left to die on the stack) after the function
+returns.</p>
+<p><span class="hmethod">SendReply()</span> sends a message—a reply message, to be sure, but a message nonetheless. It
+behaves exactly like the other message-sending function, <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code>’s
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendMessage()</span></code>:</p>
+<ul class="simple">
+<li><p>By passing it a <span class="hparameter">reply</span> argument, you can ask for a synchronous reply to the reply
+message it sends. It won’t return until it receives the reply.</p></li>
+<li><p>By supplying a <span class="hparameter">replyHandler</span> argument, you can arrange for an expected asynchronous
+reply. If a specific target isn’t specified, the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BApplication</span></code> object will handle the
+reply if one is sent.</p></li>
+</ul>
+<p>By default, <span class="hmethod">SendReply()</span> doesn’t return until the reply message is delivered (placed in
+the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code>’s port queue). It’s possible, in some circumstances, for the receiving port
+queue to be full, in which case <span class="hmethod">SendReply()</span> will block until a slot becomes free.
+However, you can limit how long <span class="hmethod">SendReply()</span> will wait to deliver the message before it
+gives up and returns. The <span class="hparameter">sendTimeout</span> argument is the number of microseconds you give
+the function to do its work. If the time limit is exceeded, the function fails and returns an error
+(cpp:enum}<code class="docutils literal notranslate"><span class="pre">B_TIMED_OUT</span></code>).</p>
+<p>When asking for a synchronous reply, separate <span class="hparameter">sendTimeout</span> and
+<span class="hparameter">replyTimeout</span> limits can be set for sending the message and receiving the reply. There
+is no time limit if a timeout value is set to <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_INFINITE_TIMEOUT</span></code>—as it is by default.
+The function won’t block at all if the timeout is set to 0.</p>
+<p>If a <span class="hparameter">command</span> is passed rather than a <span class="hparameter">message</span>, <span class="hmethod">SendReply()</span>
+constructs the reply <span class="hclass">BMessage</span>, initializes its <span class="hfield">what</span> data member with the
+<span class="hparameter">command</span> constant, and sends it just like any other reply. The <span class="hparameter">command</span>
+versions of this function have infinite timeouts; they block until the message is delivered and, if
+requested, a synchronous reply is received.</p>
+<p>This function returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code> if the reply is successfully sent. If there’s a problem in
+sending the message, it returns the same sort of error code as <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code>’s
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendMessage()</span></code>. It may also report a reply-specific problem. The more
+informative return values are as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_REPLY</span></code></p></th>
+<th class="head"><p>Attempting to reply to a message that hasn’t been delivered yet.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_DUPLICATE_REPLY</span></code></p></td>
+<td><p>Sending a reply after one has already been sent and delivered.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_THREAD_ID</span></code></p></td>
+<td><p>Sending a reply to a destination thread that no longer exists.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BAD_PORT_ID</span></code></p></td>
+<td><p>Sending a reply to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code> and port that no longer exist.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TIMED_OUT</span></code></p></td>
+<td><p>Taking longer than the specified time limit to deliver a reply message or to receive a
+synchronous reply to the reply.</p></td>
+</tr>
+</tbody>
+</table>
+<p>If you want to delay sending a reply and keep the <span class="hclass">BMessage</span> object beyond the time it’s
+scheduled to be deleted, you may be able to detach it from the message loop. See
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DetachCurrentMessage()</span></code> in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code> class.</p>
+<p>See also: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMessenger::SendMessage()</span></code>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMessenger::DetachCurrentMessage()</span></code>,
+<a class="reference internal" href="#_CPPv4N8BMessage13ReturnAddressEv" title="BMessage::ReturnAddress"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ReturnAddress()</span></code></a>.</p>
+</section>
+<section id="wasdelivered-issourceremote-issourcewaiting-isreply-previous">
+<h3>WasDelivered(), IsSourceRemote(), IsSourceWaiting(), IsReply(), Previous()<a class="headerlink" href="#wasdelivered-issourceremote-issourcewaiting-isreply-previous" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage12WasDeliveredEv">
+<span id="_CPPv3N8BMessage12WasDeliveredEv"></span><span id="_CPPv2N8BMessage12WasDeliveredEv"></span><span id="BMessage::WasDelivered"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">WasDelivered</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage12WasDeliveredEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">WasDelivered</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage14IsSourceRemoteEv">
+<span id="_CPPv3N8BMessage14IsSourceRemoteEv"></span><span id="_CPPv2N8BMessage14IsSourceRemoteEv"></span><span id="BMessage::IsSourceRemote"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IsSourceRemote</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage14IsSourceRemoteEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsSourceRemote</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage15IsSourceWaitingEv">
+<span id="_CPPv3N8BMessage15IsSourceWaitingEv"></span><span id="_CPPv2N8BMessage15IsSourceWaitingEv"></span><span id="BMessage::IsSourceWaiting"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IsSourceWaiting</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage15IsSourceWaitingEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsSourceWaiting</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage7IsReplyEv">
+<span id="_CPPv3N8BMessage7IsReplyEv"></span><span id="_CPPv2N8BMessage7IsReplyEv"></span><span id="BMessage::IsReply"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IsReply</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage7IsReplyEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsReply</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage8PreviousEv">
+<span id="_CPPv3N8BMessage8PreviousEv"></span><span id="_CPPv2N8BMessage8PreviousEv"></span><span id="BMessage::Previous"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Previous</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage8PreviousEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="nf">Previous</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>These functions can help if you’re engaged in an exchange of messages or managing an ongoing
+communication.</p>
+<p><span class="hmethod">WasDelivered()</span> indicates whether it’s possible to send a reply to a message. It returns
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> for a <span class="hclass">BMessage</span> that was posted, sent, or dropped – that is, one that has
+been processed through a message loop—and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> for a message that has not yet been
+delivered by any means.</p>
+<p><span class="hmethod">IsSourceRemote()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if the message had its source in another
+application, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> if the source is local or the message hasn’t been delivered yet.</p>
+<p><span class="hmethod">IsSourceWaiting()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if the message source is waiting for a
+synchronous reply, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> if not. The source thread can request and wait for a reply
+when calling either <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code>’s <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendMessage()</span></code> or
+<span class="hclass">BMessage</span>’s <a class="reference internal" href="#_CPPv4N8BMessage9SendReplyEv" title="BMessage::SendReply"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendReply()</span></code></a> function.</p>
+<p><span class="hmethod">IsReply()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if the <span class="hclass">BMessage</span> is a reply to a previous
+message (if it was sent by the <a class="reference internal" href="#_CPPv4N8BMessage9SendReplyEv" title="BMessage::SendReply"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendReply()</span></code></a> function), and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code>
+if not.</p>
+<p><span class="hmethod">Previous()</span> returns the previous message – the message to which the current
+<span class="hclass">BMessage</span> is a reply. It works only for a <span class="hclass">BMessage</span> that’s received as an
+asynchronous reply to a previous message. A synchronous reply is received in the context of the
+previous message, so it’s not necessary to call a function to get it. But when an asynchronous reply
+is received, the context of the original message is lost; this function can provide it.
+<span class="hmethod">Previous()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">NULL</span></code> if the <span class="hclass">BMessage</span> isn’t an asynchronous reply
+to another message.</p>
+<p>See also: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMessenger::SendMessage()</span></code>, <a class="reference internal" href="#_CPPv4N8BMessage9SendReplyEv" title="BMessage::SendReply"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SendReply()</span></code></a>,
+<a class="reference internal" href="#_CPPv4N8BMessage13ReturnAddressEv" title="BMessage::ReturnAddress"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ReturnAddress()</span></code></a>.</p>
+</section>
+<section id="wasdropped-droppoint">
+<h3>WasDropped(), DropPoint()<a class="headerlink" href="#wasdropped-droppoint" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage10WasDroppedEv">
+<span id="_CPPv3N8BMessage10WasDroppedEv"></span><span id="_CPPv2N8BMessage10WasDroppedEv"></span><span id="BMessage::WasDropped"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">WasDropped</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage10WasDroppedEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">WasDropped</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessage9DropPointEv">
+<span id="_CPPv3N8BMessage9DropPointEv"></span><span id="_CPPv2N8BMessage9DropPointEv"></span><span id="BMessage::DropPoint"></span><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">DropPoint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8BMessage9DropPointEv" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BPoint</span><span class="w"> </span><span class="nf">DropPoint</span><span class="p">(</span><span class="n">BPoint</span><span class="o">*</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p><span class="hmethod">WasDropped()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code> if the user delivered the <span class="hclass">BMessage</span> by
+dragging and dropping it, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">false</span></code> if the message was posted or sent in application
+code or if it hasn’t yet been delivered at all.</p>
+<p><span class="hmethod">DropPoint()</span> reports the point where the cursor was located when the message was dropped
+(when the user released the mouse button). It directly returns the point in the screen coordinate
+system and, if an <span class="hparameter">offset</span> argument is provided, returns it by reference in coordinates
+based on the image or rectangle the user dragged. The <span class="hparameter">offset</span> assumes a coordinate
+system with (0.0, 0.0) at the left top corner of the dragged rectangle or image.</p>
+<p>Since any value can be a valid coordinate, <span class="hmethod">DropPoint()</span> produces reliable results only if
+<span class="hmethod">WasDropped()</span> returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<p>See also: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BView::DragMessage()</span></code>.</p>
+</section>
+</section>
+<section id="operators">
+<h2>Operators<a class="headerlink" href="#operators" title="Permalink to this heading">¶</a></h2>
+<section id="assignment">
+<h3>= (assignment)<a class="headerlink" href="#assignment" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessageaSERK8BMessage">
+<span id="_CPPv3N8BMessageaSERK8BMessage"></span><span id="_CPPv2N8BMessageaSERK8BMessage"></span><span id="BMessage::assign-operator__BMessageCR"></span><pre style="background: #f3f3f3"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N8BMessageaSERK8BMessage" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BMessage</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">BMessage</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Assigns one <span class="hclass">BMessage</span> object to another. After the assignment, the two objects are
+duplicates of each other without shared data.</p>
+</section>
+<section id="new">
+<h3>new<a class="headerlink" href="#new" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessagenwE6size_t">
+<span id="_CPPv3N8BMessagenwE6size_t"></span><span id="_CPPv2N8BMessagenwE6size_t"></span><span id="BMessage::new-operator__s"></span><pre style="background: #f3f3f3"><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="o"><span class="pre">new</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numBytes</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N8BMessagenwE6size_t" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="k">new</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">numBytes</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Alloctes memory for a <span class="hclass">BMessage</span> object, or takes the memory from a previously allocated
+cache. The caching mechanism is an efficient way of managing memory for objects that are created
+frequently and used for short periods of time, as <span class="hclass">BMessage</span>s typically are.</p>
+</section>
+<section id="delete">
+<h3>delete<a class="headerlink" href="#delete" title="Permalink to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8BMessagedlEPv6size_t">
+<span id="_CPPv3N8BMessagedlEPv6size_t"></span><span id="_CPPv2N8BMessagedlEPv6size_t"></span><span id="BMessage::delete-operator__voidP.s"></span><pre style="background: #f3f3f3"><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n"><span class="pre">BMessage</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="o"><span class="pre">delete</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">memory</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numBytes</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N8BMessagedlEPv6size_t" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">memory</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numBytes</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Frees memory allocated by the <span class="hclass">BMessage</span> version of <span class="hmethod">new</span>, which may mean restoring
+the memory to the cache.</p>
+</section>
+</section>
+<section id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this heading">¶</a></h2>
+<section id="message-specifiers">
+<h3>Message Specifiers<a class="headerlink" href="#message-specifiers" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">B_NO_SPECIFIER</span><span class="w"></span>
+<span class="n">B_DIRECT_SPECIFIER</span><span class="w"></span>
+<span class="n">B_INDEX_SPECIFIER</span><span class="w"></span>
+<span class="n">B_REVERSE_INDEX_SPECIFIER</span><span class="w"></span>
+<span class="n">B_RANGE_SPECIFIER</span><span class="w"></span>
+<span class="n">B_REVERSE_RANGE_SPECIFIER</span><span class="w"></span>
+<span class="n">B_NAME_SPECIFIER</span><span class="w"></span>
+<span class="n">B_ID_SPECIFIER</span><span class="w"></span>
+<span class="n">B_SPECIFIERS_END</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">128</span><span class="w"></span>
+</pre></div>
+</div>
+<p>These constants fill the <span class="hfield">what</span> slot of specifier <span class="hclass">BMessage</span>s. Each constant indicates
+what other information the specifier contains, and how it should be interpreted. For example, a
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_REVERSE_INDEX_SPECIFER</span></code> message has an <span class="hfield">index</span> field with an index that counts
+backwards from the end of a list. A <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NAME_SPECIFIER</span></code> message includes a <span class="hfield">name</span>
+field that names the requested item.</p>
+<p>See also: <a class="reference internal" href="#_CPPv4N8BMessage12AddSpecifierEv" title="BMessage::AddSpecifier"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddSpecifier()</span></code></a>, the “Scripting” chapter.</p>
+</section>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">The Application Kit</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="message/detail.html">BMessage</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

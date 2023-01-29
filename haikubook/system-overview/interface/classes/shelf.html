@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BShelf &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BShelf</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bshelf">
+<h1>BShelf<a class="headerlink" href="#bshelf" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> is an object that you “attach” to a view in order to make the view accept
+dropped <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code> objects. In user-talk, a shelf receives and displays replicants.
+Attaching a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> to a view (called the “container” view) is remarkably simple:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BShelf</span><span class="w"> </span><span class="o">*</span><span class="n">shelf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BShelf</span><span class="p">(</span><span class="n">container_view</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>That’s all there is to it: With this single line of code, <code class="docutils literal notranslate"><span class="pre">container_view</span></code> is primed to accept and
+(automatically) display dropped replicants. A dropped replicant becomes a child of the container
+view. The container view itself can be any <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> object—you don’t alter the view in any
+way, or even tell it that it’s going to be a container.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Attaching a shelf to a view is performed by the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> constructor only. You can’t create
+a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> and then decide which view you want it to serve.</p>
+</div>
+<section id="dropping-into-the-view-hierarchy">
+<h2>Dropping into the View Hierarchy<a class="headerlink" href="#dropping-into-the-view-hierarchy" title="Permalink to this heading">¶</a></h2>
+<p>When the user drops a replicant on a container view, the view receives a
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ARCHIVED_OBJECT</span></code> message that contains a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code> and the dragger’s target
+(a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code>). These two views (the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code> and its target) are related as
+parent-child, child-parent, or as siblings (as explained in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code> class). The
+“more elderly” of the two objects is added as a child of the container view; if they’re siblings,
+the two objects are both added as children.</p>
+<p>You can also send or post <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ARCHIVED_OBJECT</span></code> messages to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> to
+simulate a drag and drop.</p>
+</section>
+<section id="other-bshelf-features">
+<h2>Other BShelf Features<a class="headerlink" href="#other-bshelf-features" title="Permalink to this heading">¶</a></h2>
+<dl class="simple myst">
+<dt>Settings.</dt><dd><p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> can configure itself from a “settings” file, and can write its contents to
+that file. Your only chance to associate a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> with a settings file is during
+construction. You can save the contents at any time through the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Save()</span></code>
+function.</p>
+</dd>
+<dt>Replicant rejection.</dt><dd><p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> can reject replicants, and can adjust the position of the replicants that it
+accepts. These features are provided through the hook functions
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">CanAcceptReplicantMessage()</span></code>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">CanAcceptReplicantView()</span></code>, and
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AdjustReplicantBy()</span></code>. A named shelf can also reject replicants, as explained
+next.</p>
+</dd>
+<dt>BShelf names.</dt><dd><p>When a replicant message is dropped on the shelf, the shelf’s name (set in the constructor) is
+compared to the dropped message’s “shelf_type” field (if it has one). If the two don’t match, the
+replicant rejects the shelf. In this way, individual replicants can be picky about the shelves that
+they want to be displayed on. By default, a shelf accepts replicants that don’t have a “shelf_type”
+field. However, if a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> is set to “enforce type” (set through
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetTypeEnforced()</span></code>), then it will only accept replicants that name the shelf (in
+their “shelf_type” fields).</p>
+</dd>
+<dt>Persistent IDs</dt><dd><p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> assigns each replicant a unique id that’s valid for as long as the replicant
+is attached to the shelf. Replicant ids don’t change, even if the shelf is
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Save()</span></code>’d and then later restored (through the constructor).</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

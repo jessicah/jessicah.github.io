@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BMessageFilter &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BMessageFilter</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bmessagefilter">
+<h1>BMessageFilter<a class="headerlink" href="#bmessagefilter" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><p>A BMessageFilter is a message-screening function that you “attach” to a BLooper
+or BHandler. The message filter sees messages just before they’re dispatched
+(i.e. just before BLooper::DispatchMessage()), and can modify or reject the
+message, change the message’s designated handler, or whatever else it wants to
+do—the implementation of the filter function isn’t restricted.</p>
+</div></blockquote>
+<p>To define a message filter, you have to provide a message-filtering function.
+You do this by implementing the Filter() hook function in a BMessageFilter
+subclass, or by supplying a filter_hook function to the BMessageFilter
+constructor. Only one filter function per object is called. If you implement
+Filter() and provide a filter_hook function, the filter_hook will win.</p>
+<p>To attach a message filter to a looper, call BLooper::AddCommonFilter(). To add
+it to a handler, call BHandler::AddFilter(). Looper filters see all incoming
+messages; handler filters see only those messages that are targetted for that
+particular handler.</p>
+<p>A BLooper or BHandler can have more than one message filter. Furthermore, a
+looper can have two sets of filters: a looper set and a handler set (keep in
+mind that BLooper is derived from BHandler). Looper filters are applied before
+handler filters.</p>
+<p>A BMessageFilter object can be assigned to only one BHandler or BLooper at a
+time.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The BMessageFilter class is intended to be used as part of the
+system-defined messaging system. If you try to use one outside this
+system, your results may not be what you expect.</p>
+</div>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BCursor &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BCursor</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bcursor">
+<h1>BCursor<a class="headerlink" href="#bcursor" title="Permalink to this heading">¶</a></h1>
+<p>You can use a BCursor to represent a mouse cursor as an object instead
+of as a block of pixel data; this can be more convenient in some situations.
+Also, if you want to call BApplication::SetCursor() without forcing an immediate
+sync of the Application Server, you have to use a BCursor.</p>
+<p>The default BCursors are B_CURSOR_SYSTEM_DEFAULT for the hand cursor and
+B_CURSOR_I_BEAM for the I-beam text editing cursor.</p>
+</section>
+<section id="cursor-data-format">
+<h1>Cursor Data Format<a class="headerlink" href="#cursor-data-format" title="Permalink to this heading">¶</a></h1>
+<p>The first four bytes of cursor data give information about the cursor:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Size in pixels-per-side. Cursors are always square;
+currently, only 16-by-16 cursors are allowed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Color depth in bits-per-pixel. Currently, only
+one-bit monochrome is allowed.</p></td>
+</tr>
+<tr class="row-even"><td><p>3–4</p></td>
+<td><p>Hot spot coordinates. Given in “cursor coordinates”
+where (0,0) is the upper left corner of the cursor grid, byte 3 is the hot
+spot’s y coordinate, and byte 4 is its x coordinate. The hot spot is a single
+pixel that’s “activated” when the user clicks the mouse. To push a button,
+for example, the hot spot must be within the button’s bounds.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Next comes an array of pixel color data. Pixels are specified from left to right
+in rows starting at the top of the image and working downward. The size of an
+array element is the depth of the image. In one-bit depth…</p>
+<p>the 16x16 array fits in 32 bytes. 1 is black and 0 is white.</p>
+<p>Then comes the pixel transparency bitmask, given left-to-right and
+top-to-bottom. 1 is opaque, 0 is transparent. Transparency only applies to white
+pixels, black pixels are always opaque.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

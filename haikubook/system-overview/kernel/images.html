@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Images &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Images</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="images">
+<h1>Images<a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h1>
+<p>An image is compiled code. There are three types of image:</p>
+<dl class="simple myst">
+<dt>An app image</dt><dd><p>Is an application. Every application has a single app image.</p>
+</dd>
+<dt>A library image</dt><dd><p>Is a dynamically linked library (a “shared library”). Most applications link against the system
+libraries (<code class="docutils literal notranslate"><span class="pre">libroot.so</span></code>, <code class="docutils literal notranslate"><span class="pre">libbe.so</span></code>, and so on) that Haiku provides.</p>
+</dd>
+<dt>An add-on image</dt><dd><p>Is an image that you load into your application as it’s running. Symbols from the add-on image are
+linked and references are resolved when the image is loaded. An add-on image provides a sort of
+“heightened dynamic linking” beyond that of a shared library.</p>
+</dd>
+</dl>
+<p>The following sections explain how to load and run an app image, how to create a shared library, and
+how to create and load an add-on image.</p>
+<section id="loading-an-app-image">
+<h2>Loading an App Image<a class="headerlink" href="#loading-an-app-image" title="Permalink to this heading">¶</a></h2>
+<p>Loading an app image is like running a “sub-program.” The image that you load is launched in much
+the same way as had you double-clicked it in the Tracker, or launched it from the command line. It
+runs in its own team—it doesn’t share the address space of the application from which it was
+launched—and, generally, leads its own life.</p>
+<p>Any application can be loaded as an app image; you don’t need to issue special compile instructions
+or otherwise manipulate the binary. The one requirement of an app image is that it must have a
+<code class="docutils literal notranslate"><span class="pre">main()</span></code> function.</p>
+<p>To load an app image, you call the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code> function:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">thread_id</span><span class="w"> </span><span class="n">load_image</span><span class="p">(</span><span class="n">int32</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">env</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The function’s first two arguments identify the app image (file) that you want to launch—we’ll
+return to this in a moment. Having located the file, the function creates a new team, spawns a main
+thread in that team, and returns the <code class="docutils literal notranslate"><span class="pre">thread_id</span></code> of the thread to you. The thread isn’t running: To
+make it run you pass the <code class="docutils literal notranslate"><span class="pre">thread_id</span></code> to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">resume_thread()</span></code> or <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code>
+(as explained in “Threads And Teams”).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">argc</span></code>/<code class="docutils literal notranslate"><span class="pre">argv</span></code> argument pair is copied and forwarded to the new thread’s <code class="docutils literal notranslate"><span class="pre">main()</span></code> function:</p>
+<ul class="simple">
+<li><p>The first string in the <code class="docutils literal notranslate"><span class="pre">argv</span></code> array must be the name of the image file that you want to launch;
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code> uses this string to find the file. You then install any other arguments
+you want in the array, and terminate the array with a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> entry. <code class="docutils literal notranslate"><span class="pre">argc</span></code> is set to the number of
+entries in the <code class="docutils literal notranslate"><span class="pre">argv</span></code> array (not counting the terminating <code class="docutils literal notranslate"><span class="pre">NULL</span></code>). It’s the caller’s
+responsibility to free the <code class="docutils literal notranslate"><span class="pre">argv</span></code> array after <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code> returns (remember—the
+array is copied before it’s passed to the new thread).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">envp</span></code> is an array of environment variables that are also passed to <code class="docutils literal notranslate"><span class="pre">main()</span></code>. Typically, you use
+the global environ pointer (which you must declare as an <code class="docutils literal notranslate"><span class="pre">extern</span></code>—see the example, below). You
+can, of course, create your own environment variable array: As with the <code class="docutils literal notranslate"><span class="pre">argv</span></code> array, the <code class="docutils literal notranslate"><span class="pre">envp</span></code>
+array should be terminated with a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> entry, and you must free the array when
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code> returns (that is, if you allocated it yourself—don’t try to free
+environ).</p></li>
+</ul>
+<p>The following example demonstrates a typical use of <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code>. First, we include the
+appropriate files and declare the necessary variables:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;image.h&gt;</span><span class="c1"> /* load_executable() */</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;OS.h&gt;</span><span class="c1"> /* wait_for_thread() */</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="c1"> /* malloc() */</span><span class="cp"></span>
+
+<span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">arg_v</span><span class="p">;</span><span class="w"> </span><span class="cm">/* choose a name that doesn&#39;t collide with argv */</span><span class="w"></span>
+<span class="n">int32</span><span class="w"> </span><span class="n">arg_c</span><span class="p">;</span><span class="w"> </span><span class="cm">/* same here vis a vis argc */</span><span class="w"></span>
+<span class="n">thread_id</span><span class="w"> </span><span class="n">exec_thread</span><span class="p">;</span><span class="w"></span>
+<span class="n">int32</span><span class="w"> </span><span class="n">return_value</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Install, in the <code class="docutils literal notranslate"><span class="pre">arg_v</span></code> array, the “command line” arguments. Let’s pretend we’re launching a program
+found in <code class="docutils literal notranslate"><span class="pre">/boot/home/apps/adder</span></code> that takes two integers, adds them together, and returns the result
+as <code class="docutils literal notranslate"><span class="pre">main()</span></code>’s exit code. Thus, there are three arguments: The name of the program, and the values of
+the two addends converted to strings. Since there are three arguments, we allocate <code class="docutils literal notranslate"><span class="pre">arg_v</span></code> to hold
+four pointers (to accommodate the final <code class="docutils literal notranslate"><span class="pre">NULL</span></code>). Then we allocate and copy the arguments.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">arg_c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+<span class="n">arg_v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">arg_c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
+
+<span class="n">arg_v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strdup</span><span class="p">(</span><span class="s">&quot;/boot/home/apps/adder&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">arg_v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strdup</span><span class="p">(</span><span class="s">&quot;5&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">arg_v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strdup</span><span class="p">(</span><span class="s">&quot;3&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">arg_v</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Now that everything is properly set up, we call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code>. After the function
+returns, it’s safe to free the allocated <code class="docutils literal notranslate"><span class="pre">arg_v</span></code> array:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">exec_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">load_image</span><span class="p">(</span><span class="n">arg_c</span><span class="p">,</span><span class="w"> </span><span class="n">arg_v</span><span class="p">,</span><span class="w"> </span><span class="n">environ</span><span class="p">);</span><span class="w"></span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">--</span><span class="n">arg_c</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="n">free</span><span class="p">(</span><span class="n">arg_v</span><span class="p">[</span><span class="n">arg_c</span><span class="p">]);</span><span class="w"></span>
+
+<span class="n">free</span><span class="p">(</span><span class="n">arg_v</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>At this point, <code class="docutils literal notranslate"><span class="pre">exec_thread</span></code> is suspended (the natural state of a newly-spawned thread). In order to
+retrieve its return value, we use <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code> to tell the thread to run:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">wait_for_thread</span><span class="p">(</span><span class="n">exec_thread</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">return_value</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>After <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code> returns, the value of <code class="docutils literal notranslate"><span class="pre">return_value</span></code> should be 8 (i.e. 5 + 3).</p>
+</section>
+<section id="creating-a-shared-library">
+<h2>Creating a Shared Library<a class="headerlink" href="#creating-a-shared-library" title="Permalink to this heading">¶</a></h2>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>This content is heavily BeOS specific.</p>
+</div>
+<p>The primary documentation for creating a shared library is provided by MetroWerks in their
+CodeWarrior manual. Beyond the information that you find there, you should be aware of the following
+amendments and caveats:</p>
+<ul>
+<li><p>You mustn’t export your library’s symbols through the <code class="docutils literal notranslate"><span class="pre">-export</span></code> all linker flag. Instead, use the
+<code class="docutils literal notranslate"><span class="pre">__declspec()</span></code> directive to export each symbol. The macro is described below. If you’re compiling
+for the PPC, you must also export <code class="docutils literal notranslate"><span class="pre">#pragma</span></code> symbols; to do this from the BeIDE, go to the Linker/PEF
+portion of the Settings window and set “Export Symbols” to “Use #pragma”.</p></li>
+<li><p>The loader looks for libraries by following the <code class="docutils literal notranslate"><span class="pre">LIBRARY_PATH</span></code> environment variable. The default
+library path looks like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="nv">$LIBRARY_PATH</span>
+%A/lib:/boot/home/config/lib:/boot/beos/system/lib
+</pre></div>
+</div>
+<p>where “%A” means the directory that contains the app that the user is launching.</p>
+</li>
+</ul>
+<section id="exporting-and-importing-symbols">
+<h3>Exporting and Importing Symbols<a class="headerlink" href="#exporting-and-importing-symbols" title="Permalink to this heading">¶</a></h3>
+<p>If you’re developing a shared library you should explicitly export every global symbol in your
+library by using the <code class="docutils literal notranslate"><span class="pre">__declspec()</span></code> macro. To export a symbol, you declare it thus…</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">name</span><span class="w"></span>
+</pre></div>
+</div>
+<p>…where <code class="docutils literal notranslate"><span class="pre">__declspec(dllexport)</span></code> is literal, and type and name declare the symbol. Some examples:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">some_name</span><span class="p">;</span><span class="w"></span>
+<span class="kr">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">some_func</span><span class="p">()</span><span class="w"> </span><span class="p">{...}</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span><span class="w"> </span><span class="n">MyView</span><span class="w"> </span><span class="p">{...}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To import these symbols, an app that wants to use your library must “reverse” the declaration by
+replacing dllexport with dllimport:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">__declspec</span><span class="p">(</span><span class="n">dllimport</span><span class="p">)</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">some_name</span><span class="p">;</span><span class="w"></span>
+<span class="kr">__declspec</span><span class="p">(</span><span class="n">dllimport</span><span class="p">)</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">some_func</span><span class="p">();</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">__declspec</span><span class="p">(</span><span class="n">dllimport</span><span class="p">)</span><span class="w"> </span><span class="n">MyView</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The trouble with this system is that it implies two sets of headers, one for exporting (for building
+your library) and another for importing (that the library client would use). The Be libraries use
+macros, defined in <code class="docutils literal notranslate"><span class="pre">BeBuild.h</span></code>, that throw the import/export switch so the header files can be
+unified. For example, here’s the macro for libbe:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#if _BUILDING_be</span>
+<span class="cp">#define _IMPEXP_BE   __declspec(dllexport)</span>
+<span class="cp">#else</span>
+<span class="cp">#define _IMPEXP_BE __declspec(dllimport)</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>When libbe is being built, a private compiler directive defines <code class="docutils literal notranslate"><span class="pre">_BUILDING_be</span></code> to be non-zero, and
+<code class="docutils literal notranslate"><span class="pre">_IMPEXP_BE</span></code> exports symbols. When a developer includes <code class="docutils literal notranslate"><span class="pre">BeBuild.h</span></code>, the <code class="docutils literal notranslate"><span class="pre">_BUILDING_be</span></code> variable is
+set to zero, so <code class="docutils literal notranslate"><span class="pre">_IMPEXP_BE</span></code> is set to import symbols.</p>
+<p>You may want to emulate this system by defining macros for your own libraries. This implies that you
+have to define a compiler switch (analogous to <code class="docutils literal notranslate"><span class="pre">_BUILDING_be</span></code>) yourself. Set the switch to non-zero
+when you’re building your library, and then set it to zero when you publish your headers for use by
+library clients.</p>
+</section>
+</section>
+<section id="creating-and-using-an-add-on-image">
+<h2>Creating and Using an Add-on Image<a class="headerlink" href="#creating-and-using-an-add-on-image" title="Permalink to this heading">¶</a></h2>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>This content is heavily BeOS specific.</p>
+</div>
+<p>An add-on image is indistinguishable from a shared library image. Creating an add-on is exactly like
+creating a shared library, a topic that we breezed through above, but with a couple of minor tweaks:</p>
+<ul>
+<li><p>The loader looks for add-ons by following the paths in the <code class="docutils literal notranslate"><span class="pre">ADDON_PATH</span></code> environment variable. The
+default <code class="docutils literal notranslate"><span class="pre">ADDON_PATH</span></code> looks like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="n">$ADDON_PATH</span><span class="w"></span>
+<span class="o">%</span><span class="n">A</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">ons</span><span class="o">:/</span><span class="n">boot</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">ons</span><span class="o">:/</span><span class="n">boot</span><span class="o">/</span><span class="n">beos</span><span class="o">/</span><span class="n">sytem</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">ons</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>You have to export your add-on symbols, and you also must <code class="docutils literal notranslate"><span class="pre">extern</span> <span class="pre">&quot;C&quot;</span></code> them. This ensures that the
+symbol names won’t be mangled by the compiler.</p></li>
+</ul>
+<section id="exporting-add-on-symbols">
+<h3>Exporting Add-on Symbols<a class="headerlink" href="#exporting-add-on-symbols" title="Permalink to this heading">¶</a></h3>
+<p>To export your add-on’s symbols, declare them thus:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="kr">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">some_func</span><span class="p">();</span><span class="w"></span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="kr">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">some_global_data</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To extern a C++ class takes more work. You can’t extern the class directly; typically what you do is
+create (and extern) a C function that covers the class constructor:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="kr">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="o">*</span><span class="n">instantiate_my_class</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">instantiate_my_class()</span></code> is implemented to call the <code class="docutils literal notranslate"><span class="pre">MyClass</span></code> constructor:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MyClass</span><span class="w"> </span><span class="o">*</span><span class="nf">instantiate_my_class</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyClass</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="loading-an-add-on-image">
+<h3>Loading an Add-on Image<a class="headerlink" href="#loading-an-add-on-image" title="Permalink to this heading">¶</a></h3>
+<p>To load an add-on into your application, you call the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_add_on()</span></code> function. The
+function takes a pathname (absolute or relative to the current working directory) to the add-on
+file, and returns an <code class="docutils literal notranslate"><span class="pre">image_id</span></code> number that uniquely identifies the image across the entire system.</p>
+<p>For example, let’s say you’ve created an add-on image that’s stored in the file
+<code class="docutils literal notranslate"><span class="pre">/boot/home/add-ons/adder</span></code>. The code that loads the add-on would look like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/* For brevity, we won&#39;t check errors. */</span><span class="w"></span>
+<span class="n">image_id</span><span class="w"> </span><span class="n">addon_image</span><span class="p">;</span><span class="w"></span>
+
+<span class="cm">/* Load the add-on. */</span><span class="w"></span>
+<span class="n">addon_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">load_add_on</span><span class="p">(</span><span class="s">&quot;/boot/home/add-ons/adder&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Unlike loading an executable, loading an add-on doesn’t create a separate team, nor does it spawn
+another thread. The whole point of loading an add-on is to bring the image into your application’s
+address space so you can call the functions and fiddle with the variables that the add-on defines.</p>
+</section>
+<section id="symbols">
+<h3>Symbols<a class="headerlink" href="#symbols" title="Permalink to this heading">¶</a></h3>
+<p>After you’ve loaded an add-on into your application, you’ll want to examine the symbols (variables
+and functions) that it has brought with it. To get information about a symbol, you call the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_image_symbol()</span></code> function:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="n">get_image_symbol</span><span class="p">(</span><span class="n">image_id</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">symbol_name</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="n">int32</span><span class="w"> </span><span class="n">symbol_type</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">location</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The function’s first three arguments identify the symbol that you want to get:</p>
+<ul>
+<li><p>The first argument is the <code class="docutils literal notranslate"><span class="pre">image_id</span></code> of the add-on that owns the symbol.</p></li>
+<li><p>The second argument is the symbol’s name. This assumes, of course, that you know the name, and
+that the add-on has declared the name as <code class="docutils literal notranslate"><span class="pre">extern</span></code>. In general, using an add-on implies just this
+sort of cooperation.</p></li>
+<li><p>The third argument is a constant that gives the symbol’s symbol type. There are three types, as
+given below. If the executable format doesn’t distinguish between text and data symbols, then you
+can use any of these three types—they’ll all be the same. If the format does distinguish between
+text and data, then you can either ask for the specific type, or you can ask for
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SYMBOL_TYPE_ANY</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Constant</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SYMBOL_TYPE_DATA</span></code></p></td>
+<td><p>Global data (variables)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SYMBOL_TYPE_TEXT</span></code></p></td>
+<td><p>Functions</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SYMBOL_TYPE_ANY</span></code></p></td>
+<td><p>The symbol lives anywhere</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>The function returns, by reference it its final argument, a pointer to the symbol’s address. For
+example, let’s say the added add-on code looks like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">a2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">adder</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">int32</span><span class="w"> </span><span class="nf">adder</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a2</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To examine the variables (<code class="docutils literal notranslate"><span class="pre">a1</span></code> and <code class="docutils literal notranslate"><span class="pre">a2</span></code>), you would call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_image_symbol()</span></code> thus:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">int32</span><span class="w"> </span><span class="o">*</span><span class="n">var_a1</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">var_a2</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">get_image_symbol</span><span class="p">(</span><span class="n">addon_image</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">B_SYMBOL_TYPE_DATA</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">var_a1</span><span class="p">);</span><span class="w"></span>
+<span class="n">get_image_symbol</span><span class="p">(</span><span class="n">addon_image</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">B_SYMBOL_TYPE_DATA</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">var_a2</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Here we get the symbol for the <code class="docutils literal notranslate"><span class="pre">adder()</span></code> function:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">int32</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">func_add</span><span class="p">)();</span><span class="w"></span>
+<span class="n">get_image_symbol</span><span class="p">(</span><span class="n">addon_image</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;adder&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">B_SYMBOL_TYPE_TEXT</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="o">&amp;</span><span class="n">func_add</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Now that we’ve retrieved all the symbols, we can set the values of the two addends and call the
+function:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">var_a1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+<span class="o">*</span><span class="n">var_a2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+<span class="n">int32</span><span class="w"> </span><span class="n">return_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">func_add</span><span class="p">)();</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

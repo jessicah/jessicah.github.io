@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BRadioButton &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BRadioButton</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bradiobutton">
+<h1>BRadioButton<a class="headerlink" href="#bradiobutton" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRadioButton</span></code> object draws a labeled, two-state button that’s displayed in a group
+along with other similar buttons. The button itself is a round icon that has a filled center when
+the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRadioButton</span></code> is turned on, and is empty when it’s off. The label appears next to
+the icon.</p>
+<p>Only one radio button in the group can be on at a time; when the user clicks a button to turn it on,
+the button that’s currently on is turned off. One button in the group must be on at all times; the
+user can turn a button off only by turning another one on. The button that’s on has a value of 1
+(<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CONTROL_ON</span></code>); the others have a value of 0 (<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CONTROL_OFF</span></code>).</p>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRadioButton</span></code> class handles the interaction between radio buttons in the following
+way: A direct user action can only turn on a radio button, not turn it off. However, when the user
+turns a button on, the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRadioButton</span></code> object turns off all sibling
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRadioButton</span></code>s—that is, all <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRadioButton</span></code>s that have the same parent as
+the one that was turned on.</p>
+<p>This means that a parent view should have no more than one group of radio buttons among its
+children. Each set of radio buttons should be assigned a separate parent—perhaps an empty
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> that simply contains the radio buttons and does no drawing of its own.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

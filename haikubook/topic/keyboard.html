@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Keyboard &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/code.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LICENSE" href="../LICENSE.html" />
+    <link rel="prev" title="JSON Handling" href="json.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Keyboard</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="json.html">JSON Handling</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../LICENSE.html">LICENSE</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="keyboard">
+<h1>Keyboard<a class="headerlink" href="#keyboard" title="Permalink to this heading">¶</a></h1>
+<p>This page details how Haiku reads keys from the keyboard, including modifier
+keys and special characters, and how you can read and process these encoded
+characters in your application.</p>
+<section id="haiku-and-utf-8">
+<h2>Haiku and UTF-8<a class="headerlink" href="#haiku-and-utf-8" title="Permalink to this heading">¶</a></h2>
+<p>Haiku encodes all characters using UTF-8. UTF-8 allows Haiku to represent
+characters from all over the world, while still maintaining backwards
+compatibility with 7-bit ASCII codes. This means that the most commonly used
+characters in Western alphabets are encoded in just one byte, while everything
+else can be encoded by extending the character encoding to use multiple bytes.</p>
+</section>
+<section id="key-codes">
+<h2>Key Codes<a class="headerlink" href="#key-codes" title="Permalink to this heading">¶</a></h2>
+<p>Each key on the keyboard is assigned a numeric code to identify it to the
+operating system. Most of the time you should not have to access these codes
+directly, but instead use one of the constants defined in <cite>InterfaceDefs.h</cite>,
+such as <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BACKSPACE</span></code> or <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ENTER</span></code>, or read the character
+from the <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_map</span></code> struct.</p>
+<p>The following diagram shows the key codes as they appear on a US 104-key
+keyboard:</p>
+<p>&lt;an image goes here&gt;</p>
+<p>International keyboards each differ a bit, but generally share an extra key
+located in-between the left shift key and Z, with the key code 0x69.</p>
+<p>Mac keyboards have an equals sign in the keypad with key code 0x6a, and some
+other differences. Often times, the keys produce the same key code but appear in
+different locations.</p>
+</section>
+<section id="modifier-keys">
+<h2>Modifier Keys<a class="headerlink" href="#modifier-keys" title="Permalink to this heading">¶</a></h2>
+<p>Modifier keys are keys which have no effect on their own, but when combined with
+other keys they modify the usual behaviour of that key.</p>
+<p>The following modifier keys are defined in <cite>InterfaceDefs.h</cite></p>
+<dl class="simple">
+<dt><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SHIFT_KEY</span></code></dt><dd><p>Transforms lowercase characters into uppercase characters, or chooses
+alternative punctuation characters. The shift key is also used in
+combination with <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_COMMAND_KEY</span></code> to produce keyboard shortcuts.</p>
+</dd>
+<dt><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_COMMAND_KEY</span></code></dt><dd><p>Produces keyboard shortcuts for common operations such as cut, copy, paste,
+print, and find.</p>
+</dd>
+<dt><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CONTROL_KEY</span></code></dt><dd><p>Outputs control characters in the terminal. The control key is sometimes
+also used as an alternative to the <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_COMMAND_KEY</span></code> to produce
+keyboard shortcuts in applications.</p>
+</dd>
+<dt><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OPTION_KEY</span></code></dt><dd><p>Used in combination with other keys to output special characters such as
+accented letters and symbols. Because <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OPTION_KEY</span></code> is not found
+on all keyboards, it should not be used for essential functions.</p>
+</dd>
+<dt><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MENU_KEY</span></code></dt><dd><p>The Menu key is used to produce contextual menus. Like
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OPTION_KEY</span></code>, the Menu key should not be used for essential
+functions, as it is not available on all keyboards.</p>
+</dd>
+</dl>
+<p>In addition, you can access the left and right modifier keys individually with
+the following constants: <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_LEFT_SHIFT_KEY</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_RIGHT_SHIFT_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_LEFT_COMMAND_KEY</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_RIGHT_COMMAND_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_LEFT_CONTROL_KEY</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_RIGHT_CONTROL_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_LEFT_OPTION_KEY</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_RIGHT_OPTION_KEY</span></code>.</p>
+<p>Scroll lock, num lock, and caps lock alter other keys pressed after they are
+released. They are defined by the following constants:</p>
+<dl class="simple">
+<dt><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CAPS_LOCK</span></code></dt><dd><p>Produces uppercase characters. Reverses the effect of
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SHIFT_KEY</span></code> for letters.</p>
+</dd>
+<dt><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CAPS_LOCK</span></code></dt><dd><p>Prevents the terminal from scrolling.</p>
+</dd>
+<dt><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NUM_LOCK</span></code></dt><dd><p>Informs the numeric keyboard to output numbers when on. Reverses the
+function of <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SHIFT_KEY</span></code> for keys on the numeric keybpard.</p>
+</dd>
+</dl>
+<p>To get the currently active modifiers, use the <a href="#id1"><span class="problematic" id="id2">:cpp:function:`modifiers()`</span></a>
+function defined in <cite>InterfaceDefs.h</cite>. This function returns a bitmap containing
+the currently active modifier keys. You can create a bit mask of the above
+constants to determine which modifiers are active.</p>
+</section>
+<section id="other-constants">
+<h2>Other Constants<a class="headerlink" href="#other-constants" title="Permalink to this heading">¶</a></h2>
+<p>The Interface Kit also defines constants for keys that are represented by a
+symbol; these include: <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_BACKSPACE</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_RETURN</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ENTER</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SPACE</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TAB</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ESCAPE</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SUBSTITUTE</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_LEFT_ARROW</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_RIGHT_ARROW</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_UP_ARROW</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_DOWN_ARROW</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_INSERT</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_DELETE</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HOME</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_END</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_PAGE_UP</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_PAGE_DOWN</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_FUNCTION_KEY</span></code>.</p>
+<p>The <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_FUNCTION_KEY</span></code> constant can be further broken down into the
+following constants: <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F1_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F2_KEY</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F3_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F4_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F5_KEY</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F6_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F7_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F8_KEY</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F9_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F10_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F11_KEY</span></code>,
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_F12_KEY</span></code>, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_PRINT_KEY</span></code> (Print Screen),
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SCOLL_KEY</span></code> (Scroll Lock), <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_PAUSE_KEY</span></code> (Pause/Break).</p>
+<p>For Japanese keyboards, two more constants are defined:</p>
+<ul class="simple">
+<li><p>B_KATAKANA_HIRAGANA</p></li>
+<li><p>B_HANKAKU_ZENKAKU</p></li>
+</ul>
+</section>
+<section id="the-keymap">
+<h2>The Keymap<a class="headerlink" href="#the-keymap" title="Permalink to this heading">¶</a></h2>
+<p>The characters produced by each of the keycodes is determined by the keymap. The
+usual way for the user to choose and modify their keymap is with the Keymap
+preference application. A number of alternative keymaps, such as Dvorak and
+keymaps for different locales, are available.</p>
+<p>&lt;&lt;picture of the Keymap preference app&gt;&gt;
+[caption: A full description of the Keymap preflet can be found in the User
+Guide]</p>
+<p>The keymap is a map of the characters produced by each key on the keyboard,
+including the characters produced when combined with the modifier constants
+described above. The keymap also contains the codes of the modifier keys and
+tables for dead keys.</p>
+<p>To get the current system keymap, create a pointer to a <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_map</span></code>
+struct and <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">char</span></code> array, and pass their addresses to the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_key_map()</span></code> function. The <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_map</span></code> struct will be
+filled out with the current system keymap, and the <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">char</span></code> array will
+be filled out with the UTF-8 character encodings.</p>
+<p>The <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_map</span></code> struct contains a number of fields described below:</p>
+<dl class="simple">
+<dt><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">version</span></code></dt><dd><p>The version number of the keymap</p>
+</dd>
+<dt><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">caps_key</span></code>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">scroll_key</span></code>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">num_key</span></code></dt><dd><p>Lock key codes</p>
+</dd>
+<dt><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">left_shift_key</span></code>, <code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">right_shift_key</span></code></dt><dd><p>Left and right shift key codes</p>
+</dd>
+</dl>
+<p>To programmatically set a modifier key in the system keymap, use the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">set_modifier_key()</span></code> function. You can also programmatically set the
+state of the lock keys by calling the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">set_keyboard_locks()</span></code> function.</p>
+</section>
+<section id="character-maps">
+<h2>Character Maps<a class="headerlink" href="#character-maps" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="json.html">JSON Handling</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../LICENSE.html">LICENSE</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

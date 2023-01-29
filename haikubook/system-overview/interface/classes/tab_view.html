@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BTabView &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BTabView</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="btabview">
+<h1>BTabView<a class="headerlink" href="#btabview" title="Permalink to this heading">¶</a></h1>
+<p>The tab view is a fairly common construct in modern user interfaces. The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code> class
+serves as a container for a series of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code> objects as well as their target views; the
+tabs run horizontally across the top of the view from left to right, and beneath them is a container
+view in which the currently-selected tab’s target view is presented. A box is drawn around the
+container view to clearly define the relationship between the tabs and the container view.</p>
+<section id="creating-a-btabview">
+<h2>Creating a BTabView<a class="headerlink" href="#creating-a-btabview" title="Permalink to this heading">¶</a></h2>
+<p>In the figure below, we see a window that contains a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code> with two
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code> objects attached, called “Construct” and “Obliterate”. The “Construct” tab is
+currently selected, and its target view is visible. The target view for the “Construct” tab contains
+two <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BSlider</span></code> objects (these sliders are used as an example in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BSlider</span></code>
+section and you can learn more about them there).</p>
+<p><img alt="A BTabView" src="../../../_images/slider.png" /></p>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code> in this window is constructed using the following code, which can be used
+in the constructor of the parent window:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BRect</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"></span>
+<span class="n">BTabView</span><span class="w"> </span><span class="o">*</span><span class="n">tabView</span><span class="p">;</span><span class="w"></span>
+<span class="n">BTab</span><span class="w"> </span><span class="o">*</span><span class="n">tab</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Bounds</span><span class="p">();</span><span class="w"></span>
+<span class="n">r</span><span class="p">.</span><span class="n">InsetBy</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">tabView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BTabView</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tab_view&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">tabView</span><span class="o">-&gt;</span><span class="n">SetViewColor</span><span class="p">(</span><span class="mi">216</span><span class="p">,</span><span class="w"> </span><span class="mi">216</span><span class="p">,</span><span class="w"> </span><span class="mi">216</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tabView</span><span class="o">-&gt;</span><span class="n">Bounds</span><span class="p">();</span><span class="w"></span>
+<span class="n">r</span><span class="p">.</span><span class="n">InsetBy</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w"></span>
+<span class="n">r</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">tabView</span><span class="o">-&gt;</span><span class="n">TabHeight</span><span class="p">();</span><span class="w"></span>
+<span class="n">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BTab</span><span class="p">();</span><span class="w"></span>
+<span class="n">tabView</span><span class="o">-&gt;</span><span class="n">AddTab</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ConstView</span><span class="p">(</span><span class="n">r</span><span class="p">),</span><span class="w"> </span><span class="n">tab</span><span class="p">);</span><span class="w"></span>
+<span class="n">tab</span><span class="o">-&gt;</span><span class="n">SetLabel</span><span class="p">(</span><span class="s">&quot;Construct&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BTab</span><span class="p">();</span><span class="w"></span>
+<span class="n">tabView</span><span class="o">-&gt;</span><span class="n">AddTab</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DestView</span><span class="p">(</span><span class="n">r</span><span class="p">),</span><span class="w"> </span><span class="n">tab</span><span class="p">);</span><span class="w"></span>
+<span class="n">tab</span><span class="o">-&gt;</span><span class="n">SetLabel</span><span class="p">(</span><span class="s">&quot;Obliterate&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This code creates a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code>, then sets its view color to the shade of grey used by
+standard <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code> and <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code> objects.</p>
+<p>Notice that the frame rectangle for the tabs’ target views is being computer by taking the bounds
+rectangle of the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code>, insetting it by five pixels on each side (to leave some room
+between it and the bounding box of the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code>), and subtracting the tab height from
+the bottom edge of the rectangle. This places the target view inside the tab view. You can adjust
+this computation to position the target view to your liking.</p>
+<p>Then two <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code> objects are created and added to the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">ConstView</span></code> and <code class="docutils literal notranslate"><span class="pre">DestView</span></code> classes are derived from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> and represent the “Construct”
+and “Obliterate” panels of the window (including the various controls contained in those panels).</p>
+<p>When the user clicks the “Obliterate” tab, the window will change to look like this:</p>
+<p><img alt="Obliterated Tab" src="../../../_images/obliterate.png" /></p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

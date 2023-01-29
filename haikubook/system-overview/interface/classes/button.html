@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BButton &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BButton</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bbutton">
+<h1>BButton<a class="headerlink" href="#bbutton" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BButton</span></code> object draws a labeled button on-screen and responds when the button is
+clicked or when it’s operated from the keyboard. If the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BButton</span></code> is the default button
+for its window and the window is the active window, the user can oeprate it by pressing the
+<span class="key">Enter</span> key.</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BButton</span></code>s have a single state. Unlike check boxes and radio buttons, the user can’t
+toggle a button on and off. However, the button’s value changes while it’s being operated. During a
+click (while the user holds the mouse button down and the cursor points to the button on-screen),
+the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BButton</span></code>’s value is set to 1 (<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CONTROL_ON</span></code>). Otherwise, the value is 0
+(<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CONTROL_OFF</span></code>).</p>
+<p>This class depends on the control framework defined in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code> class. In
+particular, it calls these <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code> functions:</p>
+<dl class="simple myst">
+<dt><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetValue()</span></code>. To make each change in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code>’s value.</dt><dd><p>This is a hook function that you can override to take collateral action when the value changes.</p>
+</dd>
+<dt><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Invoke()</span></code>. To post a message each time the button is clicked or operated from the keyboard.</dt><dd><p>You can designate the object that should handle the message by calling <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code>s
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetTarget()</span></code> function inherited from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BInvoker</span></code>. A model for the
+message is set by the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BButton</span></code> constructor (or by <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code>s
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetMessage()</span></code> function inherited from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BInvoker</span></code>).</p>
+</dd>
+<dt><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">IsEnabled()</span></code>. To determine how the button should be drawn and whether it’s enabled to post a message.</dt><dd><p>You can call <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code>s <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetEnabled()</span></code> to enable and disable the
+button.</p>
+</dd>
+</dl>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BButton</span></code> is an appropriate control device for initiating an action. Use a
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BCheckBox</span></code>, a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPictureButton</span></code>, or <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRadioButton</span></code>s to set a state.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

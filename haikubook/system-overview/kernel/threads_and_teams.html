@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Threads and Teams &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Threads and Teams</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="threads-and-teams">
+<h1>Threads and Teams<a class="headerlink" href="#threads-and-teams" title="Permalink to this heading">¶</a></h1>
+<p>A thread is a synchronous process that executes a series of program instructions. A team is a group
+of threads that make up a single program or application.</p>
+<p>Every application has at least one thread: When you launch an application, an initial thread—the
+main thread—is automatically created (or spawned) and told to run. The main thread executes the
+ubiquitous <code class="docutils literal notranslate"><span class="pre">main()</span></code> function, winds through the functions that are called from <code class="docutils literal notranslate"><span class="pre">main()</span></code>, and is
+automatically deleted (or killed) when <code class="docutils literal notranslate"><span class="pre">main()</span></code> exits.</p>
+<p>Haiku is multithreaded: from the main thread you can spawn and run additional threads; from each of
+these threads you can spawn and run more threads, and so on. All the threads in all applications run
+concurrently and asynchronously with each other.</p>
+<p>Threads are independant of each other. Most notably, a given thread doesn’t own the other threads it
+has spawned. For example, if thread A spawns thread B, and thread A dies (for whatever reason),
+thread B will continue to run. (But before you get carried away with the idea of leap-frogging
+threads, you should take note of the caveat in “Death and the Main Thread”.)</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Threads and the POSIX <code class="docutils literal notranslate"><span class="pre">fork()</span></code> function are not compatible.
+You can’t mix calls to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code> (the function that creates a new thread) and
+<code class="docutils literal notranslate"><span class="pre">fork()</span></code> in the same application: If you call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code> and then try to call
+<code class="docutils literal notranslate"><span class="pre">fork()</span></code>, the <code class="docutils literal notranslate"><span class="pre">fork()</span></code> call will fail.</p>
+</div>
+<p>Although threads are independent, they do fall into groups called teams. A team consists of a main
+thread and all other threads that “descend” from it (that are spawned by the main thread directly,
+or by any thread that was spawned by the main thread, and so on). Viewed from a higher level, a team
+is the group of threads that are created by a single application. You can’t “transfer” threads from
+one team to another. The team is set when the thread is spawned; it remains the same throughout the
+thread’s life.</p>
+<p>All the threads in a particular team share the same address space: Global variables that are
+declared by one thread will be visible to all other threads in that team.</p>
+<section id="spawning-a-thread">
+<h2>Spawning a Thread<a class="headerlink" href="#spawning-a-thread" title="Permalink to this heading">¶</a></h2>
+<p>You spawn a thread by calling the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code> function. The function assigns and
+returns a system-wide <code class="docutils literal notranslate"><span class="pre">thread_id</span></code> number that you use to identify the new thread in subsequent
+function calls. Valid <code class="docutils literal notranslate"><span class="pre">thread_id</span></code> numbers are positive integers; you can check the success of a
+spawn thus:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">thread_id</span><span class="w"> </span><span class="n">my_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spawn_thread</span><span class="p">(...);</span><span class="w"></span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">my_thread</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="cm">/* failure */</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
+<span class="w">	</span><span class="cm">/* success</span>
+</pre></div>
+</div>
+<p>The arguments to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code>, which are examined throughout this description, supply
+information such as what the thread is supposed to do, the urgency of its operation, and so on.</p>
+<section id="threads-and-app-images">
+<h3>Threads and App Images<a class="headerlink" href="#threads-and-app-images" title="Permalink to this heading">¶</a></h3>
+<p>A conceptual neighbor of spawning a thread is the act of loading an executable (or loading an app
+image). This is performed by calling the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code> function. Loading an image causes
+a separate program, identified as a file, to be launched by the system. For more information on the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code> function, see “Images”.</p>
+</section>
+</section>
+<section id="telling-a-thread-to-run">
+<h2>Telling a Thread to Run<a class="headerlink" href="#telling-a-thread-to-run" title="Permalink to this heading">¶</a></h2>
+<p>Spawning a thread isn’t enough to make it run. To tell a thread to start running, you must pass its
+<code class="docutils literal notranslate"><span class="pre">thread_id</span></code> to either the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">resume_thread()</span></code> or <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code> functions:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">resume_thread()</span></code></p></td>
+<td><p>Starts the new thread running and immediately returns. The new thread runs concurrently and
+asychronously with the thread in which <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">resume_thread()</span></code> was called.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code></p></td>
+<td><p>Starts the thread running but doesn’t return until the thread has finished. (You can also call
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code> on a thread that’s already running.)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Of these two functions, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">resume_thread()</span></code> is the more common means for starting a thread
+that was created through <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code>. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code> is typically used
+to start the thread that was created through <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">load_image()</span></code>.</p>
+</section>
+<section id="the-thread-function">
+<h2>The Thread Function<a class="headerlink" href="#the-thread-function" title="Permalink to this heading">¶</a></h2>
+<p>When you call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code>, you must identify the new thread’s thread function. This
+is a global C function (or a static C++ member function) that the new thread will execute when it’s
+told to run. The thread function, defined as <code class="docutils literal notranslate"><span class="pre">thread_func</span></code>, takes a single <code class="docutils literal notranslate"><span class="pre">(void*)</span></code> argument and
+returns an <code class="docutils literal notranslate"><span class="pre">int32</span></code> error code. When the thread function exits, the thread is automatically killed.</p>
+<p>You pass a thread function as the first argument to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code>. For example, here we
+spawn a thread that uses a function called <code class="docutils literal notranslate"><span class="pre">lister()</span></code> as its thread function. The last argument to
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code> is forwarded to the thread function:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">int32</span><span class="w"> </span><span class="nf">lister</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="cm">/* Cast the argument. */</span><span class="w"></span>
+<span class="w">	</span><span class="n">BList</span><span class="w"> </span><span class="o">*</span><span class="n">listObj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">BList</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="w">	</span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">int32</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="n">BList</span><span class="w"> </span><span class="o">*</span><span class="n">listObj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BList</span><span class="p">();</span><span class="w"></span>
+<span class="w">	</span><span class="n">thread_id</span><span class="w"> </span><span class="n">my_thread</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">	</span><span class="n">my_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spawn_thread</span><span class="p">(</span><span class="n">lister</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">listObj</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="n">resume_thread</span><span class="p">(</span><span class="n">my_thread</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>See “Passing Data to a Thread” for other methods of passing data to a thread.</p>
+</section>
+<section id="thread-names">
+<h2>Thread Names<a class="headerlink" href="#thread-names" title="Permalink to this heading">¶</a></h2>
+<p>A thread can be given a name which you assign through the second argument to
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code>. The name can be 32 characters long (as represented by the
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OS_NAME_LENGTH</span></code> constant) and needn’t be unique—more than one thread can have the
+same name.</p>
+<p>You can look for a thread based on its name by passing the name to the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">find_thread()</span></code>
+function; the function returns the <code class="docutils literal notranslate"><span class="pre">thread_id</span></code> of the so-named thread. If two or more threads bear
+the same name, the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">find_thread()</span></code> function returns the first of these threads that it
+finds.</p>
+<p>You can retrieve the <code class="docutils literal notranslate"><span class="pre">thread_id</span></code> of the calling thread by passing <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">NULL</span></code> to
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">find_thread()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">thread_id</span><span class="w"> </span><span class="n">this_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_thread</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To retrieve a thread’s name, you must look in the thread’s <code class="docutils literal notranslate"><span class="pre">thread_info</span></code> structure. This structure
+is described in the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_thread_info()</span></code> function description.</p>
+<p>Dissatisfied with a thread’s name? Use the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rename_thread()</span></code> function to change it. Fool
+your friends.</p>
+</section>
+<section id="thread-priorities">
+<h2>Thread Priorities<a class="headerlink" href="#thread-priorities" title="Permalink to this heading">¶</a></h2>
+<p>In a multi-threaded environment, the CPUs must divide their attention between the candidate threads,
+executing a few instructions from this thread, then a few from that thread, and so on. But the
+division of attention isn’t always equal. You can assign a higher or lower priority to a thread and
+so declare it to be more or less important than other threads.</p>
+<p>You assign a thread’s priority (an integer) as the third argument to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code>.
+There are two categories of priorities: “time-sharing” and “real-time”.</p>
+<dl class="simple myst">
+<dt>Time-sharing (values from 1 to 99).</dt><dd><p>A time-sharing thread is executed only if there are no real-time threads in the ready queue. In
+the absence of real-time threads, a time-sharing thread is elected to run once every “scheduler
+quantum” (currently, every three milliseconds). The higher the time-sharing thread’s priority value,
+the greater the chance that it will be the next thread to run.</p>
+</dd>
+<dt>Real-time (100 and greater).</dt><dd><p>A real-time thread is executed as soon as it’s ready. If more than one real-time thread is ready
+at the same time, the thread with the highest priority is executed first. The thread is allowed to
+run without being preempted (except by a real-time thread with a higher priority) until it blocks,
+snoozes, is suspended, or otherwise gives up its plea for attention.</p>
+</dd>
+</dl>
+<p>The Kernel Kit defines seven priority constants (see “Thread Priority Values” for the list).
+ALthough you can use other, “in-between” value as the priority argument to
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">spawn_thread()</span></code>, it’s suggested that you stick with these.</p>
+<p>Furthermore, you can call the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">suggest_thread_priority()</span></code> function to let the Kernel Kit
+determine a good priority for your thread. This function takes information about the thread’s
+scheduling and CPU needs, and returns a reasonable priority value to use when spawning the thread.</p>
+</section>
+<section id="synchronizing-threads">
+<h2>Synchronizing Threads<a class="headerlink" href="#synchronizing-threads" title="Permalink to this heading">¶</a></h2>
+<p>There are times when you may want a particular thread to pause at a designated point until some
+other (known) thread finishes some task. Here are three ways to effect this sort of synchronization:</p>
+<ul class="simple">
+<li><p>The most general means for synchronizing threads is to use a semaphore. The semaphore mechanism is
+described in great detail in “Semaphores”.</p></li>
+<li><p>Synchronization is sometimes a side-effect of sending data between threads. This is explained in
+“Passing Data to a Thread”, and in “Ports”.</p></li>
+<li><p>Finally, you can tell a thread to wait for some other thread to die by calling
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code>, as described earlier.</p></li>
+</ul>
+</section>
+<section id="controlling-a-thread">
+<h2>Controlling a Thread<a class="headerlink" href="#controlling-a-thread" title="Permalink to this heading">¶</a></h2>
+<p>There are four ways to control a thread while it’s running:</p>
+<ol class="arabic simple">
+<li><p>You can put the calling thread to sleep for some number of microseconds through the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">snooze()</span></code> and <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">snooze_until()</span></code> functions.</p></li>
+<li><p>You can suspend the execution of any thread through the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">suspend_thread()</span></code> function.
+The thread remains suspended until you “unsuspend” it through a call to
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">resume_thread()</span></code> or <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">wait_for_thread()</span></code>.</p></li>
+<li><p>You can send a POSIX “signal” to a thread through the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">send_signal()</span></code> function. The
+<code class="docutils literal notranslate"><span class="pre">SIGCONT</span></code> signal tries to unblock a blocked or sleeping thread without killing it; all other
+signals kill the thread. To override this behavior, you can install your own signal handlers.</p></li>
+<li><p>You can kill the calling thread through <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">exit_thread()</span></code>, or kill some other thread
+through <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">kill-thread()</span></code>. Feeling itchy? Try killing an entire team of threads: the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">kill_team()</span></code> function is more than a system call. It’s therapy.</p></li>
+</ol>
+<section id="death-and-the-main-thread">
+<h3>Death and the Main Thread<a class="headerlink" href="#death-and-the-main-thread" title="Permalink to this heading">¶</a></h3>
+<p>As mentioned earlier, the control that’s imposed upon a particular thread isn’t visited upon the
+“children” that have been spawned from that thread. However, the death of an application’s main
+thread can affect other threads:</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>When a main thread dies, the game is pretty much over. The main thread takes the team’s heap, it’s
+statically allocated objects, and other team-wide resources—such as access to standard IO—with
+it. This may seriously cripple any threads that linger beyond the death of the main thread.</p>
+</div>
+<p>It’s possible to create an application in which the main thread sets up one or more other threads,
+gets them running, and then dies. But such applications should be rare. In general, you should try
+to keep your main thread around until all other threads in the team are dead.</p>
+</section>
+</section>
+<section id="passing-data-to-a-thread">
+<h2>Passing Data to a Thread<a class="headerlink" href="#passing-data-to-a-thread" title="Permalink to this heading">¶</a></h2>
+<p>Every thread has a message cache. You can write to a thread’s message cache through the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">send_data()</span></code> function. The thread can pick up your message (a combination of an integer
+and a buffer) through <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">receive_data()</span></code>. The cache is only one message deep; if there’s a
+message already in the cache, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">send_data()</span></code> will block. Conversely, if there’s no meesage
+in the cache, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">recevie_data()</span></code> will also block.</p>
+<p>You can pass data to a thread through a port. Arbitrarily deep, ports are more flexible than the
+message cache. See “Ports” for details.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

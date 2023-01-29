@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BPopUpMenu &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BPopUpMenu</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bpopupmenu">
+<h1>BPopUpMenu<a class="headerlink" href="#bpopupmenu" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPopUpMenu</span></code> is a menu that’s typically used in isolation, rather than as part of an
+extensive menu hierarchy. By default, it operates in radio mode—the last item selected by the
+user, and only that item, is marked in the menu.</p>
+<p>A menu of this kind can be used to choose one from a set of mutually exclusive states—to pick a
+paper size or paragraph style, for example. It shouldn’t be used to group different kids of choices
+(as other menus may), nor should it include items that initiate actions rather than set states,
+except in certain well-defined cases.</p>
+<p>A pop-up menu can be used in any of three ways:</p>
+<ol class="arabic simple">
+<li><p>It can be controlled by a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> object, often one that controls just a single
+item. The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code>, in effect, functions as a button that pops up a list. The label
+of the marked item in the list can be displayed as the label on the controlling item in the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code>. In this way, the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> is able to show the current state
+of the hidden menu. When this is the case, the menu pops up so its marked item is directly over
+the controlling item.</p></li>
+<li><p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPopUpMenu</span></code> can also be controlled by a view other than a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code>. It
+might be associated with a particular image the view displays, for example, and appear over the
+image when the user moves the cursor there and presses the mouse button. Or it might be
+associated with the view as a whole and come up under the cursor wherever the cursor happens to
+be. When the view is notified of a mouse-down event, it calls <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPopUpMenu</span></code>s
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Go()</span></code> function to show the menu on-screen.</p></li>
+<li><p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPopUpMenu</span></code> might also be controlled by a particular mouse button, typically the
+secondary mouse button. When the user presses the button, the menu appears at the location of the
+cursor. Instead of passing responsibility for the mouse-down event to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code>, the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code> would intercept it and place the menu on-screen.</p></li>
+</ol>
+<p>Other than <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Go()</span></code> (and the <code class="docutils literal notranslate"><span class="pre">constructor</span></code>), this class implements no
+functions that you ever need to call from application code. In all other respects, a
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPopUpMenu</span></code> can be treated like any other <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenu</span></code>.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

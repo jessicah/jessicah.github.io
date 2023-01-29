@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BTab &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BTab</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="btab">
+<h1>BTab<a class="headerlink" href="#btab" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code> class defines the tabs used by the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code> class. Each tab is
+represented by a single <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code> object, which is called to render and manage the tab.</p>
+<p>When a tab is created, a target view is specified as a parameter to the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code>
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BTab()</span></code>, or by calling <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetView()</span></code>. The target view is the view
+that will be displayed in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code>’s container view when the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code> is
+selected.</p>
+<p>Users select tabs by clicking on them, or by using keyboard navigation to focus and select the tab.</p>
+<p>An example of how to create a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code> and attach <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code> objects to it is
+given in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code> section.</p>
+<section id="customizing-the-appearance-of-a-btab">
+<h2>Customizing the Appearance of a BTab<a class="headerlink" href="#customizing-the-appearance-of-a-btab" title="Permalink to this heading">¶</a></h2>
+<p>Customizing the appearance of your tabs is achieved by overriding the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DrawTab()</span></code>,
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DrawFocusMark()</span></code>, and/or <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DrawLabel()</span></code> functions.</p>
+<p>These functions are responsible for all drawing of the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code>.
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DrawTab()</span></code> renders the entire tab, excluding the focus mark: it draws the borders
+and calls <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DrawLabel()</span></code> to render the text of the label.</p>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DrawFocusMark()</span></code> draws the indicator that shows which tab is the current focus for
+keyboard navigation.</p>
+<p>By default, tabs have a beveled, rounded look. Let’s look at an example in which we replace this
+appearance with a square shape:</p>
+<p>To do this, we create a new class, derived from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code>, that overrides the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DrawTab()</span></code> function.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomTab</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">BTab</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">		</span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">DrawTab</span><span class="p">(</span><span class="n">BView</span><span class="w"> </span><span class="o">*</span><span class="n">owner</span><span class="p">,</span><span class="w"> </span><span class="n">BRect</span><span class="w"> </span><span class="n">frame</span><span class="p">,</span><span class="w"> </span><span class="n">tab_position</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">full</span><span class="o">=</span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">DrawTab()</span></code> function is implemented as follows:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">rgb_color</span><span class="w"> </span><span class="n">kWhite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">rgb_color</span><span class="w"> </span><span class="n">kGray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">219</span><span class="p">,</span><span class="w"> </span><span class="mi">219</span><span class="p">,</span><span class="w"> </span><span class="mi">219</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">rgb_color</span><span class="w"> </span><span class="n">kMedGray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">rgb_color</span><span class="w"> </span><span class="n">kDarkGray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">rgb_color</span><span class="w"> </span><span class="n">kBlack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">CustomTab::DrawTab</span><span class="p">(</span><span class="n">BView</span><span class="w"> </span><span class="o">*</span><span class="n">owner</span><span class="p">,</span><span class="w"> </span><span class="n">BRect</span><span class="w"> </span><span class="n">frame</span><span class="p">,</span><span class="w"> </span><span class="n">tab_position</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">full</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="n">rgb_color</span><span class="w"> </span><span class="n">hi</span><span class="p">;</span><span class="w"></span>
+<span class="w">	</span><span class="n">rgb_color</span><span class="w"> </span><span class="n">lo</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">	</span><span class="c1">// Save the original colors</span>
+
+<span class="w">	</span><span class="n">hi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">HighColor</span><span class="p">();</span><span class="w"></span>
+<span class="w">	</span><span class="n">lo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">LowColor</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">	</span><span class="c1">// Draw the label by calling DrawLabel()</span>
+
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">SetHighColor</span><span class="p">(</span><span class="n">kBlack</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">SetLowColor</span><span class="p">(</span><span class="n">kGray</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="n">DrawLabel</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">	</span><span class="c1">// Start a line array to draw the tab --</span>
+<span class="w">	</span><span class="c1">// this is faster than drawing the lines</span>
+<span class="w">	</span><span class="c1">// one by one.</span>
+
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">BeginLineArray</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">	</span><span class="c1">// Do the bottom left corner, visible</span>
+<span class="w">	</span><span class="c1">// only on the frontmost tab.</span>
+
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">B_TAB_ANY</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="p">),</span><span class="w"></span>
+<span class="w">			</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">kWhite</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+
+<span class="w">	</span><span class="c1">// Left wall -- always drawn</span>
+
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">top</span><span class="p">),</span><span class="w"> </span><span class="n">kWhite</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span>
+<span class="w">	</span><span class="c1">// Top -- always drawn</span>
+
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">top</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">top</span><span class="p">),</span><span class="w"> </span><span class="n">kWhite</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span>
+<span class="w">	</span><span class="c1">// Right wall -- always drawn. Has a nice bevel.</span>
+
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">top</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="p">),</span><span class="w"> </span><span class="n">kDarkGray</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">top</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="p">),</span><span class="w"> </span><span class="n">kMedGray</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span>
+<span class="w">	</span><span class="c1">// Bottom-right corner, only visible if the tab</span>
+<span class="w">	</span><span class="c1">// is either frontmost or the rightmost tab.</span>
+
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">full</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"></span>
+<span class="w">			</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="p">),</span><span class="w"> </span><span class="n">kDarkGray</span><span class="p">);</span><span class="w"></span>
+<span class="w">		</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"></span>
+<span class="w">			</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="p">),</span><span class="w"> </span><span class="n">kMedGray</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">EndLineArray</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">SetHighColor</span><span class="p">(</span><span class="n">hi</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">SetLowColor</span><span class="p">(</span><span class="n">lo</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">owner</span></code> parameter is a pointer to the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> in which the tab is drawn. <code class="docutils literal notranslate"><span class="pre">frame</span></code> is
+the frame rectangle of the tab; the tab should be drawn to fill this rectangle. The <code class="docutils literal notranslate"><span class="pre">position</span></code>
+parameter, which can be one of the following values, specifies the placement of the tab, to assist
+in making intelligent decisions on which parts of the tab are visible and which are not:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Constant</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TAB_FIRST</span></code></p></td>
+<td><p>The tab is the leftmost tab (the one with index 0 in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TAB_FRONT</span></code></p></td>
+<td><p>The tab is the frontmost tab.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TAB_ANY</span></code></p></td>
+<td><p>The tab is neither the frontmost nor the leftmost tab.</p></td>
+</tr>
+</tbody>
+</table>
+<p>This is fairly trivial example, and is self-explanatory—with two caveats:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Do the bottom left corner, visible</span>
+<span class="c1">// only on the frontmost tab.</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">B_TAB_ANY</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">kWhite</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This code is responsible for drawing the portion of the tab that connects to the box surrounding the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTabView</span></code>’s container. In our custom <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTab</span></code>, this is simply a diagonal line
+that extends from the bottom left corner of the frame upward and inward slightly.</p>
+<p>However, this portion of the tab is only visible on the first or frontmost tab, so we only draw this
+segment if its position isn’t <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TAB_ANY</span></code> (in other words, if its position is either
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TAB_FRONT</span></code> or <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TAB_FIRST</span></code>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Bottom-right corner, only visible if the tab</span>
+<span class="c1">// is either frontmost or the rightmost tab.</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">full</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="mi">-3</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="p">),</span><span class="w"> </span><span class="n">kDarkGray</span><span class="p">);</span><span class="w"></span>
+<span class="w">	</span><span class="n">owner</span><span class="o">-&gt;</span><span class="n">AddLine</span><span class="p">(</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="n">BPoint</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">bottom</span><span class="p">),</span><span class="w"> </span><span class="n">kMedGray</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This code, which draws the lower-right corner of the tab (where it meets back up with the box
+surrounding the container view), only runs if the <code class="docutils literal notranslate"><span class="pre">full</span></code> parameter is <code class="docutils literal notranslate"><span class="pre">true</span></code>. This is because the
+right edge of a tab can be obscured by the tab to its left.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

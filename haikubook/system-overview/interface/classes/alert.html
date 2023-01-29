@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BAlert &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BAlert</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="balert">
+<h1>BAlert<a class="headerlink" href="#balert" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BAlert</span></code> displays a modal window that notifies the user of an error (or the like), and
+provides a set of buttons (three buttons, max) that lets the user respond to the situation. For
+example, here’s a typical “unsaved changes” alert:</p>
+<p>When the user clicks one of the buttons, the alert panel is automatically removed from the screen,
+the index of the chosen button (0, 1, or 2, left to right) is reported to your app, and the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BAlert</span></code> object is deleted.</p>
+<p>The buttons are automatically aligned within the panel (as shown above). The rightmost button is the
+default button—i.e. it’s mapped to the <span class="key">Enter</span> key. You can assign your own shortcuts through
+the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetShortcut()</span></code> function (don’t use <code class="docutils literal notranslate"><span class="pre">BWindow::AddShortcut()</span></code>).</p>
+<section id="construction-and-deletion">
+<h2>Construction and Deletion<a class="headerlink" href="#construction-and-deletion" title="Permalink to this heading">¶</a></h2>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BAlert</span></code> objects must be constructed with <code class="docutils literal notranslate"><span class="pre">new</span></code>; you can’t allocate a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BAlert</span></code>
+on the stack.</p>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BAlert</span></code> object deletes itself when it’s removed from the screen. You never need to
+delete the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BAlert</span></code> objects that you display.</p>
+</section>
+<section id="creating-and-running-an-alert-panel">
+<h2>Creating and Running an Alert Panel<a class="headerlink" href="#creating-and-running-an-alert-panel" title="Permalink to this heading">¶</a></h2>
+<p>The following code creates and displays the alert panel shown above:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BAlert</span><span class="w"> </span><span class="o">*</span><span class="n">myAlert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BAlert</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Save changes to...&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;Cancel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Don&#39;t save&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Save&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">	</span><span class="n">B_WIDTH_AS_USUAL</span><span class="p">,</span><span class="w"> </span><span class="n">B_OFFSET_SPACING</span><span class="p">,</span><span class="w"> </span><span class="n">B_WARNING_ALERT</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">myAlert</span><span class="o">-&gt;</span><span class="n">SetShortcut</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">B_ESCAPE</span><span class="p">);</span><span class="w"></span>
+<span class="n">int32</span><span class="w"> </span><span class="n">button_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alert</span><span class="o">-&gt;</span><span class="n">Go</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This is the canonical “Do it/Don’t do it/Cancel” alert. Any alert that has a Cancel button should
+map the <span class="key">Escape</span> key as a shortcut, as shown here.</p>
+<p>The <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Go()</span></code> function runs the panel: It displays the panel, removes the panel when
+the user is done, and returns the index of the button that the user has clicked.</p>
+</section>
+<section id="asynchronous-alerts">
+<h2>Asynchronous Alerts<a class="headerlink" href="#asynchronous-alerts" title="Permalink to this heading">¶</a></h2>
+<p>The default (no argument) version of <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Go()</span></code> shown above is synchronous: It
+doesn’t return until the user clicks a button. There’s also an asynchronous version of
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Go()</span></code> that returns immediately and (optionally) sends back the user’s response
+in a <a class="reference internal" href="../../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>. See <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Go()</span></code> for details.</p>
+</section>
+<section id="look-and-feel">
+<h2>Look and Feel<a class="headerlink" href="#look-and-feel" title="Permalink to this heading">¶</a></h2>
+<p>By default, a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BAlert</span></code> object uses the <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MODAL_APP_WINDOW_FEEL</span></code>. This means
+that it blocks your application’s other windows. If you want to broaden the feel so it blocks all
+windows (<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MODAL_ALL_WINDOW_FEEL</span></code>), or restrict it so it blocks only a few of your app’s
+windows (<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MODAL_SUBSET_WINDOW_FEEL</span></code>), call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BWindow::SetFeel()</span></code>. In the subset
+case, you’ll also have to call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BWindow::AddToSubset()</span></code>.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Never change the object’s look (<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MODAL_WINDOW_LOOK</span></code>).</p>
+</div>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

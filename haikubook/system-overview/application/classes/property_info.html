@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BPropertyInfo &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BPropertyInfo</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bpropertyinfo">
+<h1>BPropertyInfo<a class="headerlink" href="#bpropertyinfo" title="Permalink to this heading">¶</a></h1>
+<p>BPropertyInfo is a simple class that manages scripting. A program describes its
+scripting interface to a BPropertyInfo object through an array of property_info
+structures, with each entry describing a piece of the scripting suite.</p>
+<p>A BPropertyInfo is instantiated by passing a zero-terminated array of
+property_info to its constructor. A typical initialization looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">property_info</span> <span class="n">prop_list</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">{</span> <span class="s2">&quot;duck&quot;</span><span class="p">,</span>
+        <span class="p">{</span> <span class="n">B_GET_PROPERTY</span><span class="p">,</span> <span class="n">B_SET_PROPERTY</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="n">B_DIRECT_SPECIFIER</span><span class="p">,</span> <span class="n">B_INDEX_SPECIFIER</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="s2">&quot;get or set duck&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span> <span class="s2">&quot;head&quot;</span><span class="p">,</span>
+        <span class="p">{</span> <span class="n">B_GET_PROPERTY</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="n">B_DIRECT_SPECIFIER</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="s2">&quot;get head&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span> <span class="s2">&quot;head&quot;</span><span class="p">,</span>
+        <span class="p">{</span> <span class="n">B_SET_PROPERTY</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="n">B_DIRECT_SPECIFIER</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="s2">&quot;set head&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span> <span class="s2">&quot;feet&quot;</span><span class="p">,</span>
+        <span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="s2">&quot;can do anything with his orange feet&quot;</span>
+        <span class="p">},</span>
+        <span class="mi">0</span> <span class="o">//</span> <span class="n">terminate</span> <span class="nb">list</span><span class="p">};</span>
+
+<span class="n">BPropertyInfo</span> <span class="n">prop_info</span><span class="p">(</span><span class="n">prop_list</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Since BPropertyInfo only stores a pointer to the array, it is important that the
+life span of the array is at least as long as that of the BPropertyInfo object.</p>
+<p>Notice that BPropertyInfo doesn’t impose any particular structure upon the
+array; in particular, not all commands and specifiers for a given property need
+be placed in a single entry in the array. You are free to organize your
+scripting suite in whatever manner is most convenient for your particular
+object.</p>
+<p>BPropertyInfo is a descendant of BFlattenable, and can therefore be used to
+store a description of an object’s supported scripting suite. This is
+particularly useful when overriding GetSupportedSuites():</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span> <span class="n">MyHandler</span><span class="p">::</span><span class="n">GetSupportedSuites</span><span class="p">(</span><span class="n">BMessage</span> <span class="o">*</span><span class="n">msg</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">msg</span><span class="o">-&gt;</span><span class="n">AddString</span><span class="p">(</span><span class="s2">&quot;suites&quot;</span><span class="p">,</span> <span class="s2">&quot;suite/vnd.Me-my_handler&quot;</span><span class="p">);</span>
+        <span class="n">BPropertyInfo</span> <span class="n">prop_info</span><span class="p">(</span><span class="n">prop_list</span><span class="p">);</span>
+        <span class="n">msg</span><span class="o">-&gt;</span><span class="n">AddFlat</span><span class="p">(</span><span class="s2">&quot;messages&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">prop_info</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">baseClass</span><span class="p">::</span><span class="n">GetSupportedSuites</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Naturally, BPropertyInfo is equally as useful in interpreting the results
+obtained from querying an object for its supported suites.</p>
+<p>BPropertyInfo defines the FindMatch() method designed to simplify the
+implementation of ResolveSpecifier(). It returns the index of the property info
+matching the description given to it, or -1 if none match. This reduces
+ResolveSpecifier() in the simplest cases to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BHandler</span><span class="o">*</span>
+<span class="n">MyHandler</span><span class="p">::</span><span class="n">ResolveSpecifier</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span> <span class="n">msg</span><span class="p">,</span> <span class="n">int32</span> <span class="n">index</span><span class="p">,</span>
+                                                        <span class="n">BMessage</span><span class="o">*</span> <span class="n">spec</span><span class="p">,</span> <span class="n">int32</span> <span class="n">form</span><span class="p">,</span>
+                                                        <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">prop</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">BPropertyInfo</span> <span class="n">prop_info</span><span class="p">(</span><span class="n">prop_list</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">prop_info</span><span class="o">.</span><span class="n">FindMatch</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">this</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="n">baseClass</span><span class="p">::</span><span class="n">ResolveSpecifier</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span>
+                                                                        <span class="n">prop</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Of course, for more complicated objects, ResolveSpecifier() may need to set the
+target handler to an object other than itself, so more processing may be
+required. In those cases, the object can use the index returned by FindMatch()
+to help it determine the target of the scripting message.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

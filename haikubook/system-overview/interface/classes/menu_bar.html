@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BMenuBar &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BMenuBar</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bmenubar">
+<h1>BMenuBar<a class="headerlink" href="#bmenubar" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> is a menu that can stand at the root of a menu hierarchy. Rather than appear
+on-screen when commanded to do so by a user action, a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> object has a settled
+location in a window’s view hierarchy, just like other views. Typically, the root menu is the menu
+bar that’s drawn across the top of the window. It’s from this use that the class gets its name.</p>
+<p>However, instances of this class can also be used in other ways. A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> might
+simply display a list of items arranged in a column somewhere in the window. Or it might contain
+just one item, where that item controls a pop-up menu (a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPopUpMenu</span></code> object). Rather
+than look like a “menu bar,” the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> object would look something like a button.</p>
+<section id="the-key-menu-bar">
+<h2>The Key Menu Bar<a class="headerlink" href="#the-key-menu-bar" title="Permalink to this heading">¶</a></h2>
+<p>The “real” menu bar at the top of the window usually represents an extensive menu hierarchy; each of
+its items typically controls a submenu.</p>
+<p>The user should be able to operate this menu bar from the keyboard (using the arrow keys and
+<span class="key">Enter</span>). There are two ways that the user can put the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> and its hierarchy
+in focus for keyboard events:</p>
+<ul class="simple">
+<li><p>Clicking an item in the menu bar. If the “click to open” preference is not turned off, this opens
+the submenu the item controls so that it stays visible on-screen and puts the submenu in focus.</p></li>
+<li><p>Pressing the <span class="key">Menu</span> key or <span class="key">Command</span>+<span class="key">Escape</span>. This puts the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code>
+in focus and selects its first item.</p></li>
+</ul>
+<p>Either method opens the entire menu hierarchy to keyboard navigation.</p>
+<p>If a window’s view hierarchy includes more than one <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> object, the <span class="key">Menu</span>
+key (or <span class="key">Command</span>+<span class="key">Escape</span>) must choose one of them to put in focus. By default, it picks
+the last one that was attached to the window. However, the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetKeyMenuBar()</span></code>
+function defined in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code> class can be called to designate a different
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> object as the “key” menu bar for the window.</p>
+</section>
+<section id="a-kind-of-bmenu">
+<h2>A Kind of BMenu<a class="headerlink" href="#a-kind-of-bmenu" title="Permalink to this heading">¶</a></h2>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> inherits most of its functions from the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenu</span></code> class. It
+reimplements the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AttachedToWindow()</span></code>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Draw()</span></code>, and
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">MouseDown()</span></code> functions that set up the object and responds to messages, but
+these aren’t functions that you’d call from application code; they’re called for you.</p>
+<p>The only real function (other than the constructor) that the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> class adds to
+those it inherits is <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetBorder()</span></code>, which determines how the list of items is
+bordered.</p>
+<p>Therefore, for most <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> operations—adding submenus, finding items, temporarily
+disabling the menu bar, and so on—you must call inherited functions and treat the object like the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenu</span></code> that it is.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

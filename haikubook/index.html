@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to the Haiku Book &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/code.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="BMessage" href="kits/application/BMessage.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="#">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Welcome to the Haiku Book</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="#">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="kits/application/BMessage.html">BMessage</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="welcome-to-the-haiku-book">
+<h1>Welcome to the Haiku Book<a class="headerlink" href="#welcome-to-the-haiku-book" title="Permalink to this heading">¶</a></h1>
+<p>Below you will find documentation on the Application Programming Interface (API)
+of the <a class="reference external" href="https://www.haiku-os.org">Haiku</a> operating system. This API describes
+the internals of the operating system, allowing developers to write native C++
+applications and device drivers. See the <a class="reference external" href="https://api.haiku-os.org/">online
+version</a> for the most updated version of this
+document. If you would like to help contributing to the documentation effort,
+contact the <a class="reference external" href="https://www.freelists.org/list/haiku-doc">documentation mailing list</a>. For guidance on how to help
+document the API, see the <a href="#id1"><span class="problematic" id="id2">`Documenting the API &lt;&gt;`_</span></a> page. A list of contributors
+can be found in the <a class="reference external" href="https://www.haiku-os.org/docs/api/credits.html">Credits</a>. Documenting the API is an ongoing process, so
+contributions are greatly appreciated.</p>
+<p>The Haiku API is based on the BeOS R5 API, but changes and additions have been
+included where appropriate. Important compatibility differences are detailed on
+the <a class="reference external" href="https://www.haiku-os.org/docs/api/compatibility.html">Application Level API Incompatibilities with BeOS</a> page. New classes and
+methods and incompatible API changes to the BeOS R5 API are noted in the
+appropriate sections.</p>
+</section>
+<section id="kits-and-servers">
+<h1>Kits and Servers<a class="headerlink" href="#kits-and-servers" title="Permalink to this heading">¶</a></h1>
+<p>The API is split into several kits and servers, each detailing a different
+aspect of the operating system.</p>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="kits/application/index.html"><span class="doc">Application Kit</span></a> is the starting
+point for developing applications and includes classes for messaging and for
+interacting with the rest of the system.</p></li>
+<li><p>The <a class="reference internal" href="kits/device/overview.html"><span class="doc">Device Kit</span></a> ???</p></li>
+<li><p>The <a class="reference internal" href="kits/game/introduction.html"><span class="doc">Game Kit</span></a> provides classes for producing
+game sounds and working with full screen apps.</p></li>
+<li><p>The <a class="reference internal" href="kits/input/overview.html"><span class="doc">Input Server</span></a></p></li>
+<li><p>The <span class="xref std std-doc">Interface Kit</span> is used to create responsive and attractive graphical
+user interfaces, building on the messaging facilities provided by the
+Application Kit.</p>
+<ul>
+<li><p>The <span class="xref std std-doc">Layout API</span> is a new addition to the
+Interface Kit, in which Haiku provides resources to layout your application
+flexibly and easily.</p></li>
+</ul>
+</li>
+<li><p>The <a class="reference internal" href="kits/kernel/overview.html"><span class="doc">Kernel Kit</span></a> ???</p></li>
+<li><p>The <a class="reference internal" href="kits/locale/overview.html"><span class="doc">Locale Kit</span></a> includes classes to localize
+your application to different languages, timezones, number formatting
+conventions and much more.</p></li>
+<li><p>The <a class="reference internal" href="kits/mail/overview.html"><span class="doc">Mail Kit</span></a> includes classes to work with e-mail
+files, folders, protocols, and filters as part of Haiku’s unique mail handling
+system.</p></li>
+<li><p>The <a class="reference internal" href="kits/media/overview.html"><span class="doc">Media Kit</span></a> provides a unified and consistent
+interface for media streams and applications to intercommunicate.</p></li>
+<li><p>The <a class="reference internal" href="kits/midi2/overview.html"><span class="doc">MIDI 2Kit</span></a> describes an interface to
+generating, processing, and playing music in MIDI format. For reference
+documentation on the old MIDI Kit (libmidi.so) is also included.</p></li>
+<li><p>The <a class="reference internal" href="kits/network/overview.html"><span class="doc">Network Kit</span></a> handles everything network
+related, from interface IP address settings to HTTP connections.</p></li>
+<li><p>The <a class="reference internal" href="kits/opengl/overview.html"><span class="doc">OpenGL Kit</span></a></p></li>
+<li><p>The <a class="reference internal" href="kits/storage/overview.html"><span class="doc">Storage Kit</span></a> is a collection of classes
+that deal with storing and retrieving information from disk.</p></li>
+<li><p>The <a class="reference internal" href="kits/support/overview.html"><span class="doc">Support Kit</span></a> contains support classes to
+use in your application including resources for thread safety, IO, and
+serialization.</p></li>
+<li><p>The <a class="reference internal" href="kits/translation/overview.html"><span class="doc">Translation Kit</span></a> provides a framework
+for converting data streams between media formats.</p></li>
+<li><p><span class="xref std std-doc">Classes And Methods</span></p>
+<ul>
+<li><p><a class="reference internal" href="kits/application/index.html"><span class="doc">The Application Kit</span></a></p></li>
+<li><p><span class="xref std std-doc">The Device Kit</span></p></li>
+<li><p><span class="xref std std-doc">The Game Kit</span></p></li>
+<li><p><span class="xref std std-doc">The Input Server</span></p></li>
+<li><p><span class="xref std std-doc">The Interface Kit</span></p></li>
+<li><p><span class="xref std std-doc">The Kernel Kit</span></p></li>
+<li><p><span class="xref std std-doc">The Mail Kit</span></p></li>
+<li><p><span class="xref std std-doc">The Network Kit</span></p></li>
+<li><p><span class="xref std std-doc">The OpenGL Kit</span></p></li>
+<li><p><span class="xref std std-doc">The Storage Kit</span></p></li>
+<li><p><span class="xref std std-doc">The Support Kit</span></p></li>
+<li><p><span class="xref std std-doc">The Translation Kit</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="special-topics">
+<h1>Special Topics<a class="headerlink" href="#special-topics" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><span class="xref std std-doc">C, POSIX, GNU and BSD functions</span></p></li>
+<li><p><span class="xref std std-doc">Device Drivers</span></p></li>
+<li><p><span class="xref std std-doc">Drivers</span></p></li>
+<li><p><span class="xref std std-doc">The Deskbar</span></p></li>
+<li><p><a class="reference internal" href="topic/keyboard.html"><span class="doc">Keyboard</span></a></p></li>
+<li><p><span class="xref std std-doc">The Tracker</span></p></li>
+<li><p><a class="reference internal" href="topic/json.html"><span class="doc">JSON Handling</span></a></p></li>
+<li><p><span class="xref std std-doc">Experimental Network Services Support</span></p></li>
+<li><p><span class="xref std std-doc">Appendices</span></p>
+<ul>
+<li><p><span class="xref std std-doc">About This Book</span></p></li>
+<li><p><span class="xref std std-doc">Revision History</span></p></li>
+</ul>
+</li>
+<li><p><span class="xref std std-doc">Class Index</span></p></li>
+<li><p><span class="xref std std-doc">Function Index</span></p></li>
+<li><p><span class="xref std std-doc">Constant Index</span></p></li>
+<li><p><span class="xref std std-doc">Type Index</span></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+<section id="acknowledgements">
+<h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this heading">¶</a></h1>
+<p>We want to express out gratitude to ACCESS Co. for showing their support for the
+Haiku Project by allowing the distribution and modification of the Be Book and
+the Be Newsletters. The Haiku Book is the successor of the Be Book, updated
+with additional APIs and the refresh of existing API documentation.</p>
+<p>Not only do the Be Book and the Be Newsletters hold historical value, but these
+documents are also a very valuable reference resource for all Haiku developers.
+We also want to thank Simon Kennedy for his work on formatting these documents.</p>
+<ul class="simple">
+<li><p><span class="xref std std-doc">Legal Notice</span></p></li>
+<li><p><a class="reference internal" href="introduction.html"><span class="doc">Introduction</span></a></p></li>
+</ul>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kits/application/BMessage.html">BMessage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/BMessage.html#data-members">Data Members</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/BMessage.html#constructor-and-destructor">Constructor and Destructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/BMessage.html#member-functions">Member Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/application/BTranslator.html">BTranslator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/BTranslator.html#constructor-and-destructor">Constructor and Destructor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/BTranslator.html#id1">BTranslator()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/BTranslator.html#id2">~BTranslator()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/BTranslator.html#member-functions">Member Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/BTranslator.html#acquire-release-referencecount">Acquire(), Release(), ReferenceCount()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/application/application/overview-old.html">BApplication Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/application/overview-old.html#bapplication">BApplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/application/overview-old.html#be-app-and-subclassing-bapplication"><code class="docutils literal notranslate"><span class="pre">be_app</span></code> and Subclassing BApplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/application/overview-old.html#constructing-the-object-and-running-the-message-loop">Constructing the Object and Running the Message Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/application/overview-old.html#application-messages">Application Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/application/overview-old.html#other-topics">Other Topics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/application/index.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/application/message.html">BMessage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/message.html#data-members">Data Members</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#what">what</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/message.html#constructor-and-destructor">Constructor and Destructor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#id1">BMessage()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#id2">~BMessage()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/message.html#member-functions">Member Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#adddata-addbool-addint8-addint16-addint32-addint64-addfloat-adddouble-addstring-addpoint-addrect-addref-addmessage-addmessenger-addpointer-addflat">AddData(), AddBool(), AddInt8(), AddInt16(), AddInt32(), AddInt64(), AddFloat(), AddDouble(), AddString(), AddPoint(), AddRect(), AddRef(), AddMessage(), AddMessenger(), AddPointer(), AddFlat()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#addspecifier">AddSpecifier()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#countnames">CountNames()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#finddata-findbool-findint8-findint16-findint32-findint64-findfloat-finddouble-findstring-findpoint-findrect-findref-findmessage-findmessenger-findpointer-findflat">FindData(), FindBool(), FindInt8(), FindInt16(), FindInt32(), FindInt64(), FindFloat(), FindDouble(), FindString(), FindPoint(), FindRect(), FindRef(), FindMessage(), FindMessenger(), FindPointer(), FindFlat()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#flatten-unflatten-flattenedsize">Flatten(), Unflatten(), FlattenedSize()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#getcurrentspecifier-popspecifier">GetCurrentSpecifier(), PopSpecifier()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#getinfo">GetInfo()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#hasspecifiers">HasSpecifiers()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#issystem">IsSystem()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#makeempty-isempty">MakeEmpty(), IsEmpty()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#printtostream">PrintToStream()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#removename-removedata">RemoveName(), RemoveData()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#replacedata-replacebool-replaceint8-replaceint16-replaceint32-replaceint64-replacefloat-replacedouble-replacestring-replacepoint-replacerect-replaceref-replacemessage-replacemessenger-replacepointer-replaceflat">ReplaceData(), ReplaceBool(), ReplaceInt8(), ReplaceInt16(), ReplaceInt32(), ReplaceInt64(), ReplaceFloat(), ReplaceDouble(), ReplaceString(), ReplacePoint(), ReplaceRect(), ReplaceRef(), ReplaceMessage(), ReplaceMessenger(), ReplacePointer(), ReplaceFlat()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#returnaddress">ReturnAddress()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#sendreply">SendReply()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#wasdelivered-issourceremote-issourcewaiting-isreply-previous">WasDelivered(), IsSourceRemote(), IsSourceWaiting(), IsReply(), Previous()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#wasdropped-droppoint">WasDropped(), DropPoint()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/message.html#operators">Operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#assignment">= (assignment)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#new">new</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#delete">delete</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/message.html#constants">Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kits/application/message.html#message-specifiers">Message Specifiers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/application/message/detail.html">BMessage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/message/detail.html#data-members">Data Members</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/message/detail.html#constructor-and-destructor">Constructor and Destructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/application/message/detail.html#member-functions">Member Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/device/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/device/overview.html">The Device Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/game/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/game/introduction.html#low-level-graphics-access">Low-Level Graphics Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/game/introduction.html#high-performance-audio">High-Performance Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/game/overview.html">The Game Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/input/introduction.html">The Input Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/input/introduction.html#drivers-and-input-devices">Drivers and Input Devices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#installing">Installing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/input/introduction.html#input-server-and-you">Input Server and You</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#mice-and-tablets">Mice and Tablets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#precision-position-information">Precision Position Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#pressure">Pressure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#tilt">Tilt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#eraser-mode">Eraser Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/input/introduction.html#supporting-input-methods-in-views">Supporting Input Methods in Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/input/introduction.html#messages-from-input-methods">Messages from Input Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/input/introduction.html#app-and-input-events">App and Input Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/input/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/kernel/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/locale/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/mail/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/media/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/midi2/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/netapi/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/network/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/opengl/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/storage/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/support/archivable.html">BArchivable</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/archivable.html#constructor-and-destructor">Constructor and Destructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/archivable.html#member-functions">Member Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/archivable.html#static-functions">Static Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/support/autolock.html">BAutolock</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/autolock.html#constructor-and-destructor">Constructor and Destructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/autolock.html#member-functions">Member Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/support/block-cache.html">BBlockCache</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/block-cache.html#constructor-and-destructor">Constructor and Destructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/block-cache.html#member-functions">Member Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/support/data-io.html">BDataIO</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/data-io.html#constructor-and-destructor">Constructor and Destructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/data-io.html#member-functions">Member Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/support/flattenable.html">BFlattenable</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/flattenable.html#member-functions">Member Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/support/list.html">BList</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/list.html#constructor-and-destructor">Constructor and Destructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/list.html#member-functions">Member Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kits/support/list.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kits/support/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/translation/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/translation/introduction.html#media-formats">Media Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kits/translation/overview.html">The Application Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topic/deskbar.html">BDeskbar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topic/deskbar.html#constructor-and-destructor">Constructor and Destructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/deskbar.html#member-functions">Member Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/deskbar.html#deskbar-types">Deskbar Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topic/json.html">JSON Handling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topic/json.html#potential-api-break">Potential API Break</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/json.html#resumption-of-play">Resumption of Play</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/json.html#parsing-with-generic-in-memory-model">Parsing with Generic In-Memory Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topic/json.html#bmessage-structure">BMessage Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topic/json.html#stream-based-parsing">Stream-based Parsing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topic/keyboard.html">Keyboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topic/keyboard.html#haiku-and-utf-8">Haiku and UTF-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/keyboard.html#key-codes">Key Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/keyboard.html#modifier-keys">Modifier Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/keyboard.html#other-constants">Other Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/keyboard.html#the-keymap">The Keymap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topic/keyboard.html#character-maps">Character Maps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LICENSE.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NOTES.html">Generating the Class API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">bebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-is-the-haiku-book">What is the Haiku Book?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#organization-of-this-document">Organization of This Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#conventions-used-in-this-document">Conventions Used in This Document</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="#">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="kits/application/BMessage.html">BMessage</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

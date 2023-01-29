@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BScreen &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BScreen</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bscreen">
+<h1>BScreen<a class="headerlink" href="#bscreen" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BScreen</span></code> object represents a single display screen that’s connected to the computer.
+With a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BScreen</span></code> object you can…</p>
+<ul class="simple">
+<li><p>Get and set the screen’s size and pixel depth.</p></li>
+<li><p>Get the screen’s color map.</p></li>
+<li><p>Make a screen shot.</p></li>
+<li><p>Set the desktop color.</p></li>
+<li><p>Synchronize your code with the screen’s retrace event.</p></li>
+</ul>
+<p>You can’t copy a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BScreen</span></code> object—the copy constructor and assignment operators are
+private.</p>
+<section id="multiple-screens">
+<h2>Multiple Screens<a class="headerlink" href="#multiple-screens" title="Permalink to this heading">¶</a></h2>
+<p>Although Haiku currently only supports a single screen, in the future it will let the user hook up
+multiple screens. One of the screens, the main screen, will have the origin of the screen coordinate
+system at its left top corner. Other screens will be located elsewhere in the same coordinate
+system. If there’s just one screen, it’s the main screen.</p>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BScreen</span></code> object represents one screen. An application can have more than one object
+referring to the same screen.</p>
+<p>When multiple screens are supported, a <code class="docutils literal notranslate"><span class="pre">screen_id</span></code> identifier will be assigned to each one.
+Currently, <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MAIN_SCREEN_ID</span></code> is the only identifier.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

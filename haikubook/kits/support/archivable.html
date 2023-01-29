@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BArchivable &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BAutolock" href="autolock.html" />
+    <link rel="prev" title="The Application Kit" href="../storage/overview.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BArchivable</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../storage/overview.html">The Application Kit</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="autolock.html">BAutolock</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="barchivable">
+<h1>BArchivable<a class="headerlink" href="#barchivable" title="Permalink to this heading">¶</a></h1>
+<section id="constructor-and-destructor">
+<h2>Constructor and Destructor<a class="headerlink" href="#constructor-and-destructor" title="Permalink to this heading">¶</a></h2>
+<h3 id="_CPPv4N11BArchivable11BArchivableEv">
+<span id="_CPPv3N11BArchivable11BArchivableEv"></span><span id="_CPPv2N11BArchivable11BArchivableEv"></span><span id="BArchivable::BArchivable"></span><span id="_CPPv4N11BArchivable11BArchivableEP8BMessage"></span><span id="_CPPv3N11BArchivable11BArchivableEP8BMessage"></span><span id="_CPPv2N11BArchivable11BArchivableEP8BMessage"></span><span id="BArchivable::BArchivable__BMessageP"></span>BArchivable()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N11BArchivable11BArchivableEv" title="BArchivable::BArchivable"><span class="n">BArchivable</span></a><span class="p">::</span></span><span class="n">BArchivable</span><span class="sig-paren">(</span><span class="sig-paren">)</span></pre><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N11BArchivable11BArchivableEP8BMessage" title="BArchivable::BArchivable"><span class="n">BArchivable</span></a><span class="p">::</span></span><span class="n">BArchivable</span><span class="sig-paren">(</span><a class="reference internal" href="../application/BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n">BMessage</span></a><span class="w"> </span><span class="p">*</span><span class="n sig-param">archive</span><span class="sig-paren">)</span></pre><p>Does nothing.</p>
+</div>
+
+<h3 id="_CPPv4N11BArchivableD0Ev">
+<span id="_CPPv3N11BArchivableD0Ev"></span><span id="_CPPv2N11BArchivableD0Ev"></span><span id="BArchivable::~BArchivable"></span>~BArchivable()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">virtual</span><span class="w"> </span><span class="sig-prename descclassname"><span class="n">BArchivable</span><span class="p">::</span></span><span class="n">~BArchivable</span><span class="sig-paren">(</span><span class="sig-paren">)</span></pre><p>Does nothing</p>
+</div>
+
+</section>
+<section id="member-functions">
+<h2>Member Functions<a class="headerlink" href="#member-functions" title="Permalink to this heading">¶</a></h2>
+<h3 id="_CPPv4NK11BArchivable7ArchiveEP8BMessageb">
+<span id="_CPPv3NK11BArchivable7ArchiveEP8BMessageb"></span><span id="_CPPv2NK11BArchivable7ArchiveEP8BMessageb"></span><span id="BArchivable::Archive__BMessageP.bC"></span>Archive()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">virtual</span><span class="w"> </span><span class="n">status_t</span><span class="w"> </span><span class="sig-prename descclassname"><span class="n">BArchivable</span><span class="p">::</span></span><span class="n">Archive</span><span class="sig-paren">(</span><a class="reference internal" href="../application/BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n">BMessage</span></a><span class="w"> </span><span class="p">*</span><span class="n sig-param">archive</span>, <span class="kt">bool</span><span class="w"> </span><span class="n sig-param">deep</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">true</span><span class="sig-paren">)</span><span class="w"> </span><span class="k">const</span></pre><p>The default implementation adds the name of the object’s class to archive’s <span class="hfield">class</span> field. Derived classes must override <span class="hmethod">Archive()</span> to augment this implementation by adding, to the <a class="reference internal" href="../application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>, data that describes the current state of the object. Each implementation of this function should begin by incorporting the inherited version:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>/* We&#39;ll assume that MyView inherits from {cpp:class}`BView`. */
+status_t MyView::Archive({cpp:class}`BMessage`* archive, bool deep)
+{
+   {cpp:class}`BVeiew`::Archive(archive, deep);
+   
+   // . . .
+}
+</pre></div>
+</div>
+<p>If the class can be instantiated directly from a derived class, it should also add its name to the “class” array:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">archive</span><span class="o">-&gt;</span><span class="n">AddString</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MyView&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The <span class="hparameter">deep</span> flag declares whether <span class="hmethod">Archive()</span> should include objects that “belong” to the archiving object. For example, a deep <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> archive would include archived forms of the view’s children.</p>
+<p><span class="hmethod">Archive()</span> should return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code> if it’s successful; otherwise, it should return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ERROR</span></code> or a more descriptive error code.</p>
+</div>
+
+</section>
+<section id="static-functions">
+<h2>Static Functions<a class="headerlink" href="#static-functions" title="Permalink to this heading">¶</a></h2>
+<h3 id="_CPPv4N11BArchivable11InstantiateEP8BMessage">
+<span id="_CPPv3N11BArchivable11InstantiateEP8BMessage"></span><span id="_CPPv2N11BArchivable11InstantiateEP8BMessage"></span><span id="BArchivable::Instantiate__BMessageP"></span>Instantiate()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">static</span><span class="w"> </span><span class="n">BArchivable</span><span class="w"> </span><span class="p">*</span><span class="sig-prename descclassname"><span class="n">BArchivable</span><span class="p">::</span></span><span class="n">Instantiate</span><span class="sig-paren">(</span><a class="reference internal" href="../application/BMessage.html#_CPPv48BMessage" title="BMessage"><span class="n">BMessage</span></a><span class="w"> </span><span class="p">*</span><span class="n sig-param">archive</span><span class="sig-paren">)</span></pre><p>Derived classes should implement <span class="hmethod">Instantiate()</span> to return a new <span class="hclass">BArchivable</span> object that was constructed from the <a class="reference internal" href="../application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> archive. For example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BArchivable</span><span class="o">*</span><span class="w"> </span><span class="nf">TheClass::Instantiate</span><span class="p">(</span><span class="n">BMessage</span><span class="o">*</span><span class="w"> </span><span class="n">archive</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">validate_instantiation</span><span class="p">(</span><span class="n">archive</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;TheClass&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TheClass</span><span class="p">(</span><span class="n">archive</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><span class="hmethod">Instantiate()</span> must return a <span class="hclass">BArchivable</span>*, regardless of the actual class in which it’s implemented.</p>
+</div>
+<p>This function depends on a constructor that can initialize the new object from the <span class="hparameter">archive</span> <a class="reference internal" href="../application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>. See “Instantiability” <strong>TODO</strong> for more information.</p>
+<p>The default implementation returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</div>
+
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../storage/overview.html">The Application Kit</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="autolock.html">BAutolock</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

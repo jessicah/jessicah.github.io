@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BMenuField &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BMenuField</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bmenufield">
+<h1>BMenuField<a class="headerlink" href="#bmenufield" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuField</span></code> object displays a labeled pop-up menu. It’s a simple object that employs a
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> object to control a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenu</span></code>. ALl it adds to what a
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> can do on its own is a label and a more control-like user interface that
+includes keyboard navigation.</p>
+<p>The functions defined in this class resemble those of a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code>
+(<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetLabel()</span></code>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">IsEnabled()</span></code>), especially a
+BTextControl (<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetDivider()</span></code>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Alignment()</span></code>). However,
+unlike a real <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code> object, a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuField</span></code> doesn’t maintain a current
+value and it can’t be invoked to send a message. All the control work is done by items in the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenu</span></code>.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

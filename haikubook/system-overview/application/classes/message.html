@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BMessage &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BMessage</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bmessage">
+<h1>BMessage<a class="headerlink" href="#bmessage" title="Permalink to this heading">¶</a></h1>
+<p>A BMessage is a bundle of structured information. Every BMessage contains a
+command constant and some number of data fields.</p>
+<ul class="simple">
+<li><p>The command constant is an int32 value that describes, rougly, the purpose of
+the BMessage. It’s stored as the public what data member. You always set and
+examine the what value directly, you don’t need to call a function. (As a
+convenience, you can set the command constant when you create the BMessage
+object.)</p></li>
+<li><p>The data fields are name-type-value triplets. A field is primarily identified
+by name, but you can look for fields by name, type, or a combination of the two.
+The type is encoded as a constant (B_INT32_TYPE, B_STRING_TYPE, etc), and is
+meant to describe the type of value that the field holds. A single field can
+have only one name and one type, but can contain an array of values. Individual
+values in a field are accessible by index.</p></li>
+</ul>
+<p>Neither the command constant nor the data fields are mandatory. You can create a
+BMessage that has data but no command, or that only has a command. However,
+creating a BMessage that has neither is pointless.</p>
+</section>
+<section id="preparatory-reading">
+<h1>Preparatory Reading<a class="headerlink" href="#preparatory-reading" title="Permalink to this heading">¶</a></h1>
+<p>BMessages are used throughout the kits to send data (or notifications) to
+another thread, possibly in another application. To understand how BMessages fit
+into the messaging system, see <span class="xref std std-doc">Messaging</span>.</p>
+<p>The BMessage class also contributes a number of functions that help define the
+scripting system. See “Scripting” for an introduction to this system.</p>
+<p>BMessages are also used by a number of classes (BClipboard, BArchivable, and
+others) for their ability to store data.</p>
+</section>
+<section id="types-of-functions">
+<h1>Types of Functions<a class="headerlink" href="#types-of-functions" title="Permalink to this heading">¶</a></h1>
+<p>The BMessage class defines five types of functions:</p>
+<dl class="simple">
+<dt>Data field functions</dt><dd><p>These functions either set or retreive the value of a data field. See
+AddData(), FindData(), ReplaceData(), and RemoveName()</p>
+</dd>
+<dt>Info functions</dt><dd><p>These functions retrieve information about the state and contents of the
+BMessage. See IsSystem() and GetInfo()</p>
+</dd>
+<dt>Messaging functions</dt><dd><p>These functions are part of the messaging system. A smaller set of functions
+reports on the status of a received message. For example, IsSourceWaiting()
+tells whether the message sender is waiting for a reply, WasDropped() says
+whether it was dragged and ropped, and DropPoint() says where it was
+dropped.</p>
+</dd>
+<dt>Scripting functions</dt><dd><p>Functions such as AddSpecifier() and PopSpecifier()</p>
+</dd>
+<dt>Flatenning functions</dt><dd><p>The data in a BMessage can be flattened into an untyped stream of bytes. See
+Flatten()</p>
+</dd>
+</dl>
+</section>
+<section id="bmessage-ownership">
+<h1>BMessage Ownership<a class="headerlink" href="#bmessage-ownership" title="Permalink to this heading">¶</a></h1>
+<p>The documentation for the functions that accept or pass back a BMessage object
+should tell you who’s responsible for deleting the object. Most functions that
+accept a BMessage argument copy the object, leaving the called with the
+responsibility for deleting the argument. The exceptions i.e. BMessage-accepting
+functions that take over ownership of the object are listed below:</p>
+<p>Functions that return a BMessage to you usually don’t give up ownership; in
+general, you don’t delete the BMessages that are passed to you. The exceptions,
+functions that expect the caller to take over ownership of a passed-back
+BMessage are listed below:</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

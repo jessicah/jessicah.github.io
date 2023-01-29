@@ -1,0 +1,76 @@
+.cpp-enum {
+	color: blue;
+}
+
+.cpp-class {
+	color: #dc3c01;
+}
+
+.cm {
+	color: green;
+}
+
+.no-background {
+	background: inherit;
+}
+
+.key {
+	border: 1px solid #c7c7c7;
+	border-radius: 3px;
+	padding: 0 2px;
+	background-color: #e8e8e8;
+	font-family: serif;
+	font-variant: small-caps;
+}
+
+.hclass {
+	color: #006400;
+	font-weight: bold;
+	font-family: monospace;
+	font-size: 120%;
+}
+
+.hmethod {
+	color: purple;
+	font-weight: bold;
+	font-family: monospace;
+	font-size: 120%;
+}
+
+.hparameter {
+	color: #991122;
+	font-weight: bold;
+	font-family: monospace;
+	font-size: 120%;
+}
+
+.hfield {
+	color: #000080;
+	font-weight: bold;
+	font-family: monospace;
+	font-size: 120%;
+}
+
+div.wrapper {
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+div.highlight {
+	margin-left: 30px;
+	margin-right: 30px;
+	background: #efefef;
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+	color: #336699;
+}
+
+h1 {
+	font-size: 1.4em
+}
+
+h2 {
+	font-size: 1.3em
+}

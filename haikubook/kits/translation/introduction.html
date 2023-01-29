@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The Application Kit" href="overview.html" />
+    <link rel="prev" title="The Application Kit" href="../support/overview.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Introduction</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../support/overview.html">The Application Kit</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="overview.html">The Application Kit</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
+<p>The Translation Kit provides a framework for converting data streams between different media
+formats. A word processor, for example, could use the Translation Kit to import and export documents
+in a variety of formats, including HTML, PostScript, and plain ASCII, while working in its own
+native format.</p>
+<p>The translation itself is performed by translator add-ons (or, less globally,
+<a class="reference internal" href="../application/BTranslator.html#_CPPv411BTranslator" title="BTranslator"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTranslator</span></code></a> objects). You can create your own translator add-ons and
+<a class="reference internal" href="../application/BTranslator.html#_CPPv411BTranslator" title="BTranslator"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTranslator</span></code></a> subclasses, or you can use the translators that are supplied by Haiku and
+third parties.</p>
+<p>The Translation Kit operates on <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPositionIO</span></code> objects and their descendants. Since
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BFile</span></code> derives from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPositionIO</span></code>, the Translation Kit is naturally suited
+for importing and exporting files. However, it’s far more general; the Translation Kit could be
+used, for example, to translate input directly to or from a network connection, provided a suitable
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPositionIO</span></code> subclass was available. More importantly, <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMemoryIO</span></code> and
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMallocIO</span></code> can be used to load data directly into or out of memory.</p>
+<p>Applications primarily interact with the Translation Kit through the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTranslatorRoster</span></code>
+class. This class encapsulates the functionality required to load and unload translators, discover
+their capabilities, configure the translators, and execute the translators.</p>
+<p>Applications may also use the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTranslationUtils</span></code> class, a collection of static utility
+functions designed to simplify access to the Translation Kit. Currently the class only defines
+members for loading bitmap images from files, resources, and general <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPositionIO</span></code> data
+streams.</p>
+</section>
+<hr class="docutils" />
+<section id="media-formats">
+<h1>Media Formats<a class="headerlink" href="#media-formats" title="Permalink to this heading">¶</a></h1>
+<p>The Translation Kit identifies a particular media format by a media group and format type. Media
+groups identify the class of media represented by a format. Defintions for the common media groups
+can be found i <code class="docutils literal notranslate"><span class="pre">translation/TranslatorFormats.h</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Media Group</p></th>
+<th class="head"><p>Constant</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Bitmap</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TRANSLATOR_BITMAP</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BPicture</span></code> data</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TRANSLATOR_PICTURE</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Text</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TRANSLATOR_TEXT</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Sound</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TRANSLATOR_SOUND</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Standard MIDI</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TRANSLATOR_MIDI</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Streaming media</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TRANSLATOR_MEDIA</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>nothing</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TRANSLATOR_NONE</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>A format type is a type constant identifying the specific data format, i.e. tiff, aiff, mpeg. The
+standard type constants can be found in <code class="docutils literal notranslate"><span class="pre">support/TypeConstants.h</span></code>.</p>
+<p>It is often convenient to define a baseline format to which all translators of a given media group
+adhere. An application that understands the baseline format could then use all the translators for
+that group. This also simplifies the job of the translator, which minimally needs only to translate
+between the baseline and the new formats. Well-behaved translators will always be able to translate
+to and from the default media format (if one exists for its media group).</p>
+<p>The Translation Kit defines a default media format for each existing media group. They are explained
+at length in the section <span class="xref myst">“Default Media Formats”</span>. The format type constant for each default
+format is the same as the media group constant; for example, the format type for the default bitmap
+format is <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TRANSLATOR_BITMAP</span></code>.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../support/overview.html">The Application Kit</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="overview.html">The Application Kit</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

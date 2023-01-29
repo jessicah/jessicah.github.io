@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Messaging &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Messaging</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="messaging">
+<h1>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h1>
+<p>The Application Kit provides a message-passing system that lets your application
+send messages to and receives messages from other applications (including the
+Be-defined servers and apps), and from other threads in your own application.</p>
+<p>The primary messaging classes are:</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a></dt><dd><p>Represents a message.</p>
+</dd>
+<dt><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BHandler</span></code></dt><dd><p>Defines hook functions that are called to handle incoming messages</p>
+</dd>
+<dt><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code></dt><dd><p>Runs a loop that receives incoming messages and figures out which BHandler
+should handle them.</p>
+</dd>
+<dt><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessenger</span></code></dt><dd><p>Represents a message’s destination (a combination of BLooper and BHandler),
+whether it’s local or remote. The object is most useful for sending messages
+to other applications–you don’t need it for local calls.</p>
+</dd>
+</dl>
+<p>The other messaging classes are:</p>
+<dl class="simple">
+<dt><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessageQueue</span></code></dt><dd><p>Is a FIFO that holds a BLooper’s incoming messages.</p>
+</dd>
+<dt><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessageFilter</span></code></dt><dd><p>Is a device that can examine and (potentially) reject or re-route incoming
+messages.</p>
+</dd>
+<dt><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BInvoker</span></code></dt><dd><p>Is a convenience class that lets you treat a message and its target (the
+BHandler that will handle the message) as a single object.</p>
+</dd>
+<dt><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessageRunner</span></code></dt><dd><p>Lets you send the same message over and over, at regular intervals.</p>
+</dd>
+</dl>
+<p>The rest of this chapter looks at…</p>
+<ul class="simple">
+<li><p>The essential features of the four fundamental classes. (“Features of the
+fundamental Classes”)</p></li>
+<li><p>How a BLooper decides which BHandler should handle an incoming message. (“From
+Looper to Handler”)</p></li>
+<li><p>The different methods for sending messages and receiving replies. (“Sending a Message”)</p></li>
+</ul>
+<p>and describes how the classes fit together in the messaging system with an
+emphasis on what you can do in your application to take part.</p>
+</section>
+<section id="features-of-the-fundamental-classes">
+<h1>Features of the Fundamental Classes<a class="headerlink" href="#features-of-the-fundamental-classes" title="Permalink to this heading">¶</a></h1>
+<p>Looked at collectively, the four fundamental messaging classes comprise a huge
+chunk of API. Fortunately, the essential part of this API is pretty small;
+that’s what we’re going to look at here.</p>
+<section id="the-bmessage-class">
+<h2>The BMessage Class<a class="headerlink" href="#the-bmessage-class" title="Permalink to this heading">¶</a></h2>
+<p>In the BMessage class, there’s one essential data member, and two essential
+functions:</p>
+<p>The what data member is an arbitrary uint32 value that describes
+(symbolically) what the message is about. You can set and exame what
+directly–you don’t have to use functions to get to it. The what value is called
+the object’s command constant. The BeOS defines some number of command constants
+(such as <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_QUIT_REQUESTED</span></code>, and <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MOUSE_DOWN</span></code>), but you’ll also be creating
+constants of your own. Keep in mind that the constant’s value is
+meaningless–it’s just a code that identifies the “intent” of the message (and
+it’s only meaningful if the receiver recognizes the constant).</p>
+<p>The two essential functions are <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../../kits/application/message/detail.html#_CPPv47AddDataPKc9type_codePKv7ssize_tb5int32" title="AddData"><span class="n">AddData</span></a><span class="p">(</span><span class="p">)</span></span> and <span class="cpp-expr sig sig-inline cpp"><span class="n">FindData</span><span class="p">(</span><span class="p">)</span></span>. These functions add
+data to a message you’re about to send, and retrieve it from a message you just
+received. A <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> can hold any amount of data; each data item (or “field”) is
+identified by name, type, and index. For example, you can ask a message for the
+third boolean value named “IsEnabled” that it contains. In general, you use
+type-specific functions such as <span class="cpp-expr sig sig-inline cpp"><span class="n">Add</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">FindString</span><span class="p">(</span><span class="p">)</span></span> and <span class="cpp-expr sig sig-inline cpp"><span class="n">Add</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">FindInt32</span><span class="p">(</span><span class="p">)</span></span> rather than
+<span class="cpp-expr sig sig-inline cpp"><span class="n">Add</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">FindData</span><span class="p">(</span><span class="p">)</span></span>. The query we just posed would actually look like this::
+/* The args are: name, index, value (returned by
+reference) <a href="#id1"><span class="problematic" id="id2">*</span></a>/
+bool returnValue;
+aMessage.FindBool(“IsEnabled”, 2, &amp;returnValue);</p>
+<p>In summary, a <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> contains (1) a command constant and (2) a set of data
+fields. Every <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> that’s used in the messaging system must have a command
+constant, but not every object needs to have data fields. (Other parts of the
+BeOS use <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> s for their data only. The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BClipboard</span></code> object, for example,
+ignores a <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>’s command constant.)</p>
+<p>Note: When discussing system-generated <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> objects, we refer to the object
+by its command constant. For example, “a <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MOUSE_DOWN</span></code>” means “a <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> that
+has <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MOUSE_DOWN</span></code> as its command constant”.</p>
+<p>Notice that a <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> doesn’t know how to send itself. However, as we’ll see
+later, it does know how to reply to its sender once it’s in the hands of the
+recipient.</p>
+</section>
+</section>
+<section id="the-blooper-class">
+<h1>The BLooper Class<a class="headerlink" href="#the-blooper-class" title="Permalink to this heading">¶</a></h1>
+<p>BLooper’s role is to receive messages and figure out what to do with them. There
+are four parts to this job, embodied in these functions:</p>
+<p>And a link to <a class="reference internal" href="../../kits/application/message/detail.html#_CPPv4N8BMessage7AddBoolEPKcb" title="BMessage::AddBool"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddBool()</span></code></a>.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

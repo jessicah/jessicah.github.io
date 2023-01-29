@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Introduction</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
+<p>The Application Kit is the starting point for all applications. Its classes establish an application
+as an identifiable entity, one that can cooperate and communicate with other applications.</p>
+<p>The Application Kit is divided into these topics:</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BApplication</span></code>.
+All but the simplest of applications must have one (and only one) <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BApplication</span></code>
+object. This object is typically an instance of a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BApplication</span></code> subclass that you
+create especially for your application. The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BApplication</span></code> object makes a connection
+to the App Server and runs the application’s main message loop.</p>
+<p><a class="reference internal" href="messaging.html"><span class="doc std std-doc">Messaging</span></a>.
+The kit provides a messaging service that lets threads talk to each other. This service can
+deliver messages within your own application, or from one application to another. It’s also used
+by the system to deliver user event messages (key clicks, mouse moves) to your application. Most
+of the Application Kit’s classes are involved in the messaging system.</p>
+<p><a class="reference internal" href="scripting.html"><span class="doc std std-doc">Scripting</span></a>.
+The objects that you create can be controlled by commands issued from other applications.</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRoster</span></code>.
+The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRoster</span></code> object keeps track of all running applications. It can identify
+applications, launch them, and provide the information needed to set up communications with
+them.</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BClipboard</span></code>.
+The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BClipboard</span></code> object provides an interface to the clipboard where cut and copied
+data can be stored, and from which it can be pasted.</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BCursor</span></code>.
+You use <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BCursor</span></code> objects to represent distinct cursors. Functions defined by
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BApplication</span></code> and <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> let you assign your cursors to your entire
+application, or to individual views.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

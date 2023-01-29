@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BDragger &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BDragger</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bdragger">
+<h1>BDragger<a class="headerlink" href="#bdragger" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code> is a view that lets users drag and drop some other view. The other view is
+the target of the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code> and its immediate relative—a sibling, a parent, or an only
+child. The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code> draws a handle, usually at the corner of the target view, that the
+user can grab. When the user drags the handle the target view appears to move with the handle.</p>
+<p>When dragged in this way, the target view itself doesn’t actually move. Instead, the view is
+archived in a <a class="reference internal" href="../../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> object and the <a class="reference internal" href="../../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> is dragged. When the
+<a class="reference internal" href="../../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> is dropped, the target <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> can be reconstructed from the
+archive (along with the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code>). The new object is a duplicate—a replicant—of the
+target view.</p>
+<p>This class works closely with the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> class. A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShelf</span></code> object accepts
+dragged <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code>s, reconstructs them from their archives, and installs them in another
+view hierarchy.</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code>s are under the control of DeskBar’s “Show Replicants” / “Hide Replicants” menu
+item. Showing replicants means that the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDragger</span></code> handlers are visible on-screen; hiding
+replicants means that the handles are hidden.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BBlockCache &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BDataIO" href="data-io.html" />
+    <link rel="prev" title="BAutolock" href="autolock.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BBlockCache</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="autolock.html">BAutolock</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="data-io.html">BDataIO</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bblockcache">
+<h1>BBlockCache<a class="headerlink" href="#bblockcache" title="Permalink to this heading">¶</a></h1>
+<section id="constructor-and-destructor">
+<h2>Constructor and Destructor<a class="headerlink" href="#constructor-and-destructor" title="Permalink to this heading">¶</a></h2>
+<h3 id="_CPPv4N11BBlockCache11BBlockCacheE6size_t6size_t6uint32">
+<span id="_CPPv3N11BBlockCache11BBlockCacheE6size_t6size_t6uint32"></span><span id="_CPPv2N11BBlockCache11BBlockCacheE6size_t6size_t6uint32"></span><span id="BBlockCache::BBlockCache__s.s.uint32"></span>BBlockCache()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N11BBlockCache11BBlockCacheE6size_t6size_t6uint32" title="BBlockCache::BBlockCache"><span class="n">BBlockCache</span></a><span class="p">::</span></span><span class="n">BBlockCache</span><span class="sig-paren">(</span><span class="n">size_t</span><span class="w"> </span><span class="n sig-param">count</span>, <span class="n">size_t</span><span class="w"> </span><span class="n sig-param">size</span>, <span class="n">uint32</span><span class="w"> </span><span class="n sig-param">type</span><span class="sig-paren">)</span></pre><p>Creates a new memory block pool, allocating memory for <span class="hparameter">count</span> blocks, each controlling <span class="hparameter">size</span> bytes of memory. <span class="hparameter">type</span> is either:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Constant</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OBJECT_CACHE</span></code></p></td>
+<td><p>Memory is managed through <span class="cpp-expr sig sig-inline cpp">new</span> and {cpp:expr}`delete.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_MALLOC_CACHE</span></code></p></td>
+<td><p>Memory is managed through <span class="cpp-expr sig sig-inline cpp"><span class="n">malloc</span><span class="p">(</span><span class="p">)</span></span> and <span class="cpp-expr sig sig-inline cpp"><span class="n">free</span><span class="p">(</span><span class="p">)</span></span>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="_CPPv4N11BBlockCacheD0Ev">
+<span id="_CPPv3N11BBlockCacheD0Ev"></span><span id="_CPPv2N11BBlockCacheD0Ev"></span><span id="BBlockCache::~BBlockCache"></span>~BBlockCache()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="sig-prename descclassname"><span class="n">BBlockCache</span><span class="p">::</span></span><span class="n">~BBlockCache</span><span class="sig-paren">(</span><span class="sig-paren">)</span></pre><p>Frees any unused memory in the object’s block pool. Memory that was retrieved through <span class="hmethod">Get()</span> (and that hasn’t been returned through <span class="hmethod">Save()</span>) is not deallocated.</p>
+</div>
+
+</section>
+<section id="member-functions">
+<h2>Member Functions<a class="headerlink" href="#member-functions" title="Permalink to this heading">¶</a></h2>
+<h3 id="_CPPv4N11BBlockCache3GetE6size_t">
+<span id="_CPPv3N11BBlockCache3GetE6size_t"></span><span id="_CPPv2N11BBlockCache3GetE6size_t"></span><span id="BBlockCache::Get__s"></span>Get()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="kt">void</span><span class="w"> </span><span class="p">*</span><span class="sig-prename descclassname"><span class="n">BBlockCache</span><span class="p">::</span></span><span class="n">Get</span><span class="sig-paren">(</span><span class="n">size_t</span><span class="w"> </span><span class="n sig-param">size</span><span class="sig-paren">)</span></pre><p>Retrieves a block of memory of the given <span class="hparameter">size</span> and returns it directly. If <span class="hparameter">size</span> is the same as the <span class="hparameter">size</span> argument you passed to the constructor, the memory returned will be taken from the object’s cache. Otherwise, it’s allocated using either <span class="cpp-expr sig sig-inline cpp">new</span> or <span class="cpp-expr sig sig-inline cpp"><span class="n">malloc</span><span class="p">(</span><span class="p">)</span></span> as requested in the constructor. When you’re don{e with the memory, you can either deallocate it yourself, or return it to the <span class="hclass">BBlockCache</span> object by calling <span class="hmethod">Save()</span>.</p>
+</div>
+
+<h3 id="_CPPv4N11BBlockCache4SaveEPv6size_t">
+<span id="_CPPv3N11BBlockCache4SaveEPv6size_t"></span><span id="_CPPv2N11BBlockCache4SaveEPv6size_t"></span><span id="BBlockCache::Save__voidP.s"></span>Save()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="kt">void</span><span class="w"> </span><span class="sig-prename descclassname"><span class="n">BBlockCache</span><span class="p">::</span></span><span class="n">Save</span><span class="sig-paren">(</span><span class="kt">void</span><span class="w"> </span><span class="p">*</span><span class="n sig-param">pointer</span>, <span class="n">size_t</span><span class="w"> </span><span class="n sig-param">size</span><span class="sig-paren">)</span><span class="p">;</span></pre><p>Returns, to the <span class="hclass">BBlockCache</span> object, <span class="hparameter">size</span> bytes of memory pointed to by <span class="hparameter">pointer</span>. If the memory was taken from the object’s pool, the memory is returned to the pool. Otherwise, it’s deallocated. In either case, the caller is freed of responsibility for deallocating the memory.</p>
+</div>
+
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="autolock.html">BAutolock</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="data-io.html">BDataIO</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

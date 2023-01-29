@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Areas &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Areas</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="areas">
+<h1>Areas<a class="headerlink" href="#areas" title="Permalink to this heading">¶</a></h1>
+<p>An area is a chunk of virtual memory. As such, it has all the expected properties of virtual memory:
+It has a starting address, a size, addresses it comprises are contiguous, and it maps to (possibly
+non-contiguous) physical memory. The features that an area provides that you don’t get with
+“standard” memory are these:</p>
+<dl class="simple myst">
+<dt>Areas can be shared.</dt><dd><p>Different areas can refer to the same physical memory. Put another way, different virtual memory
+addresses can map to the same physical locations. Furthermore, the different areas needn’t belong to
+the same application. By creating and “cloning” areas, applications can easily share the same data.</p>
+</dd>
+<dt>Areas can be locked into RAM.</dt><dd><p>You can specify that the area’s physical memory be locked into RAM when it’s created, locked on a
+page-by-page basis as pages are swapped in, or that it be swapped in and out as needed.</p>
+</dd>
+<dt>Areas can be read- and write-protected.</dt><dd><p>Areas are page-aligned. Areas always start on a page boundary, and are allocated in integer
+multiples of the size of a page. (A page is 4096 bytes, as represented by the
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_PAGE_SIZE</span></code> constant.)</p>
+</dd>
+<dt>You can specify the starting address of the area’s virtual memory.</dt><dd><p>The specification can require that the area start precisely at a certain address, anywhere above a
+certain address, or anywhere at all.</p>
+</dd>
+</dl>
+<p>Because areas are large—one page, minimum—you don’t create them arbitrarily. The two most compelling
+reasons to create an area are the two first points listed above: To share data among different
+applications, and to lock memory into RAM.</p>
+<p>In all particulars (but one) you treat the memory that an area gives you exactly as you would treat
+any allocated memory: You can read and write it through pointer manipulation, or through standard
+functions such as <code class="docutils literal notranslate"><span class="pre">memcpy()</span></code> and <code class="docutils literal notranslate"><span class="pre">strcpy()</span></code>. The one difference is between areas and malloc’d memory
+is…</p>
+<ul class="simple">
+<li><p>You never <code class="docutils literal notranslate"><span class="pre">free()</span></code> the memory that an area allocates for you. If you want to get rid of an area,
+use the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">delete_area()</span></code> function, instead.</p></li>
+</ul>
+<section id="area-ids-and-area-names">
+<h2>Area IDs and Area Names<a class="headerlink" href="#area-ids-and-area-names" title="Permalink to this heading">¶</a></h2>
+<p>Each area that you create is tagged with an <code class="docutils literal notranslate"><span class="pre">area_id</span></code> number:</p>
+<ul class="simple">
+<li><p>An <code class="docutils literal notranslate"><span class="pre">area_id</span></code> number is a positive integer that’s global and unique within the scope of the
+computer. They’re not unique across the network, nor are they persistent across boots.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">area_id</span></code> numbers are generated and assigned automatically by the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">create_area()</span></code>
+and <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">clone_area()</span></code> functions. The other area functions operate on these <code class="docutils literal notranslate"><span class="pre">area_id</span></code>
+numbers (they’re required as arguments).</p></li>
+<li><p>Although they are global, <code class="docutils literal notranslate"><span class="pre">area_id</span></code> numbers have little meaning outside of the address space
+(application) in which they were created.</p></li>
+<li><p>Once assigned, the <code class="docutils literal notranslate"><span class="pre">area_id</span></code> number doesn’t change; the number is invalidated when
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">delete_area()</span></code> is called or when the application (team) that created it dies.</p></li>
+<li><p>Don’t worry about recycled <code class="docutils literal notranslate"><span class="pre">area_id</span></code> numbers. When an area is deleted, its <code class="docutils literal notranslate"><span class="pre">area_id</span></code> goes with it.
+(<code class="docutils literal notranslate"><span class="pre">area_id</span></code> values are recycled, but the turnover is at 2^31.)</p></li>
+</ul>
+<p>Areas can also be (loosely) identified by name:</p>
+<ul class="simple">
+<li><p>When you create an area (through <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">create_area()</span></code> or <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">clone_area()</span></code>), you get
+to name it.</p></li>
+<li><p>Area names are not unique—any number of areas can be assigned the same name.</p></li>
+<li><p>To look up an area by name, use the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">find_area()</span></code> function.</p></li>
+</ul>
+</section>
+<section id="sharing-an-area-between-applications">
+<h2>Sharing an Area Between Applications<a class="headerlink" href="#sharing-an-area-between-applications" title="Permalink to this heading">¶</a></h2>
+<p>For multiple applications to share a common area, one of the applications has to create the area,
+and the other applications clone the area. You clone an area by calling <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">clone_area()</span></code>.
+The function takes, as its last argument, the <code class="docutils literal notranslate"><span class="pre">area_id</span></code> of the source area and returns a new
+(unique) <code class="docutils literal notranslate"><span class="pre">area_id</span></code> number. All further references to the cloned area (in the cloning application)
+must be based on the <code class="docutils literal notranslate"><span class="pre">area_id</span></code> that’s returned by <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">clone_area()</span></code>.</p>
+<p>So how does a cloner find a source <code class="docutils literal notranslate"><span class="pre">area_id</span></code> in the first place?</p>
+<ul class="simple">
+<li><p>The source application can pass the “original” <code class="docutils literal notranslate"><span class="pre">area_id</span></code> number to the cloners.</p></li>
+<li><p>The cloners can find the area by name, by calling <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">find_area()</span></code>.</p></li>
+</ul>
+<p>Keep in mind that area names are not forced to be unique, so the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">find_area()</span></code> method has
+some amount of uncertainty. But this can be minimized through clever name creation.</p>
+<section id="cloned-memory">
+<h3>Cloned Memory<a class="headerlink" href="#cloned-memory" title="Permalink to this heading">¶</a></h3>
+<p>The physical memory that lies beneath an area is never implicitly copied—for example, the area
+mechanism doesn’t perform a “copy-on-write.” If two areas refer to the same memory because of
+cloning, a data modification that’s affected through one area will be seen by the other area.</p>
+</section>
+</section>
+<section id="locking-an-area">
+<h2>Locking An Area<a class="headerlink" href="#locking-an-area" title="Permalink to this heading">¶</a></h2>
+<p>When you’re working with moderately large amounts of data, it’s often the case that you would prefer
+that the data remain in RAM, even if the rest of your application needs to be swapped out. An
+argument to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">create_area()</span></code> lets you declare, through the use of one of the following
+constants, the locking scheme that you wish to apply to your area:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Constant</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_FULL_LOCK</span></code></p></td>
+<td><p>The area’s memory is locked into RAM when the area is created, and won’t be swapped out.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CONTIGUOUS</span></code></p></td>
+<td><p>Not only is the area’s memory locked into RAM, it’s also guaranteed to be contiguous. This is
+particulary—and perhaps exclusively—useful to designers of certain types of device drivers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_LAZY_LOCK</span></code></p></td>
+<td><p>Allows individual pages of memory to be brought into RAM through the natural order of things
+and then locks them.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_NO_LOCK</span></code></p></td>
+<td><p>Pages are never locked, they’re swapped in and out as needed.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_LOMEM</span></code></p></td>
+<td><p>This is a special constant that’s used for areas that need to be locked, contiguous, and that
+fit within the first 16MB of physical memory. The folks that need this constant know who they are.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Keep in mind that locking an area essentially reduces the amount of RAM that can be used by other
+applications, and so increases the likelihood of swapping. So you shouldn’t lock simply because
+you’re greedy. But if the area that you’re locking is going to be shared among some number of other
+applications, or if you’re writing a real-time application that processes large chunks of data, then
+locking can be a justifiable excess.</p>
+<p>The locking scheme is set by the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">create_area()</span></code> function and is thereafter immutable. You
+can’t re-declare the lock when you clone an area.</p>
+</section>
+<section id="area-info">
+<h2>Area Info<a class="headerlink" href="#area-info" title="Permalink to this heading">¶</a></h2>
+<p>Ultimately, you use an area for the virtual memory that it represents: You create an area because
+you want some memory to which you can write and from which you can read data. These acts are
+performed in the usual manner, through references to specific addresses. Setting a pointer to a
+location within the area, and checking that you haven’t exceeded the area’s memory bounds as you
+increment the pointer (while reading or writing) are your own responsibility. To do this properly,
+you need to know the area’s starting address and its extent:</p>
+<ul class="simple">
+<li><p>An area’s starting address is maintained as the <code class="docutils literal notranslate"><span class="pre">address</span></code> field in its <code class="docutils literal notranslate"><span class="pre">area_info</span></code> structure; you
+retrieve the <code class="docutils literal notranslate"><span class="pre">area_info</span></code> for a particular area through the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_area_info()</span></code> function.</p></li>
+<li><p>The size of the area (in bytes) is given as the <code class="docutils literal notranslate"><span class="pre">size</span></code> field of its <code class="docutils literal notranslate"><span class="pre">area_info</span></code> structure.</p></li>
+</ul>
+<p>An important point, with regard to <code class="docutils literal notranslate"><span class="pre">area_info</span></code>, is that the <code class="docutils literal notranslate"><span class="pre">address</span></code> field is only valid for the
+application that created or cloned the area (in other words, the application that created the
+<code class="docutils literal notranslate"><span class="pre">area_id</span></code> that was passed to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_area_info()</span></code>). Although the memory that underlies an
+area is global, the <code class="docutils literal notranslate"><span class="pre">address</span></code> that you get from an <code class="docutils literal notranslate"><span class="pre">area_info</span></code> structure refers to a specific
+address space.</p>
+<p>If there’s any question about whether a particular <code class="docutils literal notranslate"><span class="pre">area_id</span></code> is “local” or “foreign,” you can
+compare the <code class="docutils literal notranslate"><span class="pre">area_info.team</span></code> field to your thread’s team.</p>
+</section>
+<section id="deleting-an-area">
+<h2>Deleting an Area<a class="headerlink" href="#deleting-an-area" title="Permalink to this heading">¶</a></h2>
+<p>When your application quits, the areas (the <code class="docutils literal notranslate"><span class="pre">area_id</span></code> numbers) that it created through
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">create_area()</span></code> or <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">clone_area()</span></code> are automatically rendered invalid. The memory
+underlying these areas, however, isn’t necessarily freed. An area’s memory is freed only when (and
+as soon as) there are no more areas that refer to it.</p>
+<p>You can force the invalidation of an <code class="docutils literal notranslate"><span class="pre">area_id</span></code> by passing it to the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">delete_area()</span></code>
+function. Again, the underlying memory is only freed if yours is the last area to refer to the
+memory.</p>
+<p>Deleting an area, whether explicitly through <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">delete_area()</span></code>, or because your application
+quit, never affects the status of other areas that were cloned from it.</p>
+</section>
+<section id="area-examples">
+<h2>Area Examples<a class="headerlink" href="#area-examples" title="Permalink to this heading">¶</a></h2>
+<section id="example-1-creating-and-writing-into-an-area">
+<h3>Example 1: Creating and Writing into an Area<a class="headerlink" href="#example-1-creating-and-writing-into-an-area" title="Permalink to this heading">¶</a></h3>
+<p>As a simple example of area creation and usage, here we create a ten page area and fill half of it
+(with nonsense) by bumping a pointer:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">area_id</span><span class="w"> </span><span class="n">my_area</span><span class="p">;</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">area_addr</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="cm">/* Create an area. */</span><span class="w"></span>
+<span class="n">my_area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_area</span><span class="p">(</span><span class="s">&quot;my area&quot;</span><span class="p">,</span><span class="w"> </span><span class="cm">/* name you give to the area */</span><span class="w"></span>
+<span class="w">      </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">area_addr</span><span class="p">,</span><span class="w"> </span><span class="cm">/* returns the starting addr */</span><span class="w"></span>
+<span class="w">      </span><span class="n">B_ANY_ADDRESS</span><span class="p">,</span><span class="w"> </span><span class="cm">/* area can start anywhere */</span><span class="w"></span>
+<span class="w">      </span><span class="n">B_PAGE_SIZE</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="cm">/* size in bytes */</span><span class="w"></span>
+<span class="w">      </span><span class="n">B_NO_LOCK</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Lock in RAM? No. */</span><span class="w"></span>
+<span class="w">      </span><span class="n">B_READ_AREA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">B_WRITE_AREA</span><span class="p">);</span><span class="w"> </span><span class="cm">/* permissions */</span><span class="w"></span>
+
+<span class="cm">/* check for errors */</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">my_area</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Something bad happenedn&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cm">/* Set ptr to the beginning of the area. */</span><span class="w"></span>
+<span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">area_addr</span><span class="p">;</span><span class="w"></span>
+
+<span class="cm">/* Fill half the area (with random-ish data). */</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_PAGE_SIZE</span><span class="o">*</span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="o">*</span><span class="n">ptr</span><span class="o">++</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">system_time</span><span class="p">()</span><span class="o">%</span><span class="mi">256</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>You can also <code class="docutils literal notranslate"><span class="pre">memcpy()</span></code> and <code class="docutils literal notranslate"><span class="pre">strcpy()</span></code> into the area:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Copy the first half of the area into the second half. */</span><span class="w"></span>
+<span class="n">memcpy</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">area_addr</span><span class="p">,</span><span class="w"> </span><span class="n">B_PAGE_SIZE</span><span class="o">*</span><span class="mi">5</span><span class="p">);</span><span class="w"></span>
+
+<span class="cm">/* Overwrite the beginning of the area. */</span><span class="w"></span>
+<span class="n">strcpy</span><span class="p">(</span><span class="n">area_addr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hey, look where I am.&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>When we’re all done, we delete the area:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">delete_area</span><span class="p">(</span><span class="n">my_area</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="example-2-reading-a-file-into-an-area">
+<h3>Example 2: Reading a File into an Area<a class="headerlink" href="#example-2-reading-a-file-into-an-area" title="Permalink to this heading">¶</a></h3>
+<p>Here’s a function that finds a file, opens it (implicit in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BFile</span></code> constructor), and
+copies its contents into RAM:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;File.h&gt;</span><span class="cp"></span>
+
+<span class="n">area_id</span><span class="w"> </span><span class="n">file_area</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">status_t</span><span class="w"> </span><span class="nf">file_reader</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">status_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">area_addr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">BFile</span><span class="w"> </span><span class="n">file</span><span class="p">(</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="n">B_READ_ONLY</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">err</span><span class="o">=</span><span class="n">file</span><span class="p">.</span><span class="n">InitCheck</span><span class="p">())</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s: Can&#39;t find or open.n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pathname</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">GetSize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_size</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">B_OK</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">file_size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s: Disappeared? Empty?n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pathname</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Round the size up to the nearest page. */</span><span class="w"></span>
+<span class="w">   </span><span class="n">file_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(((</span><span class="n">file_size</span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">B_PAGE_SIZE</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">B_PAGE_SIZE</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Make sure the size won&#39;t overflow a size_t spec. */</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">file_size</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">32</span><span class="p">)</span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s: What&#39;d you do? Read Montana?n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">B_NO_MEMORY</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">file_area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_area</span><span class="p">(</span><span class="s">&quot;File area&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">area_addr</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="n">B_ANY_ADDRESS</span><span class="p">,</span><span class="w"> </span><span class="n">file_size</span><span class="p">,</span><span class="w"> </span><span class="n">B_FULL_LOCK</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="n">B_READ_AREA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">B_WRITE_AREA</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Check create_area() errors, as in the last example. */</span><span class="w"></span>
+<span class="w">   </span><span class="p">...</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Read the file; delete the area if there&#39;s an error. */</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">err</span><span class="o">=</span><span class="n">file</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">area_addr</span><span class="p">,</span><span class="w"> </span><span class="n">file_size</span><span class="p">))</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s: File read error.n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">delete_area</span><span class="p">(</span><span class="n">file_area</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* The file is automatically closed when the stack-based</span>
+<span class="cm">   * BFile is destroyed.</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">B_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="example-3-accessing-a-designated-area">
+<h3>Example 3: Accessing a Designated Area<a class="headerlink" href="#example-3-accessing-a-designated-area" title="Permalink to this heading">¶</a></h3>
+<p>In the previous example, a local variable (<code class="docutils literal notranslate"><span class="pre">area_addr</span></code>) was used to capture the starting address of
+the newly-created area. If some other function wants to access the area, it must “re-find” the
+starting address (and the length of the area, for boundary checking). To do this, you call
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_area_info()</span></code>.</p>
+<p>In the following example, an area is passed in by name; the function, which will write its argument
+buffer to the area, calls <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_area_info()</span></code> to determine the start and extent of the area,
+and also to make sure that the area is part of this team. If the area was created by some other
+team, the function could still write to it, but it would have to clone the area first (cloning is
+demonstrated in the next example).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">write_to_area</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">area_name</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">area_id</span><span class="w"> </span><span class="n">area</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">area_info</span><span class="w"> </span><span class="n">ai</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">thread_id</span><span class="w"> </span><span class="kr">thread</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">thread_info</span><span class="w"> </span><span class="n">ti</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">status_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">area_name</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">B_BAD_VALUE</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_area</span><span class="p">(</span><span class="n">area_name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Did we find it? */</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">area</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t find area %s.n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">area_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Get the info. */</span><span class="w"></span>
+<span class="w">   </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_area_info</span><span class="p">(</span><span class="n">area</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ai</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t get area info.n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Get the team of the calling thread; to do this, we have</span>
+<span class="cm">   * to look in the thread_info structure.</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">   </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_thread_info</span><span class="p">(</span><span class="n">find_thread</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ti</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t get thread info.n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Compare this team to the area&#39;s team. */</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ai</span><span class="p">.</span><span class="n">team</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ti</span><span class="p">.</span><span class="n">team</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Foreign area.n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">B_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Make sure we&#39;re not going to overflow the area,</span>
+<span class="cm">   * and make sure this area can be written to.</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ai</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Buffer bigger than area.n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">B_BAD_VALUE</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ai</span><span class="p">.</span><span class="n">protection</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">B_WRITE_AREA</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Can&#39;t write to this area.n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">B_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* Now we can write. */</span><span class="w"></span>
+<span class="w">   </span><span class="n">memcpy</span><span class="p">(</span><span class="n">ai</span><span class="p">.</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">B_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>It’s important that you only write to areas that were created or cloned within the calling team. The
+starting address of a “foreign” area is usually meaningless within your own address space.</p>
+<p>You don’t have to check the area’s protection before writing to it (or reading from it). The
+memory-accessing functions (<code class="docutils literal notranslate"><span class="pre">memcpy()</span></code>, in this example) will segfault if an invalid read or write
+is requested.</p>
+</section>
+<section id="example-4-cloning-and-sharing-an-area">
+<h3>Example 4: Cloning and Sharing an Area<a class="headerlink" href="#example-4-cloning-and-sharing-an-area" title="Permalink to this heading">¶</a></h3>
+<p>IN the following example, a server and a client are set up to share a common area. Here’s the
+server:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Server side */</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AServer</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">status_t</span><span class="w"> </span><span class="nf">make_shared_area</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">area_id</span><span class="w"> </span><span class="n">the_area</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">area_addr</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">status_t</span><span class="w"> </span><span class="nf">AServer::make_shared_area</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="cm">/* The size must be rounded to a page. */</span><span class="w"></span>
+<span class="w">   </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">size</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">B_PAGE_SIZE</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B_PAGE_SIZE</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">the_area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_area</span><span class="p">(</span><span class="s">&quot;server area&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">area_addr</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="n">B_ANY_ADDRESS</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">B_NO_LOCK</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="n">B_READ_AREA</span><span class="o">|</span><span class="n">B_WRITE_AREA</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">the_area</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create server arean&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">the_area</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">B_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>And here’s the client:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Client side */</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AClient</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">status_t</span><span class="w"> </span><span class="nf">make_shared_clone</span><span class="p">();</span><span class="w"></span>
+<span class="w">   </span><span class="n">area_id</span><span class="w"> </span><span class="n">the_area</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">area_addr</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">status_t</span><span class="w"> </span><span class="nf">AClient::make_shared_clone</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">area_id</span><span class="w"> </span><span class="n">src_area</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">src_area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_area</span><span class="p">(</span><span class="s">&quot;server area&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">src_area</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_ERROR</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t find server area.n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">src_area</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">the_area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clone_area</span><span class="p">(</span><span class="s">&quot;client area&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">area_addr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="n">B_ANY_ADDRESS</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="n">B_READ_AREA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">B_WRITE_AREA</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="n">src_area</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">the_area</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create clone arean&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">the_area</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">B_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Notice that the area creator (the server in the example) doesn’t have to designate the created area
+as sharable. All areas are candidates for cloning.</p>
+<p>After it creates the cloned area, the client’s <code class="docutils literal notranslate"><span class="pre">area_id</span></code> value (<code class="docutils literal notranslate"><span class="pre">AClient::the_area</span></code>) will be
+different from the server’s (<code class="docutils literal notranslate"><span class="pre">AServer::the_area</span></code>). Even though <code class="docutils literal notranslate"><span class="pre">area_id</span></code> numbers are global, the
+client should only refer to the server’s <code class="docutils literal notranslate"><span class="pre">area_id</span></code> number in order to clone it. After the clone, the
+client talks to the area through its own <code class="docutils literal notranslate"><span class="pre">area_id</span></code> (the value passed backed by
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">clone_area()</span></code>).</p>
+</section>
+<section id="example-5-cloning-addresses">
+<h3>Example 5: Cloning Addresses<a class="headerlink" href="#example-5-cloning-addresses" title="Permalink to this heading">¶</a></h3>
+<p>It’s sometimes useful for shared areas (in other words, a “source” and a clone) to begin at the same
+starting address. For example, if a client’s clone area starts at the same address as the server’s
+original area, then the client and server can pass area-accessing pointers back and forth without
+having to translate the addresses. Here we modify the previous example to do this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">status_t</span><span class="w"> </span><span class="nf">AClient::make_shared_clone</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">area_id</span><span class="w"> </span><span class="n">src_area</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">src_area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_area</span><span class="p">(</span><span class="s">&quot;server area&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">src_area</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_ERROR</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t find server area.n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">B_BAD_VALUE</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="cm">/* This time, we specify the address that we want the</span>
+<span class="cm">   * clone to start at. The B_CLONE_ADDRESS constant</span>
+<span class="cm">   * does this for us.</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">   </span><span class="n">area_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">src_info</span><span class="p">.</span><span class="n">address</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">the_area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clone_area</span><span class="p">(</span><span class="s">&quot;client area&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">area_addr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="n">B_CLONE_ADDRESS</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="n">B_READ_AREA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">B_WRITE_AREA</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="n">src_area</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">the_area</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create clone arean&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">the_area</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">B_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Of course, demanding that an area begin at a specific address can be too restrictive; if any of the
+memory within <code class="docutils literal notranslate"><span class="pre">[area_addr,</span> <span class="pre">area_addr</span> <span class="pre">+</span> <span class="pre">src_info.size]</span></code> is already allocated, the clone will fail.</p>
+</section>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

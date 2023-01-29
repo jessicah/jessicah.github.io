@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BTextControl &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BTextControl</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="btextcontrol">
+<h1>BTextControl<a class="headerlink" href="#btextcontrol" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code> object displays a labeled text field that behaves like other control
+devices. When the user presses certain keys after modifying the text in the field, it delivers a
+message to a designated target.</p>
+<p>There are two parts to the view: A static label on the left, which the user cannot modify, and an
+editable field on the right, which behaves just like a one-line <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code>. In fact, the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code> installs a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> object as its child to handle editing
+chores within this part of the view. It’s this child view that responds to keyboard events for the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code> rather than the control object itself.</p>
+<p>The child <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> must become the focus view for the window before the user can enter
+or edit text in the field. If the user modifies the contents of the field and then causes the child
+to cease being the focus view, the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code> delivers a message to its target, just
+like any other <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BControl</span></code> object when it’s invoked. The message notifies the target that
+the user has finished making changes to the text. (It doesn’t matter what causes the change in
+focus—a click in another text field, for example, or a <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_TAB</span></code> character that navigates
+to another view.)</p>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code> is also invoked when the user types a <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ENTER</span></code> character,
+though this doesn’t change the focus view. It selects all the text in the field.</p>
+<p>You can arrange for another message—a “modification message”—to be sent when the usesr makes the
+first change to the text after the child <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> has become the focus view (of after
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ENTER</span></code> caused all the text to be selected). This message notifies the target that
+editing has begun.</p>
+<p>Note that <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code>s only allow the user to edit a single line of text; newline
+characters are automatically stripped from the text, if they’re inserted.</p>
+<p>Because the label is drawn by the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code> itself and the editable text is drawn by
+its child <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code>, you can assign different properties (color or font, for example)
+to each string. The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code> has only one child; <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">ChildAt()</span></code>
+returns it when passed an index of 0.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

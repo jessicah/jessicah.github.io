@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BBox &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BBox</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bbox">
+<h1>BBox<a class="headerlink" href="#bbox" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BBox</span></code> is a purely cosmetic and organizational view that draws a labeled border around its (view) children. The border and label are drawn within the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BBox</span></code>’s frame rectangle.</p>
+<ul class="simple">
+<li><p>The current pen size of the view determines the width of the border; by default it’s 1.0 coordinate unit.</p></li>
+<li><p>The label is drawn in the current font, which by default is the system bold font.</p></li>
+<li><p>The label is drawn in the current high color; the default high color is black.</p></li>
+</ul>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BBox</span></code>’s label can be a string or it can be another view, such as a control. For example, a popup menu might be used as the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BBox</span></code>’s label, to let the user select a group of options to view in a preference panel:</p>
+<p><img alt="Example BBox" src="../../../_images/box_screen.png" /></p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

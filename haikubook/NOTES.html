@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Generating the Class API &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/code.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bebook" href="README.html" />
+    <link rel="prev" title="LICENSE" href="LICENSE.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Generating the Class API</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="LICENSE.html">LICENSE</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="README.html">bebook</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="generating-the-class-api">
+<h1>Generating the Class API<a class="headerlink" href="#generating-the-class-api" title="Permalink to this heading">¶</a></h1>
+<p>Generating the public API:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>readelf -aW /boot/system/develop/lib/libbe.so		<span class="se">\</span>
+	<span class="p">|</span> c++filt										<span class="se">\</span>
+	<span class="p">|</span> grep -e <span class="s1">&#39;GLOBAL[ ]*DEFAULT&#39;</span>					<span class="se">\</span>
+	<span class="p">|</span> grep -v -e <span class="s1">&#39;UND&#39;</span> -e <span class="s1">&#39;@@&#39;</span>						<span class="se">\</span>
+	<span class="p">|</span> awk <span class="s1">&#39;{ $1=$2=$3=$4=$5=$6=$7=&quot;&quot;; print $0 }&#39;</span>	<span class="se">\</span>
+	<span class="p">|</span> sort &gt; api.txt
+</pre></div>
+</div>
+<p>Generating class names:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>grep api.txt -e <span class="s1">&#39;::&#39;</span> <span class="p">|</span> awk -F<span class="s1">&#39;::&#39;</span> <span class="s1">&#39;{ print $1 }&#39;</span> <span class="se">\</span>
+	<span class="p">|</span> sort <span class="p">|</span> uniq &gt; classes.txt
+</pre></div>
+</div>
+<p>Generating member functions:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>grep api.txt -e <span class="s1">&#39;::&#39;</span> <span class="p">|</span> awk -F<span class="s1">&#39;::&#39;</span> <span class="s1">&#39;{ Print $2 }&#39;</span> <span class="se">\</span>
+	<span class="p">|</span> sort <span class="p">|</span> uniq &gt; member-functions.txt
+</pre></div>
+</div>
+<p>The goal is to use this, or something similar, to generate custom highlighting in pygments within
+sphinx for code blocks. The original Be Book documentation used a convention for highlighting, as
+follows:</p>
+<ul class="simple">
+<li><p>Class Names: green-ish</p></li>
+<li><p>Method Names: purple</p></li>
+<li><p>Function Names: blue-ish</p></li>
+<li><p>Parameters: rusty</p></li>
+<li><p>Types: something else</p></li>
+<li><p>Constants: blue</p></li>
+<li><p>Variable Names: black</p></li>
+</ul>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="LICENSE.html">LICENSE</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="README.html">bebook</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

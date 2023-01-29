@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Haiku Package File Format &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Haiku Package File Format</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="haiku-package-file-format">
+<h1>Haiku Package File Format<a class="headerlink" href="#haiku-package-file-format" title="Permalink to this heading">¶</a></h1>
+<p>This document specifies the Haiku Package (HPKG) file format, which was designed for efficient use
+by Haiku’s package file system. It is somewhat inspired by the <a class="reference external" href="http://code.google.com/p/xar/">XAR
+Format</a> (separate <abbr title='Table of Contents'>TOC</abbr> and data heap), but aims for greater
+compactness (no XML for the <abbr title='Table of Contents'>TOC</abbr>).</p>
+<p>Three stacked format layers can be identified:</p>
+<ul class="simple">
+<li><p>A generic container format for structured data.</p></li>
+<li><p>An archive format specifying how file system data is stored in the container.</p></li>
+<li><p>A package format, extending the archive format with attributes for package management.</p></li>
+</ul>
+<section id="the-data-container-format">
+<h2>The Data Container Format<a class="headerlink" href="#the-data-container-format" title="Permalink to this heading">¶</a></h2>
+<p>An HPKG file consists of four sections:</p>
+<dl class="simple myst">
+<dt>Header</dt><dd><p>Identifies the file as an HPKG file and provides access to the other sections.</p>
+</dd>
+<dt>Heap</dt><dd><p>Contains arbitrary (mostly unstructured) data referenced by the next two sections.</p>
+</dd>
+<dt><abbr title='Table of Contents'>TOC</abbr></dt><dd><p>The main section, containing structured data with references to unstructured data in the heap
+section.</p>
+</dd>
+<dt>Package Attributes</dt><dd><p>A section similar to the <abbr title='Table of Contents'>TOC</abbr>. Rather than describing the data contained in the file, it specifies
+meta data of the package as a whole.</p>
+</dd>
+</dl>
+<p>The <abbr title='Table of Contents'>TOC</abbr> and Package Attributes sections aren’t really separate sections, as they are stored at the
+end of the heap.</p>
+<p>All numbers in the HPKG are stored in big endian format or
+<a class="reference external" href="http://en.wikipedia.org/wiki/LEB128">LEB128</a> encoding.</p>
+<section id="header">
+<h3>Header<a class="headerlink" href="#header" title="Permalink to this heading">¶</a></h3>
+<p>The header has the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">hpkg_header</span> <span class="p">{</span>
+	<span class="n">uint32</span> <span class="n">magic</span><span class="p">;</span>
+	<span class="n">uint16</span> <span class="n">header_size</span><span class="p">;</span>
+	<span class="n">uint16</span> <span class="n">version</span><span class="p">;</span>
+	<span class="n">uint64</span> <span class="n">total_size</span><span class="p">;</span>
+	<span class="n">uint16</span> <span class="n">minor_version</span><span class="p">;</span>
+
+	<span class="n">uint16</span> <span class="n">heap_compression</span><span class="p">;</span>
+	<span class="n">uint32</span> <span class="n">heap_chunk_size</span><span class="p">;</span>
+	<span class="n">uint64</span> <span class="n">heap_size_compressed</span><span class="p">;</span>
+	<span class="n">uint64</span> <span class="n">heap_size_uncompressed</span><span class="p">;</span>
+
+	<span class="n">uint32</span> <span class="n">attributes_length</span><span class="p">;</span>
+	<span class="n">uint32</span> <span class="n">attributes_strings_length</span><span class="p">;</span>
+	<span class="n">uint32</span> <span class="n">attributes_strings_count</span><span class="p">;</span>
+	<span class="n">uint32</span> <span class="n">reserved1</span><span class="p">;</span>
+
+	<span class="n">uint64</span> <span class="n">toc_length</span><span class="p">;</span>
+	<span class="n">uint64</span> <span class="n">toc_strings_length</span><span class="p">;</span>
+	<span class="n">uint64</span> <span class="n">toc_strings_count</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<dl class="simple myst">
+<dt>magic</dt><dd><p>The string <code class="docutils literal notranslate"><span class="pre">hpkg</span></code> (<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HPKG_MAGIC</span></code>).</p>
+</dd>
+<dt>header_size</dt><dd><p>The size of the header. This is also the absolute offset of the heap.</p>
+</dd>
+<dt>version</dt><dd><p>The version of the HPKG format the file conforms to. The current version is 2
+(<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HPKG_VERSION</span></code>).</p>
+</dd>
+<dt>total_size</dt><dd><p>The total file size.</p>
+</dd>
+<dt>minor_version</dt><dd><p>The minor version of the HPKG format the file conforms to. The current minor version is 0
+(<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HPKG_MINOR_VERSION</span></code>}). Additions of new attributes to the attributes or <abbr title='Table of Contents'>TOC</abbr> sections
+should generally only increment the minor version. When a file with a greater minor version is
+encountered, the reader should ignore unknown attributes.</p>
+</dd>
+<dt>heap_compression</dt><dd><p>Compressiong format used for the heap.</p>
+</dd>
+<dt>heap_chunk_size</dt><dd><p>The size of the chunks the uncompressed heap data is divided into.</p>
+</dd>
+<dt>heap_size_compressed</dt><dd><p>The compressed size of the heap. This includes all administrative data (the chunk size array).</p>
+</dd>
+<dt>heap_size_uncompressed</dt><dd><p>The uncompressed size of the heap. This is only the size of the raw data (including the <abbr title='Table of Contents'>TOC</abbr> and
+attribute section), not including administrative data (the chunk size array).</p>
+</dd>
+<dt>attributes_length</dt><dd><p>The uncompressed size of the package attributes section.</p>
+</dd>
+<dt>attributes_strings_length</dt><dd><p>The size of the strings subsection of the package attributes section.</p>
+</dd>
+<dt>attributes_strings_count</dt><dd><p>The number of entries in the strings subsection of the package attributes section.</p>
+</dd>
+<dt>reserved1</dt><dd><p>Reserved for later use.</p>
+</dd>
+<dt>toc_length</dt><dd><p>The uncompressed size of the <abbr title='Table of Contents'>TOC</abbr> section.</p>
+</dd>
+<dt>toc_strings_length</dt><dd><p>The size of the strings subsection of the <abbr title='Table of Contents'>TOC</abbr> section.</p>
+</dd>
+<dt>toc_strings_count</dt><dd><p>The number of entries in the strings subsection of the <abbr title='Table of Contents'>TOC</abbr> section.</p>
+</dd>
+</dl>
+</section>
+<section id="heap">
+<h3>Heap<a class="headerlink" href="#heap" title="Permalink to this heading">¶</a></h3>
+<p>The heap provides storage for arbitrary data. Data from various sources are concatenated without
+padding or separators, forming the uncompressed heap. A specific section of data is usually
+referenced (e.g. in the <abbr title='Table of Contents'>TOC</abbr> and attributes sections) by an offset and the number of bytes. These
+references always point into the uncompressed heap, even if the heap is actually stored in a
+compressed format. The <code class="docutils literal notranslate"><span class="pre">heap_compression</span></code> field in the header specifies which format is used. The
+following values are defined:</p>
+<table class="docutils align-left">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p><span class="cpp-expr sig sig-inline cpp"><span class="n">B_HPKG_COMPRESSION_NONE</span></span></p></td>
+<td><p>no compression</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><span class="cpp-expr sig sig-inline cpp"><span class="n">B_HPKG_COMPRESSION_ZLIB</span></span></p></td>
+<td><p>zlib (LZ77) compression</p></td>
+</tr>
+</tbody>
+</table>
+<p>The uncompressed heap data is divided into equally sized chunks (64 KiB). The last chunk in the heap
+may have a different uncompressed length from the preceding chunks. The uncompressed length of the
+last chunk can be dervied. Each individual chunk may be stored compressed or not.</p>
+<p>Unless <code class="docutils literal notranslate"><span class="pre">B_HPKG_COMPRESSION_NONE</span></code> is specified, a <code class="docutils literal notranslate"><span class="pre">uint16</span></code> array at the end of the heap contains the
+actual in-file (compressed) size of each chunk (minus 1 – 0 means 1 byte), save for the last one,
+which is omitted since it is implied. A chunk is only stored compressed, if compression actually
+saves space. That is, if the chunk’s compressed size equals its uncompressed size, the data isn’t
+compressed. If <code class="docutils literal notranslate"><span class="pre">B_HPKG_COMPRESSION_NONE</span></code> is specified, the chunk size table is omitted entirely.</p>
+<p>The <abbr title='Table of Contents'>TOC</abbr> and the package attributes sections are stored (in this order) at the end of the
+uncompressed heap. The offset of the package attributes section is therefore
+<span class="cpp-expr sig sig-inline cpp"><span class="n">heap_size_uncompressed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">attributes_length</span></span> and the offset of the <abbr title='Table of Contents'>TOC</abbr> section is
+<span class="cpp-expr sig sig-inline cpp"><span class="n">heap_size_uncompressed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">attributes_length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">toc_length</span></span>.</p>
+</section>
+<section id="abbr-title-table-of-contents-toc-abbr">
+<h3><abbr title='Table of Contents'>TOC</abbr><a class="headerlink" href="#abbr-title-table-of-contents-toc-abbr" title="Permalink to this heading">¶</a></h3>
+<p>The <abbr title='Table of Contents'>TOC</abbr> section contains a list of attribute trees. AN attribute has an ID, a data type, and a
+value, and can have child attributes.</p>
+<p>The main <abbr title='Table of Contents'>TOC</abbr> section refers to any attribute by its unique ID (see below) and stores the attribute’s
+value, either as a reference into the heap, or as inline data.</p>
+<p>An optimization exists for shared string attribute values. A string value used by more than one
+attribute is stored in the strings subsection, and is referenced by an index into that subsection.</p>
+<p>Hence the <abbr title='Table of Contents'>TOC</abbr> section consists of two subsections:</p>
+<dl class="simple myst">
+<dt>Strings</dt><dd><p>A table of commonly used strings.</p>
+</dd>
+<dt>Main <abbr title='Table of Contents'>TOC</abbr></dt><dd><p>The attribute trees.</p>
+</dd>
+</dl>
+<section id="attribute-data-types">
+<h4>Attribute Data Types<a class="headerlink" href="#attribute-data-types" title="Permalink to this heading">¶</a></h4>
+<p>These are the specified data type values for attributes:</p>
+<table class="docutils align-left">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_INVALID</span></code></p></td>
+<td><p>invalid</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_INT</span></code></p></td>
+<td><p>signed integer</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_UINT</span></code></p></td>
+<td><p>unsigned integer</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_STRING</span></code></p></td>
+<td><p>UTF-8 string</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_RAW</span></code></p></td>
+<td><p>raw data</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="strings">
+<h4>Strings<a class="headerlink" href="#strings" title="Permalink to this heading">¶</a></h4>
+<p>The strings subsection consists of a list of null-terminated UTF-8 strings. The section itself is
+termined by a null byte.</p>
+<p>Each string is implicitly assigned the (null-based) index at which it appears in the list, i.e. the
+nth string has the index <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">-</span> <span class="pre">1</span></code>. The string is referenced by this index in the main <abbr title='Table of Contents'>TOC</abbr> subsection.</p>
+</section>
+<section id="main-abbr-title-table-of-contents-toc-abbr">
+<h4>Main <abbr title='Table of Contents'>TOC</abbr><a class="headerlink" href="#main-abbr-title-table-of-contents-toc-abbr" title="Permalink to this heading">¶</a></h4>
+<p>The main <abbr title='Table of Contents'>TOC</abbr> subsection consists of a list of attribute entries terminated by a null byte. An
+attribute entry is stored as:</p>
+<dl class="simple myst">
+<dt>Attribute tag</dt><dd><p>An unsigned LEB128 encoded number.</p>
+</dd>
+<dt>Attribute value</dt><dd><p>The value of the attribute encoded as described below.</p>
+</dd>
+<dt>Attribute child list</dt><dd><p>Only is this attribute is marked to have children: A list of attribute entries terminated by a
+null byte.</p>
+</dd>
+</dl>
+<p>The attribute tag encodes four pieces of information:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(encoding &lt;&lt; 11) + (hasChildren &lt;&lt; 10) + (dataType &lt;&lt; 7) + id + 1
+</pre></div>
+</div>
+<dl class="simple myst">
+<dt>encoding</dt><dd><p>Specifies the encoding of the attribute value as described below.</p>
+</dd>
+<dt>hasChildren</dt><dd><p>1, if the attribute has children, 0 otherwise</p>
+</dd>
+<dt>dataType</dt><dd><p>The data type of the attribute (<code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_...</span></code>).</p>
+</dd>
+<dt>id</dt><dd><p>The ID of the attribute (<code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ID_...</span></code>).</p>
+</dd>
+</dl>
+</section>
+<section id="attribute-values">
+<h4>Attribute Values<a class="headerlink" href="#attribute-values" title="Permalink to this heading">¶</a></h4>
+<p>The value of each of the data types can be encoded in different ways, which is defined by the
+encoding value:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_INT</span></code> and <code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_UINT</span></code>:</p>
+<table class="docutils align-left">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ENCODING_INT_8_BIT</span></code></p></td>
+<td><p>int8/uint8</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ENCODING_INT_16_BIT</span></code></p></td>
+<td><p>int16/uint16</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ENCODING_INT_32_BIT</span></code></p></td>
+<td><p>int32/uint32</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ENCODING_INT_64_BIT</span></code></p></td>
+<td><p>int64/uint64</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_STRING</span></code>:</p>
+<table class="docutils align-left">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ENCODING_STRING_INLINE</span></code></p></td>
+<td><p>null-terminated UTF-8 string</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ENCODING_STRING_TABLE</span></code></p></td>
+<td><p>unsigned LEB128: index into string table</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_TYPE_RAW</span></code>:</p>
+<table class="docutils align-left">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ENCODING_RAW_INLINE</span></code></p></td>
+<td><p>unsigned LEB128: size; followed by raw bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ENCODING_RAW_HEAP</span></code></p></td>
+<td><p>unsigned LEB128: size; unsigned LEB128; offset into the uncompressed heap</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</section>
+</section>
+<section id="package-attributes">
+<h3>Package Attributes<a class="headerlink" href="#package-attributes" title="Permalink to this heading">¶</a></h3>
+<p>The package attributes section contains a list of attribute trees, just like the <abbr title='Table of Contents'>TOC</abbr> section. The
+structure of this section follow the <abbr title='Table of Contents'>TOC</abbr>, i.e. there’s a subsection for shared strings, and a
+subsection that stores a list of attribute entries terminated by a null byte. An entry has the same
+format as the ones in the <abbr title='Table of Contents'>TOC</abbr> (only using different attribute IDs).</p>
+</section>
+</section>
+<section id="the-archive-format">
+<h2>The Archive Format<a class="headerlink" href="#the-archive-format" title="Permalink to this heading">¶</a></h2>
+<p>This section specifies how file system objects (files, directories, symlinks) are stored in an HPKG
+file. It builds on top of the container format, defining the types of attributes, their order, and
+allowed values.</p>
+<p>E.g. a “bin” directory, containing a symlink and a file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bin</span>           <span class="mi">0</span>  <span class="mi">2009</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">13</span> <span class="mi">12</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mi">09</span>  <span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>
+  <span class="n">awk</span>         <span class="mi">0</span>  <span class="mi">2009</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">13</span> <span class="mi">12</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">16</span>  <span class="n">lrwxrwxrwx</span>  <span class="o">-&gt;</span> <span class="n">gawk</span>
+  <span class="n">gawk</span>   <span class="mi">301699</span>  <span class="mi">2009</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">13</span> <span class="mi">12</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">16</span>  <span class="o">-</span><span class="n">rwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>could be represented by this attribute tree:</p>
+<ul class="simple">
+<li><p>B_HPKG_ATTRIBUTE_ID_DIR_ENTRY : string : “bin”</p>
+<ul>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_TYPE : uint : 1 (0x1)</p></li>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_MTIME : uint : 1258110729 (0x4afd3f09)</p></li>
+<li><p>B_HPKG_ATTRIBUTE_ID_DIR_ENTRY : string : “awk”</p>
+<ul>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_TYPE : uint : 2 (0x2)</p></li>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_MTIME : uint : 1258110676 (0x4afd3ed4)</p></li>
+<li><p>B_HPKG_ATTRIBUTE_ID_SYMLINK_PATH : string : “gawk”</p></li>
+</ul>
+</li>
+<li><p>B_HPKG_ATTRIBUTE_ID_DIR_ENTRY : string : “gawk”</p>
+<ul>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_PERMISSIONS : uint : 493 (0x1ed)</p></li>
+<li><p>B_HPKG_ATTRIBUTE_ID_DATA : raw : size: 301699, offset: 0</p></li>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_ATTRIBUTE : string : “BEOS:APP_VERSION”</p>
+<ul>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_ATTRIBUTE_TYPE : uint : 1095782486 (0x41505056)</p></li>
+<li><p>B_HPKG_ATTRIBUTE_ID_DATE : raw : size: 680, offset: 301699</p></li>
+</ul>
+</li>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_ATTRIBUTE : string : “BEOS:TYPE”</p>
+<ul>
+<li><p>B_HPKG_ATTRIBUTE_ID_FILE_ATTRIBUTE_TYPE : uint : 1296649555 (0x4d4d4d53)</p></li>
+<li><p>B_HPKG_ATTRIBUTE_ID_DATA : raw : size: 35, offset: 302379</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="attribute-ids">
+<h3>Attribute IDs<a class="headerlink" href="#attribute-ids" title="Permalink to this heading">¶</a></h3>
+<p>The following attribute IDs are specified by the archive format. ANy other attributes will be
+ignored.</p>
+<p>…</p>
+</section>
+<section id="abbr-title-table-of-contents-toc-abbr-attributes">
+<h3><abbr title='Table of Contents'>TOC</abbr> Attributes<a class="headerlink" href="#abbr-title-table-of-contents-toc-abbr-attributes" title="Permalink to this heading">¶</a></h3>
+<p>The <abbr title='Table of Contents'>TOC</abbr> can directly contain any number of attributes of the <code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ID_DIRECTORY_ENTRY</span></code>
+type, which in turn contain descendant attributes as specified in the previous section. Any other
+attributes are ignored.</p>
+</section>
+</section>
+<section id="the-package-format">
+<h2>The Package Format<a class="headerlink" href="#the-package-format" title="Permalink to this heading">¶</a></h2>
+<p>This section specifies how informative package attributes (package-name, version, provides,
+requires, etc.) are stored in an HPKG file. It builds on top of the container format, defining the
+types of attributes, their order, and allowed values.</p>
+<p>E.g. a <code class="docutils literal notranslate"><span class="pre">.PackageInfo</span></code> file, containing a package description that is being converted into a package
+file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span>		<span class="n">mypackage</span>
+<span class="n">version</span>		<span class="mf">0.7.2</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">architecture</span>	<span class="n">x86</span>
+<span class="n">summary</span>		<span class="s2">&quot;is a very nice package&quot;</span>
+<span class="n">description</span>	<span class="s2">&quot;has lots of cool features</span><span class="se">\n</span><span class="s2">and is written in MyC++&quot;</span>
+<span class="n">vendor</span>		<span class="s2">&quot;Me, Myself &amp; I, Inc.&quot;</span>
+<span class="n">packager</span>	<span class="s2">&quot;me@test.com&quot;</span>
+<span class="n">copyrights</span>	<span class="p">{</span> <span class="s2">&quot;(C) 2009-2011, Me, Myself &amp; I, Inc.&quot;</span> <span class="p">}</span>
+<span class="n">licenses</span>	<span class="p">{</span> <span class="s2">&quot;Me, Myself &amp; I Commercial License&quot;</span><span class="p">;</span> <span class="s2">&quot;MIT&quot;</span> <span class="p">}</span>
+<span class="n">provides</span> <span class="p">{</span>
+	<span class="n">cmd</span><span class="p">:</span><span class="n">me</span>
+	<span class="n">lib</span><span class="p">:</span><span class="n">libmyself</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="p">}</span>
+<span class="n">requires</span> <span class="p">{</span>
+	<span class="n">haiku</span> <span class="o">&gt;=</span> <span class="n">r1</span>
+	<span class="n">wget</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>could be represented by this attribute tree:</p>
+<ul class="simple">
+<li></li>
+<li></li>
+<li></li>
+</ul>
+<section id="id1">
+<h3>Attribute IDs<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>The following attribute IDs are specified by the package format. Any other attributes will be
+rejected.</p>
+<p>…</p>
+</section>
+</section>
+<section id="haiku-package-repository-format">
+<h2>Haiku Package Repository Format<a class="headerlink" href="#haiku-package-repository-format" title="Permalink to this heading">¶</a></h2>
+<p>Very similar to the package format, there’s a Haiku Package Repository (HPKR) file format. Such a
+file contains informative attributes about the package repository, and package attributes for all
+packages contained in the repository. However, this format does not contain any files.</p>
+<p>Two stacked format layers can be identified:</p>
+<ul class="simple">
+<li><p>A generic container format for structured data.</p></li>
+<li><p>A package format, extending the archive format with attributes for package management.</p></li>
+</ul>
+<section id="id2">
+<h3>The Data Container Format<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<p>An HPKR file consists of three sections:</p>
+<dl class="simple myst">
+<dt>Header</dt><dd><p>Identifies the file as an HPKR file, and provides access to the other sections.</p>
+</dd>
+<dt>Heap</dt><dd><p>Contains the next two sections.</p>
+</dd>
+<dt>Repository Info</dt><dd><p>A section containing an archived <a class="reference internal" href="../../kits/application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a> of a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRepositoryInfo</span></code> object.</p>
+</dd>
+<dt>Package Attributes</dt><dd><p>A section just like the package attributes section of the HPKG, only that this section contains
+the package attributes of all the packages contained in the repository (not just one).</p>
+</dd>
+</dl>
+<p>The Repository Info and Package Attributes sections aren’t really separate sections, as they are
+stored at the end of the heap.</p>
+<section id="id3">
+<h4>Header<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
+<p>The header has the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">hpkg_repo_header</span> <span class="p">{</span>
+	<span class="n">uint32</span>	<span class="n">magic</span><span class="p">;</span>
+	<span class="n">uint16</span>	<span class="n">header_size</span><span class="p">;</span>
+	<span class="n">uint16</span>	<span class="n">version</span><span class="p">;</span>
+	<span class="n">uint64</span>	<span class="n">total_size</span><span class="p">;</span>
+	<span class="n">uint16</span>	<span class="n">minor_version</span><span class="p">;</span>
+
+	<span class="o">//</span> <span class="n">heap</span>
+	<span class="n">uint16</span>	<span class="n">heap_compression</span><span class="p">;</span>
+	<span class="n">uint32</span>	<span class="n">heap_chunk_size</span><span class="p">;</span>
+	<span class="n">uint64</span>	<span class="n">heap_size_compressed</span><span class="p">;</span>
+	<span class="n">uint64</span>	<span class="n">heap_size_uncompressed</span><span class="p">;</span>
+
+	<span class="o">//</span> <span class="n">repository</span> <span class="n">info</span> <span class="n">section</span>
+	<span class="n">uint32</span>	<span class="n">info_length</span><span class="p">;</span>
+	<span class="n">uint32</span>	<span class="n">reserved1</span><span class="p">;</span>
+
+	<span class="o">//</span> <span class="n">package</span> <span class="n">attributes</span> <span class="n">section</span>
+	<span class="n">uint64</span>	<span class="n">packages_length</span><span class="p">;</span>
+	<span class="n">uint64</span>	<span class="n">packages_strings_length</span><span class="p">;</span>
+	<span class="n">uint64</span>	<span class="n">packages_strings_count</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<dl class="simple myst">
+<dt>magic</dt><dd><p>The string <code class="docutils literal notranslate"><span class="pre">hpkr</span></code> (<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HPKG_REPO_MAGIC</span></code>).</p>
+</dd>
+<dt>header_size</dt><dd><p>The size of the header. This is also the absolute offset of the heap.</p>
+</dd>
+<dt>version</dt><dd><p>The version of the HPKR format that the file conforms to. The current version is 2
+(<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HPKG_REPO_VERSION</span></code>).</p>
+</dd>
+<dt>total_size</dt><dd><p>The total file size.</p>
+</dd>
+<dt>minor_version</dt><dd><p>The minor version of the HPKR format that the file conforms to. THe current minor version is 0
+(<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HPKG_REPO_MINOR_VERSION</span></code>). Additions of new attributes to the attributes section
+should generally only increment the minor version. When a file with a greater minor version is
+encountered, the reader should ignore unknown attributes.</p>
+</dd>
+<dt>heap_compression</dt><dd><p>Compression format used for the heap.</p>
+</dd>
+<dt>heap_chunk_size</dt><dd><p>The size of the chunks the uncompressed heap data are divided into.</p>
+</dd>
+<dt>heap_size_compressed</dt><dd><p>The compressed size of the heap. THis is only the size of the raw data (including the repository
+info and attributes section), not including administrative data (the chunk size array).</p>
+</dd>
+<dt>info_length</dt><dd><p>The uncompressed size of the repository info section.</p>
+</dd>
+<dt>reserved1</dt><dd><p>Reserved for later use.</p>
+</dd>
+<dt>packages_length</dt><dd><p>The uncompressed size of the package attributes section.</p>
+</dd>
+<dt>packages_strings_length</dt><dd><p>The size of the strings subsection of the package attributes section.</p>
+</dd>
+<dt>packages_strings_count</dt><dd><p>The number of entries in the strings subsection of the package attributes section.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id4">
+<h3>Attribute IDs<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>The package repository format defines only the top-level attribute ID
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ID_PACKAGE</span></code>. An attribute with that ID represents a package. Its child
+attributes specify the various meta information for the package as defined in the Package Format
+Attribute IDs section.</p>
+<section id="b-hpkg-attribute-id-package-package">
+<h4>B_HPKG_ATTRIBUTE_ID_PACKAGE (“package”)<a class="headerlink" href="#b-hpkg-attribute-id-package-package" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Type: string</p></li>
+<li><p>Value: Name of the package. The value is duplicated by the
+<code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ID_PACKAGE_NAME</span></code> child attribute.</p></li>
+<li><p>Allowed Values: any string matching <code class="docutils literal notranslate"><span class="pre">&lt;entity_name_char&gt;+</span></code>, with <code class="docutils literal notranslate"><span class="pre">&lt;entity_name_char&gt;</span></code> being any
+character but <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">!</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, or whitespace.</p></li>
+<li><p>Child Attributes:</p>
+<ul>
+<li><p>Any <code class="docutils literal notranslate"><span class="pre">B_HPKG_ATTRIBUTE_ID_PACKAGE_*</span></code> top level attribute defined in the Package Format
+Attribute IDs section.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

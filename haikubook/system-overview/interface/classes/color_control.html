@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BColorControl &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BColorControl</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bcolorcontrol">
+<h1>BColorControl<a class="headerlink" href="#bcolorcontrol" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BColorControl</span></code> object displays an on-screen device that permits users to pick a color.
+It reports the color as its current value—an <code class="docutils literal notranslate"><span class="pre">rgb_color</span></code> data structure stored as a 32-bit
+integer. If a model message is provided, it announces each change in value by sending a copy of the
+message to a designated target.</p>
+<p>When the screen is 8 bits deep, the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BColorControl</span></code> object presents users with a matrix
+of the 256 available colors. The user chooses a color by pressing the primary mouse button while the
+cursor is over one of the cells in the matrix. Dragging from cell to cell changes the selected
+color. The arrow keys can similarly change the selection when the object is the focus view. The
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BColorControl</span></code>s value changes each time the selection does.</p>
+<p><img alt="Example BColorControl" src="../../../_images/colorcontrol.png" /></p>
+<p>When the screen is 15, 16, or 32 bits deep, the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BColorControl</span></code> object displays ramps for
+each color component. The user changes the current color by modifying a red, green, or blue
+component value.</p>
+<p>In addition to the color mixer and ramp, a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BColorControl</span></code> has three text fields where
+the user can set a color by typing in its red, green, and blue component values. The text fields
+(<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextControl</span></code> objects) are children of the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BColorControl</span></code>.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

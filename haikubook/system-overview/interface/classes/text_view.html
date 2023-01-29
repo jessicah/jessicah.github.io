@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BTextView &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BTextView</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="btextview">
+<h1>BTextView<a class="headerlink" href="#btextview" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> object displays text on-screen, and provides these manipulating features:</p>
+<ul class="simple">
+<li><p>It lets the user enter, select, and edit text from the keyboard and mouse.</p></li>
+<li><p>It supports standard Cut, Copy, Paste, Delete, and Select All editing commands.</p></li>
+<li><p>It provides an Undo mechanism.</p></li>
+</ul>
+<p>By default, a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> displays all its text in a single font and color. The
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetStylable()</span></code> turns on support for multiple character formats.</p>
+<p>Paragraph formats—such as alignment and tab widths—are uniform for all text the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> displays. These properties can be set, but the setting always applies to the
+entire text.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> class isn’t multi-thread safe; don’t issue <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> calls
+on a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> object from multiple threads, or you may see unusual behavior; in
+general, only the thread that created the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> should issue calls on it.</p>
+</div>
+<section id="offsets">
+<h2>Offsets<a class="headerlink" href="#offsets" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> locates particular characters in its text buffer by offsets from the
+beginning of the data. The offsets count bytes, not characters, and begin at 0. A single character
+is identified by the offset of the first byte of the character. A group of characters—the current
+selection, for example—is delimited by the offsets that bound its first and last characters; all
+characters beginning with the first offset up to, but not including, the last offset are part of the
+group.</p>
+<p>For example, suppose the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> contains the following text in UTF-8 encoding,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Haiku® is . . .
+</pre></div>
+</div>
+<p>and “Haiku®” is selected. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">GetSelection()</span></code> would return 4 and 12 as the
+offsets that enclose the selection. The character ‘H’ occupies the fourth byte of text and the space
+following the registered trademark symbol is the twelth byte of text. The characters in “Haiku” are
+encoded in one byte, but ‘®’ takes up three bytes in UTF-8. Thus the five-character selection
+occupies 7 bytes (and offsets) of text.</p>
+<p>Although offsets count bytes, they can also be thought of as designating positions between
+characters. The position at the beginning of the text is offset 0, the position between the sapce
+and the ‘H’ in the example above is at offset 4, the position between the ‘®’ and the space is at
+offset 12, and so on. Thus, even if no characters are selected, the insertion point (and location of
+the caret) can still be designated by an offset.</p>
+<p>Most <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> functions expect the offsets they’re passed to mark positions between
+characters; the results are not defined if a character-internal offset is specified instead.</p>
+</section>
+<section id="graphics-primitives">
+<h2>Graphics Primitives<a class="headerlink" href="#graphics-primitives" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code>s mechanism for formatting and drawing text uses the graphics primitives
+it inherits from the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> class. However, it largely presents its own API for
+determining the appearance of the text it draws. You should not attempt to affect the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> by calling primitive <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> functions like
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">MovePenTo()</span></code>, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetFont()</span></code>, or
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetHighColor()</span></code>. Instead, use <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> functions like
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetFontAndColor()</span></code> and let the object take care of formatting and drawing the
+text.</p>
+<p>The one inherited function that can influence the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> is
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetViewColor()</span></code>. This function determines the background against which the text
+is drawn and the color that is used in antialiasing calculations.</p>
+</section>
+<section id="resizing">
+<h2>Resizing<a class="headerlink" href="#resizing" title="Permalink to this heading">¶</a></h2>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> can be made to resize itself to exactly fit the text that the user enters.
+This is sometimes appropriate for small one-line text fields. See the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">MakeResizable()</span></code> function.</p>
+</section>
+<section id="btextview-and-bscrollbars">
+<h2>BTextView and BScrollBars<a class="headerlink" href="#btextview-and-bscrollbars" title="Permalink to this heading">¶</a></h2>
+<p>If you add scrollbars to control the position of the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code>’s document—this
+includes using a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> as the target of a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BScrollView</span></code>—the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> will update the scrollbars for you. (Note that it doesn’t own the scrollbars;
+you still have to delete them yourself if you created them.) When the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> is
+first displayed and thereafter resized, the scrollbars’ ranges, step sizes, and scroller positions
+and proportions are automatically reset to refelct the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> object’s bounds.
+Attempts to set these parameters directly (through <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BScrollBar::SetRange()</span> <span class="pre">etc.),</span> <span class="pre">are</span> <span class="pre">worse</span> <span class="pre">than</span> <span class="pre">ignored;</span> <span class="pre">they're</span> <span class="pre">actually</span> <span class="pre">applied,</span> <span class="pre">and</span> <span class="pre">then</span> <span class="pre">(at</span> <span class="pre">some</span> <span class="pre">point)</span> <span class="pre">the</span> <span class="pre">{cpp:class}()</span></code>BTextView`
+will notice the change in the scrollbars and reset them. Looks like flicker to me.</p>
+</section>
+<section id="shortcuts-and-menu-items">
+<h2>Shortcuts and Menu Items<a class="headerlink" href="#shortcuts-and-menu-items" title="Permalink to this heading">¶</a></h2>
+<p>When it’s the focus view for its window, a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code> automatically responds to a set of
+keyboard shortcuts:</p>
+<ul class="simple">
+<li><p><span class="key">Command</span> + <span class="key">x</span> cuts text and copies it to the clipboard</p></li>
+<li><p><span class="key">Command</span> + <span class="key">c</span> copies text to the clipboard without cutting it</p></li>
+<li><p><span class="key">Command</span> + <span class="key">v</span> pastes text taken from the clipboard</p></li>
+<li><p><span class="key">Command</span> + <span class="key">a</span> selects all of the text in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTextView</span></code></p></li>
+<li><p><span class="key">Command</span> + <span class="key">z</span> undoes the previous action</p></li>
+</ul>
+<p>If you create menu items for these actions, you have to assign the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuItem</span></code> shortcuts
+and command constants yourself:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Constant</p></th>
+<th class="head"><p>Shortcut</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Select all</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_SELECT_ALL</span></code></p></td>
+<td><p><span class="key">Command</span> + <span class="key">a</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Cut</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_CUT</span></code></p></td>
+<td><p><span class="key">Command</span> + <span class="key">x</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Copy</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_COPY</span></code></p></td>
+<td><p><span class="key">Command</span> + <span class="key">c</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Paste</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_PASTE</span></code></p></td>
+<td><p><span class="key">Command</span> + <span class="key">v</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Undo</p></td>
+<td><p><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_UNDO</span></code></p></td>
+<td><p><span class="key">Command</span> + <span class="key">z</span></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

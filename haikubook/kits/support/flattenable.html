@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BFlattenable &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BList" href="list.html" />
+    <link rel="prev" title="BDataIO" href="data-io.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BFlattenable</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="data-io.html">BDataIO</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="list.html">BList</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bflattenable">
+<h1>BFlattenable<a class="headerlink" href="#bflattenable" title="Permalink to this heading">¶</a></h1>
+<section id="member-functions">
+<h2>Member Functions<a class="headerlink" href="#member-functions" title="Permalink to this heading">¶</a></h2>
+<h3 id="_CPPv4NK7FlattenEPv7ssize_t">
+<span id="_CPPv3NK7FlattenEPv7ssize_t"></span><span id="_CPPv2NK7FlattenEPv7ssize_t"></span><span id="Flatten__voidP.ssize_tC"></span><span id="_CPPv49Unflatten9type_codePKv7ssize_t"></span><span id="_CPPv39Unflatten9type_codePKv7ssize_t"></span><span id="_CPPv29Unflatten9type_codePKv7ssize_t"></span><span id="Unflatten__type_code.voidCP.ssize_t"></span>Unflatten(), Flatten()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">virtual</span><span class="w"> </span><span class="n">status_t</span><span class="w"> </span><span class="n">Flatten</span><span class="sig-paren">(</span><span class="kt">void</span><span class="w"> </span><span class="p">*</span><span class="n sig-param">buffer</span>, <span class="n">ssize_t</span><span class="w"> </span><span class="n sig-param">numBytes</span><span class="sig-paren">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span></pre><pre style="background: #f3f3f3"><span class="k">virtual</span><span class="w"> </span><span class="n">status_t</span><span class="w"> </span><span class="n">Unflatten</span><span class="sig-paren">(</span><span class="n">type_code</span><span class="w"> </span><span class="n sig-param">code</span>, <span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">*</span><span class="n sig-param">buffer</span>, <span class="n">ssize_t</span><span class="w"> </span><span class="n sig-param">numBytes</span><span class="sig-paren">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span></pre><p><span class="hmethod">Flatten()</span> is implemented by derived classes to write the object into the buffer. There are <span class="hparameter">numBytes</span> bytes of memory available at the buffer address. If this isn’t at least as much memory as the <a class="reference internal" href="#_CPPv4NK12BFlattenable13FlattenedSizeEv" title="BFlattenable::FlattenedSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">FlattenedSize()</span></code></a> function says is necessary, <span class="hmethod">Flatten()</span> should return an error. If successful, it should return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code>.</p>
+<p><span class="hmethod">Unflatten()</span> is implemented by derived classes to set object values from <span class="hparameter">numBytes</span> bytes of data taken from the <span class="hparameter">buffer</span>. However, it should read the data only if the type <span class="hparameter">code</span> it’s passed indicates that the data is a type that it supports—that is, only if it’s <a class="reference internal" href="#_CPPv4NK12BFlattenable14AllowsTypeCodeE9type_code" title="BFlattenable::AllowsTypeCode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AllowsTypeCode()</span></code></a> function returns <span class="cpp-expr sig sig-inline cpp"><span class="k">true</span></span> for the code. If successful in reconstructing the object from the flattened data, <span class="hmethod">Unflatten()</span> should return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_OK</span></code>. If not, it should return <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">B_ERROR</span></code> or a more descriptive error code.</p>
+</div>
+
+<h3 id="_CPPv4NK12BFlattenable13FlattenedSizeEv">
+<span id="_CPPv3NK12BFlattenable13FlattenedSizeEv"></span><span id="_CPPv2NK12BFlattenable13FlattenedSizeEv"></span><span id="BFlattenable::FlattenedSizeC"></span>FlattenedSize()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">virtual</span><span class="w"> </span><span class="n">ssize_t</span><span class="w"> </span><span class="sig-prename descclassname"><span class="n">BFlattenable</span><span class="p">::</span></span><span class="n">FlattenedSize</span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span></pre><p>Implemented by derived classes to return the amount of memory needed to hold the flattened object. This is the minimal amount that must be allocated and passed to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Flatten()</span></code>.</p>
+</div>
+
+<h3 id="_CPPv4NK12BFlattenable8TypeCodeEv">
+<span id="_CPPv3NK12BFlattenable8TypeCodeEv"></span><span id="_CPPv2NK12BFlattenable8TypeCodeEv"></span><span id="BFlattenable::TypeCodeC"></span><span id="_CPPv4NK12BFlattenable14AllowsTypeCodeE9type_code"></span><span id="_CPPv3NK12BFlattenable14AllowsTypeCodeE9type_code"></span><span id="_CPPv2NK12BFlattenable14AllowsTypeCodeE9type_code"></span><span id="BFlattenable::AllowsTypeCode__type_codeC"></span>TypeCode(), AllowsTypeCode()</h3>
+
+<div class="wrapper"><pre style="background: #f3f3f3"><span class="k">virtual</span><span class="w"> </span><span class="n">type_code</span><span class="w"> </span><span class="sig-prename descclassname"><span class="n">BFlattenable</span><span class="p">::</span></span><span class="n">TypeCode</span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span></pre><pre style="background: #f3f3f3"><span class="k">virtual</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="sig-prename descclassname"><span class="n">BFlattenable</span><span class="p">::</span></span><span class="n">AllowsTypeCode</span><span class="sig-paren">(</span><span class="n">type_code</span><span class="w"> </span><span class="n sig-param">code</span><span class="sig-paren">)</span><span class="w"> </span><span class="k">const</span></pre><p><span class="hmethod">TypeCode()</span> is implemented by derived classes to return the type code that identifies the class type. The code is used to identify an instance of the class in its flattened state, for example when it’s added to a <a class="reference internal" href="../application/BMessage.html#_CPPv48BMessage" title="BMessage"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMessage</span></code></a>.</p>
+<p><span class="hmethod">AllowsType()</span> returns <span class="cpp-expr sig sig-inline cpp"><span class="k">true</span></span> if the code it’s passed matches the code returned by <span class="hmethod">TypeCode()</span> and <span class="cpp-expr sig sig-inline cpp"><span class="k">false</span></span> if not. It can be modified in derived classes to apply a more liberal standard—to allow more than one type code to identify the object.</p>
+<p>See also: <a class="reference internal" href="../application/message.html#_CPPv4N8BMessage7AddDataEPKc9type_codePKv7ssize_tb5int32" title="BMessage::AddData"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMessage::AddData()</span></code></a></p>
+</div>
+
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="data-io.html">BDataIO</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="list.html">BList</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

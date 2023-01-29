@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BLooper &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BLooper</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="blooper">
+<h1>BLooper<a class="headerlink" href="#blooper" title="Permalink to this heading">¶</a></h1>
+<p>A BLooper object creates a “message loop” that receives messages that are sent
+or posted to the BLooper. The message loop runs in a separate thread that’s
+spawned (and told to run) when the BLooper receives a Run() call. If you’re
+creating your own BLooper, you can invoke Run() from within the constructor.</p>
+<p>You tell the loop to stop by sending the BLooper a B_QUIT_REQUESTED message,
+which invokes the object’s Quit() function. You can also call Quit() directly,
+but you have to Lock() the object first (BLooper locking is explained later).
+Quit() deletes the BLooper for you.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The BApplication class, the most important BLooper subclass, bends the
+above description in one of two ways:</p>
+<ol class="arabic simple">
+<li><p>A BApplication takes over the main thread, it doesn’t spawn a new one.</p></li>
+<li><p>You do have to delete be_app; you can’t just Quit() it.</p></li>
+</ol>
+</div>
+</section>
+<section id="messages-and-handlers">
+<h1>Messages and Handlers<a class="headerlink" href="#messages-and-handlers" title="Permalink to this heading">¶</a></h1>
+<p>You can deliver messages to a BLooper’s thread by…</p>
+<ul class="simple">
+<li><p>Posting them directly by calling BLooper’s PostMessage() function.</p></li>
+<li><p>Sending them through BMessenger’s SendMessage() or BMessage’s SendReply()
+function.</p></li>
+</ul>
+<p>As messages arrive, they’re added to the BLooper’s BMessageQueue object. The
+BLooper takes messages from the queue in the order that they arrived, and calls
+DispatchMessage() for each one. DispatchMessage() locks the BLooper and then
+hands the message to a BHandler object by invoking the handler’s
+MessageReceived() function. But which BHandler does the BLooper hand the message
+to? Here’s the path:</p>
+<ul class="simple">
+<li><p>If an incoming message targets a specific BHandler, and if that BHandler is one
+of the BLooper’s eligible handlers (as set through the AddHandler() function),
+the BLooper uses that BHandler. (See the BMessage and BMessenger classes for
+instructions on how to target a BHandler.)</p></li>
+<li><p>Otherwise it hands the message to its preferred handler, as set through
+SetPreferredHandler().</p></li>
+<li><p>If no preferred handler is set, the BLooper itself handles the message (its own
+implementation of MessageReceived() is invoked).</p></li>
+</ul>
+<p>After the handler is finished (when its MessageReceived() returns), the BMessage
+is automatically deleted and the BLooper is unlocked.</p>
+</section>
+<section id="locking">
+<h1>Locking<a class="headerlink" href="#locking" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><p>Access to many BLooper functions (and some BHandler functions) is</p>
+</div></blockquote>
+<p>proteced by a lock. To invoke a lock-protected functions (or groups of
+functions), you must first call Lock(), and then call Unlock() when you’re done.
+The lock is scoped to the calling thread: Lock()/Unlock() calls can be nested
+within the thread. Keep in mind that each Lock() must balanced by an Unlock().</p>
+<p>The BLooper constructor automatically locks the object. It’s unlocked when Run()
+is invoked. This means that the Run() function and any other lock-protected
+functions that you call before you call Run() must be called from the thread
+that constructed the BLooper.</p>
+</section>
+<section id="allocation">
+<h1>Allocation<a class="headerlink" href="#allocation" title="Permalink to this heading">¶</a></h1>
+<p>Because they delete themselves when told to quit, BLoopers can’t be
+allocated on the stack; you have to construct them with new.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

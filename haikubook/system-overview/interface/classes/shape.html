@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BShape &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BShape</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bshape">
+<h1>BShape<a class="headerlink" href="#bshape" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShape</span></code> class provides a powerful means of representing the outline of any shape
+that can be comprised of lines or Beziér curves.</p>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShapeIterator</span></code> class provides a means for utilizing <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShape</span></code> objects in
+your own code. You can also use <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShape</span></code> objects to obtain outlines of characters in a
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BFont</span></code> by calling <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BFont::GetGlyphShapes()</span></code>.</p>
+<section id="creating-a-bshape">
+<h2>Creating a BShape<a class="headerlink" href="#creating-a-bshape" title="Permalink to this heading">¶</a></h2>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BShape</span></code> is essentially a list of graphic commands, of which there are four types:</p>
+<ul class="simple">
+<li><p>MoveTo. This sets the BShape’s coordinates to a specified point in the shape’s space.</p></li>
+<li><p>LineTo. This represents a line from the current point to the next point in the shape.</p></li>
+<li><p>BeziérTo. This represents a Beziér curve, connecting the current point to a new point, with other
+points serving to control the shape of the curve.</p></li>
+<li><p>Close. This indicates the end of the shape’s command list.</p></li>
+</ul>
+<p>Functions by the same names are used to add the corresponding commands to the BShape object. For
+example, to create a BShape that represents two vertical lines, the following code might be used:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BShape</span><span class="w"> </span><span class="n">shape</span><span class="p">;</span><span class="w"></span>
+<span class="n">shape</span><span class="p">.</span><span class="n">MoveTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="n">shape</span><span class="p">.</span><span class="n">LineTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<span class="n">shape</span><span class="p">.</span><span class="n">MoveTo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="n">shape</span><span class="p">.</span><span class="n">LineTo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

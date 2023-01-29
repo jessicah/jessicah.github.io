@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BMenuItem &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BMenuItem</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bmenuitem">
+<h1>BMenuItem<a class="headerlink" href="#bmenuitem" title="Permalink to this heading">¶</a></h1>
+<p>a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuItem</span></code> object displays one item within a menu and contains the state associated
+with that item. By default, menu items display text; a derived class can reimplement the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Draw()</span></code> and <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMenuItem::DrawContent()</span></code> hook functions to draw
+something else.</p>
+<p>Each <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuItem</span></code> object can have its own invocation message and target. A menu item
+needn’t send any message—it can be used simply for its visual presence (see
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BSeparatorItem</span></code> for an example).</p>
+<p>Menu items can’t be used outside of a menu; to add a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuItem</span></code> to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenu</span></code>,
+call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">BMenu::AddItem()</span></code>.</p>
+<section id="kinds-of-items">
+<h2>Kinds of Items<a class="headerlink" href="#kinds-of-items" title="Permalink to this heading">¶</a></h2>
+<p>Some menu items set up the menu hierarchy by giving users access to submenus. A
+submenu remains hidden until the user operates the item that controls it.</p>
+<p>Other items accomplish specific actions. When the user invokes the item, it sends a message to a
+target <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code> and <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BHandler</span></code>, usually the window where the menu at the root
+of the hierarchy (a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenuBar</span></code> object) is displayed. The action that the item initiates,
+or the state that it sets, depends entirely on the message and the target’s response to it.</p>
+</section>
+<section id="shortcuts-and-triggers">
+<h2>Shortcuts and Triggers<a class="headerlink" href="#shortcuts-and-triggers" title="Permalink to this heading">¶</a></h2>
+<p>Any menu item (except for those that control submenus) can be associated with a keyboard shortcut, a
+character the user can type in combination with a <span class="key">Command</span> key (and possibly other modifiers)
+to invoke the item. The shortcut character is displayed in the item to the right of the label.</p>
+<p>A shortcut works even when the item it invokes isn’t visible on-screen. It, therefore, has to be
+unique within the window (within the entire menu hierarchy).</p>
+<p>Every menu item is also associated with a trigger, a character that the user can type (without the
+<span class="key">Command</span> key) to invoke the item. The trigger works only while the menu is both open on-screen
+and can be operated using the keyboard. It therefore must be unique only within a particular branch
+of the menu hierarchy (within the menu).</p>
+<p>The trigger is one of the characters that’s displayed within the item—either the keyboard shortcut
+or a character in the label. When it’s possible for the trigger to invoke the item, the character is
+underlined. Like shortcuts, triggers are case-insensitive.</p>
+<p>For an item to have a keyboard shortcut, the application must explicitly assign one. However, by
+default, the Interface Kit chooses and assigns triggers for all items. The default choice can be
+altered by the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetTrigger()</span></code> function.</p>
+</section>
+<section id="marked-items">
+<h2>Marked Items<a class="headerlink" href="#marked-items" title="Permalink to this heading">¶</a></h2>
+<p>An item can also be marked (with a check mark drawn to the left of the label) in order to indicate
+that the state it sets is currently in effect. Items are marked by the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetMarked()</span></code> function. A menu can be set up so that items are automatically
+marked when they’re selected and exactly one item is marked at all times. (See
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetRadioMode()</span></code> in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BMenu</span></code> class.)</p>
+</section>
+<section id="disabled-items">
+<h2>Disabled Items<a class="headerlink" href="#disabled-items" title="Permalink to this heading">¶</a></h2>
+<p>Items can also be enabled or disabled (by the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">SetEnabled()</span></code> function). A
+disabled item is drawn in muted tones to indicate that it doesn’t work. It can’t be selected or
+invoked. If the item controls a specific action, it won’t post the message that initiates the
+action. If it controls a submenu, it will still bring the submenu to the screen, but all the items
+in submenu will be disabled. If an item in the submenu brings its own submenu to the screen, items
+in that submenu will also be disabled. Disabling the superitem for a submenu in effect disables a
+whole branch of the menu hierarchy.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

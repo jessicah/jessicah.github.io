@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Ports &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>Ports</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="ports">
+<h1>Ports<a class="headerlink" href="#ports" title="Permalink to this heading">¶</a></h1>
+<p>A port is a system-wide message repository into which any thread can copy a buffer of data, and from
+which any thread can then retrieve the buffer. This repository is implemented as a
+first-in/first-out message queue: A port stores its messages in the order in which they’re received,
+and it relinquishes them in the order in which they’re stored. Each port has its own message queue.</p>
+<section id="creating-and-destroying-a-port">
+<h2>Creating and Destroying a Port<a class="headerlink" href="#creating-and-destroying-a-port" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">create_port()</span></code> function creates a new port and assigns it a unique, system-wide
+<code class="docutils literal notranslate"><span class="pre">port_id</span></code> number. Although ports are accessible to all threads, the <code class="docutils literal notranslate"><span class="pre">port_id</span></code> numbers aren’t
+disseminated by the operating system—there’s no “find_port” function. If you create a port and
+want some other thread to be able to write to or read from it, you have to broadcast the <code class="docutils literal notranslate"><span class="pre">port_id</span></code>
+to that thread.</p>
+<p>A port is owned by the team in which it was created. When a team dies (when all its threads are
+killed), the ports that belong to the team are deleted. A team can bestow ownership of its ports to
+some other team through the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">set_port_owner()</span></code> function.</p>
+<p>If you want to explicitly get rid of a port, you call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">delete_port()</span></code>. You can delete any
+port, not just those that are owned by the team of the calling them. When you delete a port, all of
+its unread messages are thrown away. If you want to read these messages, but you don’t want any new
+messages to arrive in the meantime, you should call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">close_port()</span></code> before deleting the
+port. Note that you can’t reopen a closed port; after you get done reading the port’s messages,
+you’re expected to delete the port.</p>
+</section>
+<section id="the-message-queue-reading-and-writing-port-messages">
+<h2>The Message Queue: Reading and Writing Port Messages<a class="headerlink" href="#the-message-queue-reading-and-writing-port-messages" title="Permalink to this heading">¶</a></h2>
+<p>The length of a port’s message queue—the number of messages that it can hold at a time—is set
+when the port is created.</p>
+<p>The functions <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code> and <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code> manipulate a port’s message
+queue: <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code> places a message at the tail of the port’s message queue;
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code> removes the message at the head of the queue and returns it to the caller.
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code> blocks if the queue is full; it returns when room is made in the queue by
+an invocation of <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code>. Similarly, if the queue is empty, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code>
+blocks until <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code> is called.</p>
+<p>You can provide a timeout for your port-writing and port-reading operations by using the
+“full-blown” functions <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port_etc()</span></code> and <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port_etc()</span></code>. By supplying a
+timeout, you can ensure that your port operations won’t block forever.</p>
+<p>Although each port has its own message queue, all ports share a global “queue slot” pool—there are
+only so many message queue slots that can be used by all ports taken cumulatively. If too many port
+queues are allowed to fill up, the slot pool will drain, which will cause <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code>
+calls on less-than-full ports to block. To avoid this situation, you should make sure that your
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code> and <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code> calls are reasonably balanced.</p>
+<p>The <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code> and <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code> functions are the only way to traverse a
+port’s message queue. There’s no notion of “peeking” at the queue’s unread messages, or of erasing
+messages that are in the queue.</p>
+</section>
+<section id="port-messages">
+<h2>Port Messages<a class="headerlink" href="#port-messages" title="Permalink to this heading">¶</a></h2>
+<p>A port message—the data that’s sent through a port—consists of a “message code” and a “message
+buffer”. Either of these elements can be used however you like, but they’re intended to fit these
+purposes:</p>
+<ul class="simple">
+<li><p>A message code (a single four-byte value) should be a mask, flag, or other predictable value that
+gives a general representation of the flavor or import of the message. For this to work, the
+sender and receiver of the message must agree on the meanings of the values that the code can
+take.</p></li>
+<li><p>The data in the message buffer can elaborate upon the code, identify the sender of the message, or
+otherwise supply additional information. The length of the buffer isn’t restricted. To get the
+length of the message buffer that’s at the head of a port’s queue, you call the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">port_buffer_size()</span></code> function.</p></li>
+</ul>
+<p>The message that you pass to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code> is copied into the port. After
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">write_port()</span></code> returns, you may free the message data without affecting the copy that the
+port holds.</p>
+<p>When you read a port, you have to supply a buffer into which the port mechanism can copy the
+message. If the buffer that you supply isn’t large enough to accommodate the message, the unread
+portion will be lost—the next call to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code> won’t finish reading the message.</p>
+<p>You typically allocate the buffer that you pass to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code> by first calling
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">port_buffer_size()</span></code>, as shown below:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="kt">ssize_t</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
+<span class="n">int32</span><span class="w"> </span><span class="n">code</span><span class="p">;</span><span class="w"></span>
+
+<span class="cm">/* We&#39;ll assume that my_port is valid.</span>
+<span class="cm">* port_buffer_size() will block until a message shows up.</span>
+<span class="cm">*/</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">port_buffer_size</span><span class="p">(</span><span class="n">my_port</span><span class="p">))</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="cm">/* Handle the error */</span><span class="w"></span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span><span class="w"></span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buf</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="cm">/* Now we can read the buffer. */</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">read_port</span><span class="p">(</span><span class="n">my_port</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="cm">/* Handle the error */</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Obviously, there’s a race condition (in the example) between <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">port_buffer_size()</span></code> and the
+subsequent <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">read_port()</span></code> call—some other thread could read the port in the interim. If
+you’re going to use <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">port_buffer_size()</span></code> as shown in the example, you shouldn’t have more
+than one thread reading the port at a time.</p>
+<p>As stated in the example, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">port_buffer_size()</span></code> blocks until a message shows up. If you
+don’t want to (potentially) block forever, you should use the <a href="#id1"><span class="problematic" id="id2">port_buffer_size_etc()</span></a>
+version of the function. As with the other <code class="docutils literal notranslate"><span class="pre">...etc()</span></code> functions, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">port_buffer_size_etc()</span></code>
+provides a timeout option.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

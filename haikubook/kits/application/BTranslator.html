@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BTranslator &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/code.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BApplication Overview" href="application/overview-old.html" />
+    <link rel="prev" title="BMessage" href="BMessage.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BTranslator</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="BMessage.html">BMessage</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="application/overview-old.html">BApplication Overview</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="btranslator">
+<h1>BTranslator<a class="headerlink" href="#btranslator" title="Permalink to this heading">¶</a></h1>
+<hr class="docutils" />
+<section id="constructor-and-destructor">
+<h2>Constructor and Destructor<a class="headerlink" href="#constructor-and-destructor" title="Permalink to this heading">¶</a></h2>
+<section id="id1">
+<h3>BTranslator()<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<dl class="simple myst">
+<dt><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">BTranslator()</span></code></a></dt><dd><p>The constructor must create and return a new instance of your <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><span class="n">BTranslator</span></a></span> subclass.
+Note that the constructor doesn’t <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Acquire()</span></code> the object it returns.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h3>~BTranslator()<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<dl class="simple myst">
+<dt><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">~BTranslator()</span></code></dt><dd><p>Note that the destructor is protected; you can only delete a <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><span class="n">BTranslator</span></a></span> object from
+within the implementation of the subclass. From outside the class, you call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Release()</span></code>.</p>
+</dd>
+</dl>
+</section>
+</section>
+<hr class="docutils" />
+<section id="member-functions">
+<h2>Member Functions<a class="headerlink" href="#member-functions" title="Permalink to this heading">¶</a></h2>
+<section id="acquire-release-referencecount">
+<h3>Acquire(), Release(), ReferenceCount()<a class="headerlink" href="#acquire-release-referencecount" title="Permalink to this heading">¶</a></h3>
+<dl class="simple myst">
+<dt><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">BTranslator*</span> <span class="pre">Acquire()</span></code><br><span class="cpp-expr sig sig-inline cpp">BTranslator* Release();</span><br><span class="cpp-expr sig sig-inline cpp">int32 ReferenceCount();</span></dt><dd><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><span class="cpp-expr sig sig-inline cpp"><span class="n">ReferenceCount</span><span class="p">(</span><span class="p">)</span></span> is for debugging use only!</p>
+</div>
+</dd>
+<dd><p><span class="cpp-expr sig sig-inline cpp"><span class="n">Acquire</span><span class="p">(</span><span class="p">)</span></span> and <span class="cpp-expr sig sig-inline cpp"><span class="n">Release</span><span class="p">(</span><span class="p">)</span></span> increment and decrement the object’s reference
+count. The count starts at 1 (i.e. the object is implicitly acquired when it’s created); if the
+count falls to 0, the object is deleted.</p>
+</dd>
+<dd><p>When you add a <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><span class="n">BTranslator</span></a></span> to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTranslatorRoster</span></code>, the
+<span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><span class="n">BTranslator</span></a></span> is automatically <span class="cpp-expr sig sig-inline cpp"><span class="n">Acquire</span><span class="p">(</span><span class="p">)</span></span>’d. When the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTranslatorRoster</span></code> is deleted, its <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><span class="n">BTranslator</span></a></span>s are <span class="cpp-expr sig sig-inline cpp"><span class="n">Release</span><span class="p">(</span><span class="p">)</span></span>’d.
+Thus, when you instantiate a <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><span class="n">BTranslator</span></a></span> and add it to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTranslatorRoster</span></code>,
+you and the Roster maintain joint ownership of the object. To give up ownership (such that the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BTranslatorRoster</span></code> will destroy the object when the Roster itself is destroyed), call
+<span class="cpp-expr sig sig-inline cpp"><span class="n">Release</span><span class="p">(</span><span class="p">)</span></span> after adding the <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><span class="n">BTranslator</span></a></span> to the Roster.</p>
+</dd>
+<dd><p><span class="cpp-expr sig sig-inline cpp"><span class="n">Acquire</span><span class="p">(</span><span class="p">)</span></span> and <span class="cpp-expr sig sig-inline cpp"><span class="n">Release</span><span class="p">(</span><span class="p">)</span></span> both return a pointer to the <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv411BTranslator" title="BTranslator"><span class="n">BTranslator</span></a></span>
+that was just acquired or released. If <span class="cpp-expr sig sig-inline cpp"><span class="n">Release</span><span class="p">(</span><span class="p">)</span></span> caused the object to be deleted, it
+returns <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd>
+<dd><p><span class="cpp-expr sig sig-inline cpp"><span class="n">ReferenceCount</span><span class="p">(</span><span class="p">)</span></span>, which returns the current reference count value, is meant for
+debugging purposes only. It is not thread-safe! Don’t predicate your code on the value it returns.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv411BTranslator">
+<span id="_CPPv311BTranslator"></span><span id="_CPPv211BTranslator"></span><span id="BTranslator"></span><pre style="background: #f3f3f3"><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BTranslator</span></span></span><a class="headerlink" href="#_CPPv411BTranslator" title="Permalink to this definition">¶</a><br /></pre></dt>
+<dd></dd></dl>
+
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="BMessage.html">BMessage</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="application/overview-old.html">BApplication Overview</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

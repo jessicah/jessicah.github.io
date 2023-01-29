@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BApplication Overview &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BApplication Overview</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bapplication-overview">
+<h1>BApplication Overview<a class="headerlink" href="#bapplication-overview" title="Permalink to this heading">¶</a></h1>
+<section id="bapplication">
+<h2>BApplication<a class="headerlink" href="#bapplication" title="Permalink to this heading">¶</a></h2>
+<p>The BApplication class defines an object that represents your application,
+creates a connection to the App Server, and runs your app’s main message loop.
+An app can only create one BApplication object; the system automatically sets
+the global <code class="docutils literal notranslate"><span class="pre">be_app</span></code> object to point to the <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> object you create.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> object’s most pervasive task is to handle messages that are
+sent to your app, a subject that’s described in detail below. But message
+handling aside, you can also use your <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> object to…</p>
+<dl class="simple myst">
+<dt>Control the cursor.</dt><dd><p><code class="docutils literal notranslate"><span class="pre">BApplication</span></code> defines functions that hide and show the cursor, and set
+the cursor’s image. See <code class="docutils literal notranslate"><span class="pre">SetCursor()</span></code>.</p>
+</dd>
+<dt>Access the window list.</dt><dd><p>You can iterate through the windows that your application has created with
+<code class="docutils literal notranslate"><span class="pre">WindowAt()</span></code>.</p>
+</dd>
+<dt>Get information about your application.</dt><dd><p>Your app’s signature, executable location, and launch flags can be retrieved
+through <code class="docutils literal notranslate"><span class="pre">GetAppInfo()</span></code>. Additional information icons, version strings,
+recognized file types can be retrieved by creating an <code class="docutils literal notranslate"><span class="pre">BAppFileInfo</span></code>
+object based on your app’s executable file. <code class="docutils literal notranslate"><span class="pre">BAppFileInfo</span></code> is defined in
+<code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">Storage</span> <span class="pre">Kit</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="be-app-and-subclassing-bapplication">
+<h2><code class="docutils literal notranslate"><span class="pre">be_app</span></code> and Subclassing BApplication<a class="headerlink" href="#be-app-and-subclassing-bapplication" title="Permalink to this heading">¶</a></h2>
+<p>Because of its importance, the <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> object that you create is
+automatically assigned to the global <code class="docutils literal notranslate"><span class="pre">be_app</span></code> variable. Anytime you need to
+refer to your <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> object from anywhere in your code you can use
+<code class="docutils literal notranslate"><span class="pre">be_app</span></code> instead.</p>
+<p>Unless you’re creating a very simple application, you should subclass
+<code class="docutils literal notranslate"><span class="pre">BApplication</span></code>. But be aware that the <code class="docutils literal notranslate"><span class="pre">be_app</span></code> variable is typed as
+<code class="docutils literal notranslate"><span class="pre">BApplication</span> <span class="pre">*</span></code>. You’ll have to cast <code class="docutils literal notranslate"><span class="pre">be_app</span></code> when you call a function
+that’s declared by your subclass:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="n">MyApp</span> <span class="o">*</span><span class="p">)</span><span class="n">be_app</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">MyAppFunction</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="constructing-the-object-and-running-the-message-loop">
+<h2>Constructing the Object and Running the Message Loop<a class="headerlink" href="#constructing-the-object-and-running-the-message-loop" title="Permalink to this heading">¶</a></h2>
+<p>As with all <code class="docutils literal notranslate"><span class="pre">BLooper</span></code>s, to use a <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> you construct the object and
+then tell it to start its message loop by calling the <code class="docutils literal notranslate"><span class="pre">Run()</span></code> function.
+However, unlike other loopers, <code class="docutils literal notranslate"><span class="pre">BApplication</span></code>s <code class="docutils literal notranslate"><span class="pre">Run()</span></code> doesn’t return until
+the application is told to quit. And after <code class="docutils literal notranslate"><span class="pre">Run()</span></code> returns, you delete the
+object, it isn’t deleted for you.</p>
+<p>Typically, you create your <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> object in your <code class="docutils literal notranslate"><span class="pre">main()</span></code>
+function–it’s usually the first object you create. The barest outline of a
+typical <code class="docutils literal notranslate"><span class="pre">main()</span></code> function looks something like this:</p>
+<div class="highlight-beapi notranslate"><div class="highlight"><pre><span></span>#include &lt;Application.h&gt;
+
+main()
+{
+        new BApplication(&quot;application/x-vnd.your-app-sig&quot;);
+        /* Further initialization goes here -- read settings,
+           set globals, etc. */
+        be_app-&gt;Run();
+        /* Clean up -- write settings, etc. */
+        delete be_app;
+}
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><dl class="simple myst">
+<dt>The <code class="docutils literal notranslate"><span class="pre">main()</span></code> function doesn’t declare <code class="docutils literal notranslate"><span class="pre">argc</span></code> and <code class="docutils literal notranslate"><span class="pre">argv</span></code> parameters</dt><dd><p>(used for passing along command line arguments). If the user passes command line
+arguments to your app, they’ll show up in the <code class="docutils literal notranslate"><span class="pre">ArgsReceived()</span></code> hook function.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple myst">
+<dt>Why no pointer assignment? The constructor automatically assigns the object</dt><dd><p>to <code class="docutils literal notranslate"><span class="pre">be_app</span></code>, so you don’t have to assign it yourself.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple myst">
+<dt>The string passed to the constructor sets the application’s signature. This</dt><dd><p>is a precautionary measure; it’s better to add the signature as a resource
+than to define it here (a resource signature overrides the constructor
+signature). Use the FileTypes app to set the signature as a resource.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="application-messages">
+<h2>Application Messages<a class="headerlink" href="#application-messages" title="Permalink to this heading">¶</a></h2>
+<p>After you tell your BApplication to run, its message loop begins to receive messages. In general,
+the messages are handled in the expected fashion: They show up in BApplication’s MessageReceived()
+function (or that of a designated BHandler; for more on how messages are dispatched to handlers, see
+“From Looper to Handler”).</p>
+<p>But BApplication also recognizes a set of application messages that it handles by invoking
+corresponding hook functions. The hook functions are invoked by DispatchMessage() so the application
+messages never show up in MessageRecieved().</p>
+<p>Overriding the hook functions that correspond to the application messages is an important part of
+the implementation of a BApplication subclass.</p>
+<p>In the table below, the application messages (identified by their command constants) are listed in
+roughly the order your BApplication can expect to receive them.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Command Constant</p></th>
+<th class="head"><p>Hook Function</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">B_ARGV_RECEIVED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ArgvReceived()</span></code></p></td>
+<td><p>Command line arguments are delivered through this message.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">B_REFS_RECEIVED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RefsReceived()</span></code></p></td>
+<td><p>Files (<code class="docutils literal notranslate"><span class="pre">entry_refs</span></code>) that are dropped on your app’s icon, or that are double-clicked to launch
+your app, are delivered through this message.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">B_READY_TO_RUN</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ReadyToRun()</span></code></p></td>
+<td><p>Invoked from within <code class="docutils literal notranslate"><span class="pre">Run()</span></code>, the application has finished configuring itself and is ready to go.
+you haven’t already created and displayed an initial window, you should do so here.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">B_APP_ACTIVATED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AppActivated()</span></code></p></td>
+<td><p>The application has just become the active application, or has relinquished that status.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">B_PULSE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Pulse()</span></code></p></td>
+<td><p>If requested, pulse messages are sent at regular intervals by the system.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">B_ABOUT_REQUESTED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AboutRequested()</span></code></p></td>
+<td><p>The user wants to see the app’s About… box.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The protocols for the application messages are described in the “Message Constants” section of this
+chapter.</p>
+<p>For more information on the details of when and why the hook functions are invoked, see the
+individual function descriptions.</p>
+<p>A BApplication can also receive the B_QUIT_REQUESTED looper message. As explained in BLooper,
+B_QUIT_REQUESTED causes Quit() to be called, contigent on the value returned by the QuitRequested()
+hook function. However, BApplication’s implementation of Quit() is different from BLooper’s version.
+Don’t miss it.</p>
+</section>
+<section id="other-topics">
+<h2>Other Topics<a class="headerlink" href="#other-topics" title="Permalink to this heading">¶</a></h2>
+<dl class="simple myst">
+<dt>Locking</dt><dd><p>Like a <code class="docutils literal notranslate"><span class="pre">BLooper</span></code>, a <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> must be locked before calling certain
+protected functions. The <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> locking mechanism is inherited
+without modification from <code class="docutils literal notranslate"><span class="pre">BLooper</span></code>.</p>
+</dd>
+<dt>FileTypes settings</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">BApplication</span></code> object represents your application at runt-time.
+However, some of the characteristics of your application, whether it can be
+launched more than once, the file types it can open, its icon are not
+run-time decisions.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BWindow &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BWindow</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bwindow">
+<h1>BWindow<a class="headerlink" href="#bwindow" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code> object represents a window that can be displayed on the screen, and that can
+be the target of user events. You almost always create your own <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code> subclass(es)
+rather than use direct instances of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code>.</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code> objects draw windows by talking to the App Server. If you want to take over the
+entire screen or draw directly into the graphics card’s frame buffer (bypassing the App Server), you
+should use a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BDirectWindow</span></code> or <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindowScreen</span></code> object (both classes are
+defined in the Game Kit).</p>
+<section id="creating-and-using-a-bwindow">
+<h2>Creating and Using a BWindow<a class="headerlink" href="#creating-and-using-a-bwindow" title="Permalink to this heading">¶</a></h2>
+<p>You must create your <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BApplication</span></code> object (<code class="docutils literal notranslate"><span class="pre">be_app</span></code>) before you create any windows.
+<code class="docutils literal notranslate"><span class="pre">be_app</span></code> needn’t be running to construct—or even show—a window, but it must be running for the
+window to receive notifications of user events (mouse clicks, key presses, etc.).</p>
+<p>Typically, the first thing you do with your <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code> is to add <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code>s to
+it, through the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AddChild()</span></code> function. Again, <code class="docutils literal notranslate"><span class="pre">be_app</span></code> needn’t be running at
+this point, nor must the window be showing.</p>
+<p>Even though it inherits from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code>, you never invoke <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Run()</span></code> on a
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code>. Instead, you call <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Show()</span></code>. In addition to putting the
+window on-screen, the first (and only the first) <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Show()</span></code> invocation starts the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code>’s message loop. To remove a window from the screen without interrupting the
+object’s message loop, use <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">Hide()</span></code>. Other message loop details (locking and
+quitting in particular) are handled as described in the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BLooper</span></code> class.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>If you create a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code>-derived class that uses multiple inheritance, make sure the
+first class your mixin class inherits from is <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BWindow</span></code>; otherwise, you’ll crash when you
+try to close the window. This happens because of an interaction between how the window thread and
+C++ deletes objects of a multiply-inherited class. In other words:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">myClass</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">BWindow</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">OtherClass</span><span class="w"></span>
+</pre></div>
+</div>
+<p>is safe, while</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">myClass</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">OtherClass</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">BWindow</span><span class="w"></span>
+</pre></div>
+</div>
+<p>is not.</p>
+</div>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

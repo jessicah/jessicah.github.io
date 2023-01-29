@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BPolygon &#8212; The Haiku Book  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/haiku.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/code.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>The Haiku Book  documentation</span></a></h1>
+        <h2 class="heading"><span>BPolygon</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="bpolygon">
+<h1>BPolygon<a class="headerlink" href="#bpolygon" title="Permalink to this heading">¶</a></h1>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPolygon</span></code> object represents a polygon—a closed, many-sided figure that describes an
+area within a two-dimensional coordiante system. It differs from a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BRect</span></code> object in that
+it can have any number of sides and the sides don’t have to be aligned with the coordinate axes.</p>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPolygon</span></code> is defined as a series of connected points. Each point is a potential vertex
+in the polygon. An outline of the polygon could be constructed by tracing a straight line from the
+first point to the second, from the second point to the third, and so on through the whole series,
+then by connecting the first and last points if they’re not identical.</p>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BView</span></code> functions that draw a polygon—<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">StrokePolygon()</span></code> and
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">FillPolygon()</span></code>—take <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">BPolygon</span></code> objects as arguments.
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">StrokePolygon()</span></code> offers the option of leaving the polygon open—of not stroking
+the line that connects the first and last points in the list. The polygon therefore won’t look like
+a polygon, but like a chain of lines fastened at their endpoints.</p>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Haiku.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>
