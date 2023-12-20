@@ -19,6 +19,8 @@ First, create the XML fragment for using `macvtap`:
 
 ## Installing Home Assistant
 
-`virt-install --name hass --description "Home Assistant Operating System" --ram=3072 --vcpus=2 --import --boot uefi --disk path=/srv/containers/haos_ova-11.2.qcow2,format=qcow2 --network network:macvtap-net,model=virtio --graphics none --os-variant=generic --hostdev 002.002`
+`virt-install --name hass --description "Home Assistant Operating System" --ram=3072 --vcpus=2 --import --boot uefi --disk path=/srv/containers/haos_ova-11.2.qcow2,format=qcow2 --network network:macvtap-net,model=virtio --network bridge=virbr0,model=virtio --graphics none --os-variant=generic --hostdev 002.002`
 
 RAM and vCPUs is obviously configurable, and have downloaded the HAOS image already. The `--hostdev` option is to pass through USB devices to the VM, in this instance, my NFC card reader.
+
+Also have two NICs, one for exposing to the local network (`macvtap`), and one for reverse proxying on the host via docker.
