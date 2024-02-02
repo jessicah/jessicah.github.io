@@ -1,0 +1,34 @@
+# Manually Adding an Athlete
+
+1. Go to Sauce Options page, then open dev tools
+2. Open IndexedDB "SauceHist" and add the athlete
+
+## JavaScript to Add Athlete
+
+```
+const rq = indexedDB.open("SauceHist");
+
+rq.result
+  .transaction(["athletes"], "readwrite")
+  .objectStore("athletes")
+  .add({
+    ftpHistory: [{ts: 1696118400000, value: 258}],
+    gender: "female",
+    hrZones: {
+      z1: 115,
+      z2: 152,
+      z3: 170,
+      z4: 189
+    },
+    hrZonesTS: 1706871144833,
+    id: 290316,
+    name: "Jessica Hamilton",
+    sync: 1,
+    weightHistory: [
+      {
+        ts: 1704326400000,
+        value: 89.5
+      }
+    ]
+  });
+```
