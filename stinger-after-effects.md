@@ -43,3 +43,8 @@ the following encoder settings:
 
 The other options can be left as default, and this produces a video in MOV
 format that can be directly imported into OBS for the stinger transition.
+
+## Some Useful Tutorials on Path Animations
+
+- https://www.youtube.com/watch?v=Zzf4wnY6_Bs
+- https://www.youtube.com/watch?v=H1xNSFfQALk
