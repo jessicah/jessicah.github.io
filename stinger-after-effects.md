@@ -28,6 +28,8 @@ Then use the timeline scrubber to seek to where you want to update the property,
 set the values. After Effects will automatically add keyframes on each property value
 change.
 
+![image](https://github.com/jessicah/jessicah.github.io/assets/274082/7d843894-0288-4248-b94a-a990b218e951)
+
 **Warning**: If you click the highlighted stopwatch, this will erase all your keyframes!
 
 ## Exporting the Video
