@@ -1,14 +1,43 @@
 # Creating Track Matte Stinger in After Effects
 
-Start with a canvas twice the width of your
-target resolution. The left hand side should
-be transparent with any animation on top.
-The right side should ideally start off as
-fully black (source image), and end fully
-white (destination image), with whatever
-transition animation from black to white.
+Unfortunately, at https://obsproject.com/kb/track-matte-stinger-transitions, it
+fails to mention that the stinger half needs to be on a transparent background.
 
-For exporting, you must use QuickTime and
-RGB+alpha, which will preserve the
-transparency, and will work in OBS
-without any extra work.
+## Creating the Stinger
+
+When creating a track matte stinger, as documented, you need a canvas that is
+twice as wide (or twice as tall) as your target video resolution. In the case of
+1080p, this is 3840x1080.
+
+In order to be able to see the transparency in After Effects, you need to toggle
+the transparency grid. You can also set the background colour in the Composition
+Settings, if you don't want to use the transparency grid, or the transparency
+grid isn't clear enough.
+
+![image](https://github.com/jessicah/jessicah.github.io/assets/274082/3497cf0e-fbbd-43f3-8b9a-23527dff3148)
+
+![image](https://github.com/jessicah/jessicah.github.io/assets/274082/37f25ab8-4867-42d9-83ae-aa2dd1872357)
+
+The rest of the stinger creation follows the steps from the OBS KB.
+
+## Keyframe Animation
+
+This one had me confused. The first step is to identify the properties you want to
+animate. You need to click on the white "empty" stopwatch icon to highlight in blue.
+Then use the timeline scrubber to seek to where you want to update the property, and
+set the values. After Effects will automatically add keyframes on each property value
+change.
+
+**Warning**: If you click the highlighted stopwatch, this will erase all your keyframes!
+
+## Exporting the Video
+
+Once you're ready to export your video, File > Export > Add to Render Queue, and use
+the following encoder settings:
+
+- Format: QuickTime
+- Channels: RGB + Alpha
+- Format Options: Animation (defaults to this)
+
+The other options can be left as default, and this produces a video in MOV
+format that can be directly imported into OBS for the stinger transition.
