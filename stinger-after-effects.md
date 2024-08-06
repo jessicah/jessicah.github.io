@@ -48,3 +48,16 @@ format that can be directly imported into OBS for the stinger transition.
 
 - https://www.youtube.com/watch?v=Zzf4wnY6_Bs
 - https://www.youtube.com/watch?v=H1xNSFfQALk
+
+# Using Stinger in OBS
+
+Settings:
+
+- Audio Transition Point Type: Time
+- Transition Point: Video length in milliseconds
+- Use a Track Matte: Yes
+- Matte Layout: Same file, side-by-side (stinger on the left, track matte on the right)
+
+Optional:
+
+- Audio Fade Style: Crossfade
