@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Jessica Hamilton — Resume</title>
+	<style type="text/css">
+		html {
+			background-color: rgb(233 229 220);
+		}
+
+		* {
+			font-family: "Nunito Sans";
+		}
+
+		body {
+			max-width: 76ch;
+			margin: auto;
+
+			header {
+				h1 {
+					text-transform: uppercase;
+					font-size: 36pt;
+					text-align: center;
+					margin-bottom: 0;
+
+					+span {
+						font-weight: 900;
+					}
+
+					span~span {
+						font-weight: 500;
+					}
+				}
+
+				p {
+					color: rgb(216, 72, 15);
+					font-weight: 800;
+					text-align: center;
+					margin-top: 0;
+					font-size: 110%;
+
+					a {
+						text-decoration: none;
+					}
+				}
+			}
+
+			& section {
+				h1 {
+					text-transform: uppercase;
+					font-weight: 800;
+					font-size: 18pt;
+				}
+
+				& section {
+					h1 {
+						font-size: 14pt;
+						color: rgb(211 72 23);
+
+						>span:after {
+							content: " "
+						}
+
+						span~span {
+							color: dimgray;
+							font-weight: 600;
+						}
+
+						margin-bottom: 0;
+					}
+
+					h2 {
+						font-size: 12pt;
+						margin-top: 0;
+						margin-bottom: 0;
+					}
+
+					p:nth-of-type(1) {
+						margin-top: 4px;
+					}
+
+					border-left-style: dashed;
+					border-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAJElEQVR42mNgYGD4jwVjA1jVUUUzKWAQaB4FdAi5QZRI6JsxAJgyP8GaCzYxAAAAAElFTkSuQmCC) 2 round;
+					margin-left: 1em;
+					padding-left: 2em;
+				}
+			}
+		}
+
+		ol {
+			padding-left: 0;
+		}
+
+		ol>li {
+			list-style-type: none;
+		}
+
+		li.phone::before {
+			content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12px"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg>');
+			padding-right: 4px;
+		}
+
+		li.email::before {
+			content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12px"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>');
+			padding-right: 4px;
+		}
+
+		strong {
+			font-weight: 800;
+		}
+
+		a {
+			color: rgb(211 72 23);
+			text-decoration: none;
+		}
+
+		a.extern::after {
+			content: " <" attr(href) ">";
+			color: black;
+			text-decoration: none;
+		}
+
+		svg.github {
+			position: relative;
+			width: 16px;
+			bottom: -2px;
+		}
+
+		section.skills>ul {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+
+			&>li::marker {
+				color: rgb(211 72 23);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1><span>Jessica</span> <span>Hamilton</span></h1>
+		<p>71 Holmwood Road, Kaitoke, Whanganui &bullet; <a href="tel:02102673564">021 0267 3564</a> &bullet;
+			<a href="mailto:jessica@jesikat.nz">jessica@jesikat.nz</a>
+		</p>
+		<p>
+			<a href="https://github.com/jessicah"><svg aria-hidden="true" viewBox="0 0 24 24" version="1.1"
+					class="github">
+					<path
+						d="M12.5.75C6.146.75 1 5.896 1 12.25c0 5.089 3.292 9.387 7.863 10.91.575.101.79-.244.79-.546 0-.273-.014-1.178-.014-2.142-2.889.532-3.636-.704-3.866-1.35-.13-.331-.69-1.352-1.18-1.625-.402-.216-.977-.748-.014-.762.906-.014 1.553.834 1.769 1.179 1.035 1.74 2.688 1.25 3.349.948.1-.747.402-1.25.733-1.538-2.559-.287-5.232-1.279-5.232-5.678 0-1.25.445-2.285 1.178-3.09-.115-.288-.517-1.467.115-3.048 0 0 .963-.302 3.163 1.179.92-.259 1.897-.388 2.875-.388.977 0 1.955.13 2.875.388 2.2-1.495 3.162-1.179 3.162-1.179.633 1.581.23 2.76.115 3.048.733.805 1.179 1.825 1.179 3.09 0 4.413-2.688 5.39-5.247 5.678.417.36.776 1.05.776 2.128 0 1.538-.014 2.774-.014 3.162 0 .302.216.662.79.547C20.709 21.637 24 17.324 24 12.25 24 5.896 18.854.75 12.5.75Z">
+					</path>
+				</svg> github.com/jessicah</a>
+			&bullet;
+			<a href="https://jessicah.github.io/resume">jessicah.github.io/resume</a>
+		</p>
+	</header>
+	<section>
+		<h1>Business Experience</h1>
+		<section>
+			<h1><span>Web &amp; Database Consultant</span><span>School of
+					Engineering &amp; Advanced Technology, Massey University</span></h1>
+			<h2>2018 &rightarrow; 2019</h2>
+			<p>
+				Responsible for all web and database servers. Upgrading Windows
+				Server environments. Replacing aged web environments, primarily
+				classic ASP, with modern ASP.NET Core implementations.
+			</p>
+			<p>
+				<strong>Technologies:</strong> Classic ASP, ASP.NET Core, C#,
+				Windows Server, IIS, Docker, SQL Server, Postgres, MySQL, HTML, CSS,
+				jQuery, REST APIs.
+			</p>
+		</section>
+		<section>
+			<h1><span>Systems Engineer</span><span>School of Engineering & Advanced
+					Technology, Massey University</span></h1>
+			<h2>2016</h2>
+			<p>
+				Implemented Windows Server 2016 Hyper-Converged Clustering. Added
+				support for network booting client PCs using UEFI from previous
+				legacy BIOS PXE boot environment. Deployment of Windows 10 to
+				computer labs, including troubleshooting and modifying legacy
+				software installations to run under Windows 10.
+			</p>
+			<p>
+				<strong>Technologies:</strong> Windows Server, Active Directory,
+				DHCP, DNS, Failover Clustering, RDMA, Storage Spaces Direct, Windows
+				Client.
+			</p>
+		</section>
+		<section>
+			<h1><span>User Support Analyst &mdash; Integration
+					Specialist</span><span>Information Technology Services, Massey
+					University</span></h1>
+			<h2>2007 &rightarrow; 2014</h2>
+			<p>
+				Management and deployment of computer labs across local and remote
+				campuses. Implementation of bespoke web application to support
+				automated deployment of lab images and software installation.
+				Integration of multiple databases (hosted and 3rd-party) to improve
+				automation.
+			</p>
+			<p>
+				<strong>Technologies:</strong> Windows Server, SQL Server, Altiris
+				Deployment Solution, ASP.NET MVC, C#, HTML, CSS, jQuery, Windows and
+				OSX desktop deployment technologies, Remote Management, Windows Client.
+			</p>
+		</section>
+	</section>
+	<section>
+		<h1>Other Work Experience</h1>
+		<section>
+			<h1><span>Director</span><span>Haiku, Inc.</span></h1>
+			<h2>2016 &rightarrow; Current</h2>
+		</section>
+		<section>
+			<h1><span>Browser Extension</span><span>Wahoo SYSTM FIT
+					Exporter</span></h1>
+			<h2>2022 &rightarrow; Current</h2>
+			<p>
+				Developed a browser extension for Chrome and Firefox to allow users
+				to download workouts from Wahoo's SYSTM application for use in
+				3rd-party ecosystems, filling a highly desired gap in their software.
+			</p>
+			<p>
+				<strong>Technologies:</strong> Javascript, HTML, CSS, Browser APIs,
+				Web API Reversing.
+			</p>
+			<ul>
+				<li><a class="extern"
+				href="https://github.com/jessicah/systm-fit-export-extension">Extension
+				Repo</a></li>
+			</ul>
+		</section>
+		<section>
+			<h1><span>Google Summer of Code</span><span>Haiku Operating
+					System</span></h1>
+			<h2>2023</h2>
+			<p>
+				Mentor for University-aged student porting .NET to Haiku, built on
+				top of my previous work.
+			</p>
+		</section>
+		<section>
+			<h1><span>eSports Team Owner & Web Developer</span></h1>
+			<h2>2018 &rightarrow; 2021</h2>
+			<p>
+				Responsible for contracts with sports apparel company, and arranged
+				sponsorship deals. Developed bespoke website, user management
+				portal, deployment and management of database, web, and mail
+				servers, deployment of Discourse forum software. Cross-service
+				integration between Discourse, Discord, and ZwiftPower services with
+				bespoke website. Integration with 3rd party APIs for automated event
+				results processing and publishing. Implementation of custom SSO
+				authentication for bespoke website using Discourse as auth provider.
+			</p>
+			<p>
+				<strong>Technologies:</strong> Docker, SQL Server, ASP.NET Core MVC,
+				C#, jQuery, HTML, CSS, REST APIs.
+			</p>
+			<ul>
+				<li><a class="extern" href="https://github.com/jessicah/ZwiftPower">ZwiftPower
+				.NET Library</a></li>
+				<li><a class="extern" href="https://github.com/jessicah/DiscordService">Discord
+				API Integration</a></li>
+			</ul>
+		</section>
+		<section>
+			<h1><span>Open Source Developer</span><span>Haiku Operating
+					System</span></h1>
+			<h2>2012 &rightarrow; Current</h2>
+			<p>
+				Implemented UEFI boot support. Ported various programming languages,
+				toolchains, and libraries to Haiku, including Rust, GHC, improved
+				LLVM support. Fixed various bugs such as internationalization
+				support. Implemented various application improvements such as 24-bit
+				terminal colour support and colour profiles.
+			</p>
+			<p>
+				Also working on recreating the BeOS API documentation using
+				Sphinx/MyST, with custom theme, layout and extensions.
+			</p>
+			<p>
+				<strong>Technologies:</strong> C/C++, Jam, Git, Python, Rust,
+				Haskell, scripting.
+			</p>
+			<ul>
+				<li><a class="extern" href="https://api.haiku.nz">Modern BeBook Rewrite</a></li>
+				<li><a class="extern"
+				href="https://github.com/jessicah/bebook">Modern BeBook Repo</a></li>
+				<li><a class="extern"
+				href="https://github.com/haiku/haiku/commit/f4ff9cb02c1d292908407314ed023af25e0995da">Initial
+				UEFI Support</a></li>
+			</ul>
+		</section>
+		<section>
+			<h1><span>Google Code-In</span><span>Haiku Operating System</span></h1>
+			<h2>2014 &rightarrow; 2017</h2>
+			<p>
+				Part of mentor pool for High-School aged students participating in
+				the program. Wrote documentation to help students learn how to use
+				Haiku's "haikuporter" program, and how to create patches and pull
+				requests for "haikuports".
+			</p>
+		</section>
+	</section>
+	<section>
+		<h1>Open Source Work</h1>
+		<section>
+			<h1>Rust</h1>
+			<p>
+				Contributed several fixes and improvements for various crates to
+				work correctly for the Haiku operating system, including work on
+				the port of Rust to Haiku.
+
+				Libraries: libc, sys-info-rs, ring, open-rs, ctest2, if-addrs,
+				clang-sys, nix, rust-openssl, openssl-probe, socket2, curl-rust,
+				cargo, num_cpus, fs2-rs, rust-installer.
+			</p>
+		</section>
+		<section>
+			<h1>Haskell/GHC</h1>
+			<p>
+				Ported the GHC compiler to Haiku. Contributed several fixes and
+				improvements for various libraries to work correctly for the Haiku
+				operating system.
+
+				Libraries: cabal, hackage-server, resolve, network.
+			</p>
+		</section>
+		<section>
+			<h1>Boost C++ Library</h1>
+			<p>
+				Improved Haiku platform support within Boost, ran a CI node for
+				boost tests for a while.
+
+				Libraries: thread, test, math, config, interprocess.
+			</p>
+		</section>
+		<section>
+			<h1>OBS</h1>
+			<p>
+				Built a self-hosted web application for use in OBS to provide a
+				fully custom data overlay for streaming/recording Zwift racing. Also
+				created a matte track stinger using Adobe After Effects.
+			</p>
+			<p>
+				<strong>Technologies:</strong> C#, .NET, Blazor, WebSockets,
+				Javascript, Adobe After Effects.
+			</p>
+		</section>
+	</section>
+	<section>
+		<h1>Education</h1>
+		<section>
+			<h1>ITIL Foundation v3</h1>
+			<h2>2012</h2>
+		</section>
+		<section>
+			<h1><span>Bachelor of Information Science</span><span>Massey
+					University</span></h1>
+			<h2>2006</h2>
+		</section>
+	</section>
+	<section>
+		<h1>References</h1>
+		<section>
+			<h1>Nick Look</h1>
+			<ol>
+				<li>Technical Services Manager</li>
+				<li>School of Food and Advanced Technology, Massey
+					University</li>
+				<li class="phone"><a href="tel:021499202">(021) 499202</a></li>
+				<li class="email"><a href="mailto:n.t.look@massey.ac.nz">n.t.look@massey.ac.nz</a></li>
+			</ol>
+		</section>
+		<section>
+			<h1>Colin Plaw</h1>
+			<ol>
+				<li>Data Integrity Consultant</li>
+				<li>School of Food and Advanced Technology, Massey University</li>
+				<li class="phone"><a href="tel:0276288003">(027) 6288003</a></li>
+				<li class="email"><a href="mailto:c.plaw@massey.ac.nz">c.plaw@massey.ac.nz</a></li>
+			</ol>
+		</section>
+	</section>
+	<section class="skills">
+		<h1>Skills</h1>
+		<ul>
+			<li>Extremely strong analytical skills</li>
+			<li>Ability to work under pressure on urgent problems in
+				production</li>
+			<li>Able to jump into unfamiliar programming languages and identify
+				solutions</li>
+			<li>Strong customer and user experience focus</li>
+		</ul>
+	</section>
+	<section>
+		<h1>Activities</h1>
+		<p>I am a very active cyclist, both out on the road and in the virtual
+			racing scene. I also enjoy programming in my spare time, whether this is
+			contributing to Haiku or other open source projects; or, improving the
+		automation, administrative interfaces, and websites for my home lab.</p>
+	</section>
+	<section>
+		<h1>Home Lab</h1>
+		<p>I run my own home lab on Ubuntu Server, currently maintaining
+			Home Assistant, Bitwarden, MS SQL Server, Caddy Reverse Proxy, Unifi Controller,
+			Discourse, and self-developed .NET web applications. Have also
+			previously hosted my own mail server.</p>
+	</section>
+</body>
+
+</html>
