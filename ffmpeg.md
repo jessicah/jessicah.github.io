@@ -10,7 +10,7 @@ Where `-i {}` is the input file, and the final `{}` is the output file.
 
 If the source file is encoded with H264/H265, it is possible to also use hardware accelerated decode:
 
-`ffmpeg -hwaccel cuvid -c:v hevc_cuvid -i {} -hwaccel_output_format cuda -c:a copy -c:v hevc_nvenc -r 30 -b:v 2M {}`
+`ffmpeg -hwaccel cuvid -c:v hevc_cuvid -i {} -c:a copy -c:v hevc_nvenc -r 30 -b:v 2M {} -hwaccel_output_format cuda`
 
 Where `av1_cuvid` is for AV1, `hevc_cuvid` is for H265, and `h264_cuvid` is for H264. See `ffmpeg -decoders` for the list of all available NVIDIA hardware decoders (`cuvid`).
 
