@@ -33,3 +33,11 @@ This can then be extracted with 7-zip, and it will run from the extracted folder
 you must use `.\MyWhoosh\Binaries\Win64\MyWhoosh.exe` to launch it.
 
 Additional assets will be downloaded to `C:\Users\$USERNAME\AppData\Local\MyWhoosh\Saved\PersistentDownloadDir\PakCache`.
+
+## Download Links
+
+- https://github.com/atenfyr/UAssetGUI
+- https://github.com/trumank/repak
+- https://github.com/skarndev/umodel_tools (not used so far)
+- https://drive.google.com/file/d/1B6xPMqroOo0WdlYB6suY4VswUE5nrUPO/view (not sure this is the exact one I used, but should be compatible)
+- https://github.com/Cracko298/UE4-AES-Key-Extracting-Guide
