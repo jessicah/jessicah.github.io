@@ -34,6 +34,16 @@ you must use `.\MyWhoosh\Binaries\Win64\MyWhoosh.exe` to launch it.
 
 Additional assets will be downloaded to `C:\Users\$USERNAME\AppData\Local\MyWhoosh\Saved\PersistentDownloadDir\PakCache`.
 
+## Basic Texture Colour Replacement
+
+1. Open in GMP
+2. Select by Colour
+   - Threshold: 49
+3. Invert Selection
+4. Colorize
+
+Done for gloves, shoes, Liv frame
+
 ## Download Links
 
 - https://github.com/atenfyr/UAssetGUI
