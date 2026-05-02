@@ -44,6 +44,23 @@ Additional assets will be downloaded to `C:\Users\$USERNAME\AppData\Local\MyWhoo
 
 Done for gloves, shoes, Liv frame
 
+## Blender
+
+Requires https://extensions.blender.org/add-ons/io-scene-psk-psa/ for importing PSKs into Blender.
+
+With models and textures exported with UModel, they can then be imported into Blender.
+
+After importing, go to the Shader tab, and bring in the textures and link it all together.
+
+Add two texture image nodes, one for the detail (_D), one for normals (_N), add normal map node.
+
+- Link detail color output to BSDF base color input
+- Link normal color output to normal map color input
+- Link normal map normal output to BSD normal input
+
+MyWhoosh now also includes an ARM texture, which could also be added for additional detail, but it
+isn't necessary for previewing textures in Blender.
+
 ## Download Links
 
 - https://github.com/atenfyr/UAssetGUI
